@@ -1,6 +1,62 @@
 [
-  { "id": "p1", "name": "Premium Running Shoes", "category": "Footwear", "price": 120, "image": "shoe.png", "tags": ["sports", "premium", "shoes"] },
-  { "id": "p2", "name": "Spicy Nacho Chips", "category": "Snacks", "price": 5, "image": "snack.png", "tags": ["snack", "spicy", "food"] },
-  { "id": "p3", "name": "Wireless Noise-Canceling Headphones", "category": "Electronics", "price": 250, "image": "headphones.png", "tags": ["tech", "music", "premium"] },
-  { "id": "p4", "name": "Cotton Graphic Tee", "category": "Apparel", "price": 25, "image": "tee.png", "tags": ["clothing", "casual"] }
+  {
+    "id": "PROD_101",
+    "name": "Wireless Noise-Canceling Headphones",
+    "category": "Electronics",
+    "price": 299.99
+  },
+  {
+    "id": "PROD_102",
+    "name": "Minimalist Leather Wallet",
+    "category": "Accessories",
+    "price": 45
+  },
+  {
+    "id": "PROD_103",
+    "name": "Ergonomic Office Chair",
+    "category": "Furniture",
+    "price": 199.5
+  },
+  {
+    "id": "PROD_104",
+    "name": "Smart Fitness Watch",
+    "category": "Electronics",
+    "price": 150
+  },
+  {
+    "id": "PROD_105",
+    "name": "Organic Cotton T-Shirt",
+    "category": "Apparel",
+    "price": 25
+  },
+  {
+    "id": "PROD_106",
+    "name": "Stainless Steel Water Bottle",
+    "category": "Fitness",
+    "price": 30
+  },
+  {
+    "id": "PROD_107",
+    "name": "Mechanical Keyboard",
+    "category": "Electronics",
+    "price": 120
+  },
+  {
+    "id": "PROD_108",
+    "name": "Running Shoes - ZoomX",
+    "category": "Apparel",
+    "price": 140
+  },
+  {
+    "id": "PROD_109",
+    "name": "Yoga Mat with Alignment Lines",
+    "category": "Fitness",
+    "price": 40
+  },
+  {
+    "id": "PROD_110",
+    "name": "Smart Home Security Camera",
+    "category": "Electronics",
+    "price": 89.99
+  }
 ]

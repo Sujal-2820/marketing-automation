@@ -24,23 +24,23 @@ export default function Sidebar() {
           <ShieldCheck color="var(--accent-primary)" /> Retailer OS
         </h2>
         <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-          <span style={{ width: '8px', height: '8px', background: 'var(--success)', borderRadius: '50%' }}></span> Tenant Vault Secured
+          <span style={{ width: '8px', height: '8px', background: 'var(--success)', borderRadius: '50%' }}></span> Secure Connection
         </p>
       </div>
 
       <nav style={{ flex: 1, padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-secondary)', padding: '0 1.25rem', marginBottom: '0.5rem', fontWeight: 'bold' }}>Intelligence</span>
+        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-secondary)', padding: '0 1.25rem', marginBottom: '0.5rem', fontWeight: 'bold' }}>MENU</span>
         <NavLink to="/dashboard/command-center" style={navStyle}>
-          <LayoutDashboard size={20} /> Command Center
+          <LayoutDashboard size={20} /> Overview
         </NavLink>
         <NavLink to="/dashboard/consent-manager" style={navStyle}>
-          <ShieldAlert size={20} /> Privacy & Consent
+          <ShieldAlert size={20} /> Data Controls
         </NavLink>
         <NavLink to="/dashboard/live-feed" style={navStyle}>
-          <Radio size={20} /> Live AI Feed
+          <Radio size={20} /> Live Feed
         </NavLink>
         <NavLink to="/dashboard/analytics" style={navStyle}>
-          <Activity size={20} /> ROI & Analytics
+          <Activity size={20} /> Analytics
         </NavLink>
       </nav>
 

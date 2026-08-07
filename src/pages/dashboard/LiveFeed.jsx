@@ -1,119 +1,604 @@
 import React, { useState } from 'react';
+import { Edit2, Check, Sparkles, Loader2, PlayCircle, Store, MessageSquare, Image as ImageIcon, Upload, AlignLeft, AlignCenter, AlignRight, KeyRound, ExternalLink, Info, X } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
-import { Edit3, Check, MessageSquare, Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function LiveFeed() {
-  const { campaigns, setCampaigns } = useAppContext();
-  const [editingBanner, setEditingBanner] = useState(false);
-  const [bannerTitle, setBannerTitle] = useState(campaigns.banner?.title || '');
-  const [bannerSub, setBannerSub] = useState(campaigns.banner?.subtitle || '');
-  const [promptValue, setPromptValue] = useState('');
-  const [isPrompting, setIsPrompting] = useState(false);
+  const { campaigns, setCampaigns, customers } = useAppContext();
+  
+  // States
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationStep, setGenerationStep] = useState(0);
+  
+  // Editor state
+  const [editingId, setEditingId] = useState(null);
+  const [editForm, setEditForm] = useState({ title: '', subtitle: '', cta: '', textPosition: 'center', smsCopy: '', imageUrl: '' });
 
-  const saveBanner = () => {
-    setCampaigns({ ...campaigns, banner: { ...campaigns.banner, title: bannerTitle, subtitle: bannerSub } });
-    setEditingBanner(false);
+  // View state (Banner vs SMS)
+  const [viewMode, setViewMode] = useState({});
+
+  // Active Demo Info Popover (campaignId)
+  const [activeGuideId, setActiveGuideId] = useState(null);
+
+  // Store inference
+  const storeType = customers.length > 0 ? customers[0].token_id.split('_')[1] : 'gen';
+
+  const simulateGeneration = () => {
+    setIsGenerating(true);
+    setGenerationStep(0);
+    setCampaigns([]);
+    
+    // Simulate steps
+    setTimeout(() => setGenerationStep(1), 1500); 
+    setTimeout(() => setGenerationStep(2), 3000);
+    setTimeout(() => {
+      setIsGenerating(false);
+      setGenerationStep(3);
+      generateHinglishCampaigns();
+    }, 4500);
   };
 
-  const handlePrompt = (e) => {
-    e.preventDefault();
-    if (!promptValue.trim()) return;
-    setIsPrompting(true);
-    // Simulate AI prompt steerability
-    setTimeout(() => {
-      setBannerTitle("🔥 " + promptValue + " 🔥");
-      setBannerSub("AI instantly applied your feedback.");
-      saveBanner();
-      setPromptValue('');
-      setIsPrompting(false);
-    }, 1200);
+  // Persona guides for demo presenter
+  const getDemoGuide = (targetSegment) => {
+    const guideMap = {
+      'Gym Freak': { persona: 'Rahul (Gym Freak)', token: 'usr_sports_042', credentials: 'rahul@nexus.vault' },
+      'Yoga Lover': { persona: 'Priya (Yoga & Wellness)', token: 'usr_sports_018', credentials: 'priya@nexus.vault' },
+      'Weekend Warrior': { persona: 'Vikram (Weekend Outdoor)', token: 'usr_sports_055', credentials: 'vikram@nexus.vault' },
+      'Marathon Runner': { persona: 'Amit (Marathon Runner)', token: 'usr_sports_089', credentials: 'amit@nexus.vault' },
+      
+      'Gamer': { persona: 'Ananya (Tech & Gaming)', token: 'usr_tech_012', credentials: 'ananya@nexus.vault' },
+      'Smart Home': { persona: 'Siddharth (Smart Home)', token: 'usr_tech_045', credentials: 'siddharth@nexus.vault' },
+      'Apple Fanboy': { persona: 'Rohan (Apple Fanboy)', token: 'usr_tech_077', credentials: 'rohan@nexus.vault' },
+      'Audioophile': { persona: 'Kabir (Audiophile)', token: 'usr_tech_092', credentials: 'kabir@nexus.vault' },
+
+      'Health Conscious': { persona: 'Vikram (Gourmet Grocery)', token: 'usr_grocery_008', credentials: 'vikram@nexus.vault' },
+      'Snack Lover': { persona: 'Neha (Midnight Snacks)', token: 'usr_grocery_034', credentials: 'neha@nexus.vault' },
+      'Bulk Buyer': { persona: 'Ramesh (Family Ration)', token: 'usr_grocery_061', credentials: 'ramesh@nexus.vault' },
+      'Vegan': { persona: 'Maya (Plant Based)', token: 'usr_grocery_088', credentials: 'maya@nexus.vault' },
+
+      'New Homeowner': { persona: 'Sneha (Home Decor)', token: 'usr_home_021', credentials: 'sneha@nexus.vault' },
+      'Decor': { persona: 'Pooja (Decor Enthusiast)', token: 'usr_home_043', credentials: 'pooja@nexus.vault' },
+      'Kitchen Master': { persona: 'Chef Arjun (Kitchen)', token: 'usr_home_067', credentials: 'arjun@nexus.vault' },
+      'Plant Parent': { persona: 'Ritu (Plant Parent)', token: 'usr_home_090', credentials: 'ritu@nexus.vault' }
+    };
+
+    return guideMap[targetSegment] || { persona: 'Rahul (Gym Freak)', token: 'usr_sports_042', credentials: 'rahul@nexus.vault' };
+  };
+
+  const generateHinglishCampaigns = () => {
+    let newCampaigns = [];
+    
+    if (storeType === 'sports') {
+      newCampaigns = [
+        { 
+          id: 1, 
+          target: 'Gym Freak', 
+          title: 'Gym Freak Ho?', 
+          subtitle: 'Bhaag ke aao, naya activewear collection is here. Flat 30% off!', 
+          cta: 'Shop Now', 
+          smsCopy: 'Bhai gym apparel ka naya stock aagaya hai! Surprize flat 30% discount sirf aaj ke liye valid hai. Abhi claim karo: apexsports.store/gym', 
+          imageUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '18-35', gender: 'All', factor: 'High Fitness Intent' } 
+        },
+        { 
+          id: 2, 
+          target: 'Yoga Lover', 
+          title: 'Find Your Zen, Yaar', 
+          subtitle: 'Premium yoga mats that won\'t slip. Perfect for your daily surya namaskar.', 
+          cta: 'Buy Mat', 
+          smsCopy: 'Yoga session mein slip hone ka jhanjhat khatam! Get non-slip eco mats with special member pricing today: apexsports.store/yoga', 
+          imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-start', 
+          demographics: { age: '25-45', gender: 'Female Skewed', factor: 'Wellness Focus' } 
+        },
+        { 
+          id: 3, 
+          target: 'Weekend Warrior', 
+          title: 'Weekend Plans Sort Kar!', 
+          subtitle: 'Trekking shoes jo chalenge saalo saal. Check out the new range.', 
+          cta: 'Explore Shoes', 
+          smsCopy: 'Trekking ka plan hai? Rugged trail grip shoes ab flat 25% discount pe available hain. Adventure start karo: apexsports.store/trek', 
+          imageUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-end', 
+          demographics: { age: '28-50', gender: 'All', factor: 'Outdoor Hobbyist' } 
+        },
+        { 
+          id: 4, 
+          target: 'Marathon Runner', 
+          title: 'Run Like The Wind', 
+          subtitle: 'Lightweight running gear for your next big marathon. Stock limited hai!', 
+          cta: 'Upgrade Gear', 
+          smsCopy: 'Marathon preparation chalu hai? Ultra-breathable running gear for long runs is back in stock. Order now: apexsports.store/run', 
+          imageUrl: 'https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '22-40', gender: 'All', factor: 'Performance Driven' } 
+        }
+      ];
+    } else if (storeType === 'tech') {
+      newCampaigns = [
+        { 
+          id: 1, 
+          target: 'Gamer', 
+          title: 'Game On, Boss!', 
+          subtitle: 'RTX 4090 GPUs in stock. Lag free gaming ka maza lo.', 
+          cta: 'Buy GPU', 
+          smsCopy: 'Zero lag, ultra high FPS gaming! RTX 4090 GPUs in-stock hain with instant cashback. Units limited hain, claim karo: techzone.store/rtx', 
+          imageUrl: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '16-30', gender: 'Male Skewed', factor: 'High Disposable Income' } 
+        },
+        { 
+          id: 2, 
+          target: 'Smart Home', 
+          title: 'Ghar Ko Smart Banao', 
+          subtitle: 'Control lights with your voice. Smart bulbs at lowest prices.', 
+          cta: 'Upgrade Home', 
+          smsCopy: 'Ek aawaaz pe poora ghar lightup karo! Smart voice RGB bulbs ab combo pack discount pe. Today\'s offer: techzone.store/smart', 
+          imageUrl: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-start', 
+          demographics: { age: '30-55', gender: 'All', factor: 'Homeowners' } 
+        },
+        { 
+          id: 3, 
+          target: 'Apple Fanboy', 
+          title: 'Naya iPhone Aagaya!', 
+          subtitle: 'Zero cost EMI pe apna dream phone ghar le aao.', 
+          cta: 'Pre-book Now', 
+          smsCopy: 'Upgrade to the newest iPhone with No-Cost EMI & instant ₹5000 exchange bonus! Offer ends tonight: techzone.store/iphone', 
+          imageUrl: 'https://images.unsplash.com/photo-1603792907191-89e55f70099a?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-end', 
+          demographics: { age: '18-45', gender: 'All', factor: 'Brand Loyal' } 
+        },
+        { 
+          id: 4, 
+          target: 'Audioophile', 
+          title: 'Music Ka Asli Maza', 
+          subtitle: 'Noise cancelling headphones for that perfect commute. Try it today.', 
+          cta: 'Hear The Magic', 
+          smsCopy: 'Daily commute ko concert banao! Active noise cancelling headphones with 40h battery now at special price: techzone.store/audio', 
+          imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '25-45', gender: 'All', factor: 'Commuter / Professional' } 
+        }
+      ];
+    } else if (storeType === 'grocery') {
+      newCampaigns = [
+        { 
+          id: 1, 
+          target: 'Health Conscious', 
+          title: 'Healthy Khao, Fit Raho', 
+          subtitle: 'Organic oats and almond milk combo on discount today.', 
+          cta: 'Add to Cart', 
+          smsCopy: 'Clean eating made affordable! Organic oats & unsweetened almond milk bundle on 20% off today. Grab health deal: freshmart.store/health', 
+          imageUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '25-50', gender: 'All', factor: 'Dietary Restrictions' } 
+        },
+        { 
+          id: 2, 
+          target: 'Snack Lover', 
+          title: 'Midnight Cravings?', 
+          subtitle: 'Munchies delivered in 10 minutes. Binge watching just got better.', 
+          cta: 'Order Snacks', 
+          smsCopy: 'Late night binge-watching sessions? Crunchiest protein & gourmet snacks delivered in 10 mins. Order now: freshmart.store/snacks', 
+          imageUrl: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-start', 
+          demographics: { age: '18-35', gender: 'All', factor: 'Late Night Shopper' } 
+        },
+        { 
+          id: 3, 
+          target: 'Bulk Buyer', 
+          title: 'Mahine Ka Ration, Sasta!', 
+          subtitle: 'Buy 5kg rice and get 1kg free. Offer valid till weekend.', 
+          cta: 'Stock Up', 
+          smsCopy: 'Ghar ka monthly grocery budget bachao! Buy 5kg premium Basmati, get 1kg free today. Order: freshmart.store/ration', 
+          imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '35-60', gender: 'All', factor: 'Family Household' } 
+        },
+        { 
+          id: 4, 
+          target: 'Vegan', 
+          title: '100% Plant Based', 
+          subtitle: 'Delicious vegan alternatives that taste amazing. Try kar ke dekho.', 
+          cta: 'Go Vegan', 
+          smsCopy: 'Guilt-free plant-based goodness! Discover delicious dairy-free cheeses & vegan meats on sale: freshmart.store/vegan', 
+          imageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-end', 
+          demographics: { age: '20-40', gender: 'All', factor: 'Lifestyle Choice' } 
+        }
+      ];
+    } else if (storeType === 'home') {
+      newCampaigns = [
+        { 
+          id: 1, 
+          target: 'New Homeowner', 
+          title: 'Ghar Naya, Furniture Naya', 
+          subtitle: 'Complete living room sets at wholesale prices. Sahi daam, badhiya kaam.', 
+          cta: 'View Sets', 
+          smsCopy: 'Naye ghar ko sajane ki taiyari? Premium solid wood living room sets at factory wholesale prices. Free assembly: homevibe.store/furniture', 
+          imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '28-45', gender: 'All', factor: 'Recently Moved' } 
+        },
+        { 
+          id: 2, 
+          target: 'Decor', 
+          title: 'Vibe Set Karo', 
+          subtitle: 'Aesthetic lamps and wall art to make your room pop.', 
+          cta: 'Shop Decor', 
+          smsCopy: 'Room ki aesthetic badal do! Touch dimmable Nordic lamps & wall art on flash sale today. Check collection: homevibe.store/decor', 
+          imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-start', 
+          demographics: { age: '20-35', gender: 'Female Skewed', factor: 'Trend Conscious' } 
+        },
+        { 
+          id: 3, 
+          target: 'Kitchen Master', 
+          title: 'Masterchef Bano', 
+          subtitle: 'Non-stick pan sets that make cooking a breeze. Clean up is easy too.', 
+          cta: 'Upgrade Kitchen', 
+          smsCopy: 'Cooking experience ko effortless banao! Non-stick granite cookware combo set on 30% discount: homevibe.store/kitchen', 
+          imageUrl: 'https://images.unsplash.com/photo-1556910103-1c02745a8728?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-end', 
+          demographics: { age: '30-55', gender: 'All', factor: 'Cooking Enthusiast' } 
+        },
+        { 
+          id: 4, 
+          target: 'Plant Parent', 
+          title: 'Green Living, Yaar', 
+          subtitle: 'Indoor plants that are hard to kill. Perfect for your desk.', 
+          cta: 'Adopt a Plant', 
+          smsCopy: 'Ghar mein positive green vibes lao! Low-maintenance indoor plants with ceramic pots now on sale: homevibe.store/plants', 
+          imageUrl: 'https://images.unsplash.com/photo-1416879598555-220f8bb10864?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '22-40', gender: 'All', factor: 'Urban Dweller' } 
+        }
+      ];
+    } else {
+      // General
+      newCampaigns = [
+        { 
+          id: 1, 
+          target: 'Fashionista', 
+          title: 'Trend Set Kar', 
+          subtitle: 'Latest ethnic and western wear. Diwali aane wali hai, ready raho!', 
+          cta: 'Shop Looks', 
+          smsCopy: 'Diwali festive looks are live! Designer ethnic kurtas and western dresses at flat 35% off. Elevate style: store.com/fashion', 
+          imageUrl: 'https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '18-35', gender: 'Female Skewed', factor: 'Frequent Buyer' } 
+        },
+        { 
+          id: 2, 
+          target: 'Budget Shopper', 
+          title: 'Sasta Aur Tikau', 
+          subtitle: 'Under ₹499 store. Sab kuch budget mein, bina compromise ke.', 
+          cta: 'Shop Under 499', 
+          smsCopy: 'Super savings zone! Everything under ₹499 store open now. Premium quality on budget prices: store.com/499', 
+          imageUrl: 'https://images.unsplash.com/photo-1572584642822-8f151c4a03ee?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-start', 
+          demographics: { age: 'All', gender: 'All', factor: 'Price Sensitive' } 
+        },
+        { 
+          id: 3, 
+          target: 'Tech Enthusiast', 
+          title: 'Gadgets Jo Deewane Bana De', 
+          subtitle: 'Latest smartwatches and TWS earbuds. Don\'t miss out.', 
+          cta: 'Explore Tech', 
+          smsCopy: 'Smart lifestyle upgrade! ANC wireless earbuds & AMOLED smartwatches at unbeatable prices: store.com/gadgets', 
+          imageUrl: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'flex-end', 
+          demographics: { age: '16-40', gender: 'Male Skewed', factor: 'Early Adopter' } 
+        },
+        { 
+          id: 4, 
+          target: 'Bookworm', 
+          title: 'Padhai Chalu Rakh', 
+          subtitle: 'Bestselling fiction and self-help books at 40% off.', 
+          cta: 'Buy Books', 
+          smsCopy: 'Weekend reading sorted! Top self-help bestsellers & fiction paperbacks at 40% off today: store.com/books', 
+          imageUrl: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=800&auto=format&fit=crop', 
+          textPosition: 'center', 
+          demographics: { age: '20-50', gender: 'All', factor: 'Avid Reader' } 
+        }
+      ];
+    }
+
+    setCampaigns(newCampaigns);
+    
+    // Initialize view modes to banner
+    const views = {};
+    newCampaigns.forEach(c => views[c.id] = 'banner');
+    setViewMode(views);
+  };
+
+  const startEditing = (campaign) => {
+    setEditForm({ ...campaign });
+    setEditingId(campaign.id);
+  };
+
+  const saveEdit = () => {
+    setCampaigns(campaigns.map(c => c.id === editingId ? { ...c, ...editForm } : c));
+    setEditingId(null);
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setEditForm({ ...editForm, imageUrl: url });
+    }
   };
 
   return (
     <div>
-      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Live Agentic Feed</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>Monitor AI processes and steer generation in real-time.</p>
+      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Live Feed</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>Omni-channel campaign generation powered by market trends.</p>
       
-      {!campaigns.banner && (
-        <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-secondary)' }}>Awaiting Customer Sandbox trigger to generate campaigns...</p>
-        </div>
-      )}
-
-      {campaigns.banner && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+      <div style={{ display: 'flex', gap: '3rem' }}>
+        
+        {/* Left Side: Auto Pilot Control */}
+        <div style={{ width: '350px', flexShrink: 0 }}>
           
-          {/* Left: Console Feed */}
-          <div className="glass-panel animate-fade-in" style={{ padding: '1.5rem', height: 'fit-content' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', fontSize: '1.1rem' }}>Generation Console</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', borderLeft: '2px solid var(--border-color)', paddingLeft: '1rem', marginLeft: '0.5rem' }}>
-              
-              <div style={{ position: 'relative' }}>
-                <div style={{ position: 'absolute', left: '-1.6rem', top: '0.2rem', width: '16px', height: '16px', borderRadius: '50%', background: 'var(--accent-primary)' }}></div>
-                <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Retrieving context...</strong>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Analyzing purchase demographics.</span>
-              </div>
-              
-              <div style={{ position: 'relative' }}>
-                <div style={{ position: 'absolute', left: '-1.6rem', top: '0.2rem', width: '16px', height: '16px', borderRadius: '50%', background: 'var(--accent-secondary)' }}></div>
-                <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Assembling prompt...</strong>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Synthesizing brand voice guidelines.</span>
-              </div>
-              
-              <div style={{ position: 'relative' }}>
-                <div style={{ position: 'absolute', left: '-1.6rem', top: '0.2rem', width: '16px', height: '16px', borderRadius: '50%', border: '4px solid var(--accent-vibrant)', background: 'white' }}></div>
-                <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Generating mockups...</strong>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Rendering high-fidelity layouts.</span>
-              </div>
-
-            </div>
+          <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+             <Sparkles size={48} style={{ color: 'var(--accent-vibrant)', margin: '0 auto 1.5rem auto' }} />
+             <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.4rem' }}>Auto-Pilot Engine</h3>
+             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.95rem' }}>
+               The system will analyze your {customers.length} uploaded customers, identify distinct buying patterns, cross-reference external Indian market trends, and output dynamic visual and SMS campaigns instantly.
+             </p>
+             
+             <button 
+               onClick={simulateGeneration} 
+               disabled={isGenerating || customers.length === 0}
+               className="btn-primary" 
+               style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+             >
+               {isGenerating ? <><Loader2 className="animate-spin" size={20} /> Processing...</> : <><PlayCircle size={20} /> Generate Campaigns</>}
+             </button>
           </div>
 
-          {/* Right: Asset Editors */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            
-            <div className="glass-panel animate-fade-in" style={{ overflow: 'hidden' }}>
-              <div style={{ padding: '1rem 1.5rem', background: 'var(--bg-main)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <strong style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Generated Ad Banner</strong>
-                <button onClick={() => setEditingBanner(!editingBanner)} className="btn-secondary" style={{ padding: '0.4rem 0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
-                  {editingBanner ? <Check size={16} /> : <Edit3 size={16} />} 
-                  {editingBanner ? "Save Asset" : "Direct Edit"}
-                </button>
-              </div>
-              
-              <div style={{ padding: '2rem', textAlign: 'center', background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(14, 165, 233, 0.1))', minHeight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                {editingBanner ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '400px', margin: '0 auto' }}>
-                    <input type="text" value={bannerTitle} onChange={e => setBannerTitle(e.target.value)} style={{ padding: '0.75rem', fontSize: '1.5rem', fontWeight: 'bold', textAlign: 'center', borderRadius: '8px', border: '2px dashed var(--accent-primary)' }} />
-                    <input type="text" value={bannerSub} onChange={e => setBannerSub(e.target.value)} style={{ padding: '0.75rem', fontSize: '1rem', textAlign: 'center', borderRadius: '8px', border: '2px dashed var(--accent-primary)' }} />
-                    <button onClick={saveBanner} className="btn-primary" style={{ marginTop: '0.5rem' }}>Save Changes</button>
-                  </div>
-                ) : (
-                  <>
-                    <h2 style={{ fontSize: '2.5rem', margin: '0 0 1rem 0', color: 'var(--accent-primary)' }}>{campaigns.banner.title}</h2>
-                    <p style={{ fontSize: '1.25rem', margin: 0, color: 'var(--text-secondary)' }}>{campaigns.banner.subtitle}</p>
-                  </>
-                )}
-              </div>
-
-              {/* AI Prompting Steerability */}
-              <div style={{ padding: '1rem 1.5rem', borderTop: '1px solid var(--border-color)', background: 'var(--bg-main)' }}>
-                 <form onSubmit={handlePrompt} style={{ display: 'flex', gap: '1rem' }}>
-                   <div style={{ flex: 1, position: 'relative' }}>
-                     <MessageSquare size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--accent-primary)' }} />
-                     <input type="text" placeholder='Instruct AI (e.g. "Make it sound more urgent")' value={promptValue} onChange={e => setPromptValue(e.target.value)} disabled={isPrompting} style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', outline: 'none', background: 'white' }} />
-                   </div>
-                   <button type="submit" disabled={isPrompting} className="btn-primary" style={{ padding: '0.75rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                     {isPrompting ? 'Thinking...' : <><Send size={18} /> Steer AI</>}
-                   </button>
-                 </form>
-              </div>
-            </div>
-
+          {/* Console Output */}
+          <div className="glass-panel" style={{ marginTop: '2rem', padding: '1.5rem', background: '#0f172a', color: '#e2e8f0', fontFamily: 'monospace', fontSize: '0.85rem' }}>
+             <p style={{ color: '#94a3b8', margin: '0 0 1rem 0' }}>// SYSTEM TERMINAL</p>
+             {generationStep >= 0 && <div style={{ marginBottom: '0.5rem' }}>&gt; Waiting for operator input...</div>}
+             {generationStep >= 1 && <div style={{ marginBottom: '0.5rem', color: '#c678dd' }}>&gt; Analyzing {customers.length} users for distinct buying patterns... OK</div>}
+             {generationStep >= 2 && <div style={{ marginBottom: '0.5rem', color: '#98c379' }}>&gt; Cross-referencing external Indian market trends & seasonality... OK</div>}
+             {generationStep >= 3 && <div style={{ color: 'var(--accent-vibrant)', fontWeight: 'bold' }}>&gt; Generating localized visual & SMS campaigns... DONE</div>}
           </div>
 
         </div>
-      )}
+
+        {/* Right Side: Generated Campaigns */}
+        <div style={{ flex: 1 }}>
+          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+             <Store size={20} /> Generated Omnichannel Campaigns ({campaigns.length})
+          </h3>
+          
+          {campaigns.length === 0 && !isGenerating && (
+            <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', background: 'rgba(79, 70, 229, 0.02)' }}>
+              <p style={{ color: 'var(--text-secondary)' }}>Click Generate to start the Auto-Pilot engine.</p>
+            </div>
+          )}
+
+          {isGenerating && (
+            <div className="glass-panel" style={{ padding: '6rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+               <Loader2 className="animate-spin" size={48} style={{ color: 'var(--accent-primary)', marginBottom: '1.5rem' }} />
+               <h3 style={{ margin: '0 0 0.5rem 0' }}>Generating Assets...</h3>
+               <p style={{ color: 'var(--text-secondary)' }}>Rendering AI images and crafting localized SMS copy.</p>
+            </div>
+          )}
+
+          {!isGenerating && campaigns.length > 0 && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
+              {campaigns.map(campaign => {
+                const demoGuide = getDemoGuide(campaign.target);
+                const isGuideOpen = activeGuideId === campaign.id;
+
+                return (
+                  <div key={campaign.id} className="glass-panel animate-fade-in" style={{ padding: '1.5rem', background: 'var(--bg-main)', position: 'relative' }}>
+                    
+                    {/* Header Controls */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                          <span style={{ fontWeight: '600', color: 'var(--accent-primary)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px', background: 'rgba(79, 70, 229, 0.1)', padding: '0.25rem 0.75rem', borderRadius: '12px' }}>
+                            Target: {campaign.target}
+                          </span>
+
+                          {/* Subtle Demo Guide Button */}
+                          <button
+                            onClick={() => setActiveGuideId(isGuideOpen ? null : campaign.id)}
+                            style={{
+                              background: isGuideOpen ? 'var(--accent-primary)' : 'white',
+                              color: isGuideOpen ? 'white' : 'var(--text-primary)',
+                              border: '1px solid var(--border-color)',
+                              padding: '0.25rem 0.75rem',
+                              borderRadius: '12px',
+                              fontSize: '0.8rem',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.35rem',
+                              boxShadow: '0 2px 4px rgba(0,0,0,0.03)',
+                              transition: 'all 0.15s ease'
+                            }}
+                          >
+                            <KeyRound size={13} style={{ color: isGuideOpen ? 'white' : 'var(--accent-primary)' }} />
+                            Demo Guide {isGuideOpen ? <X size={12} /> : <Info size={12} />}
+                          </button>
+                          
+                          {/* View Toggles */}
+                          {editingId !== campaign.id && (
+                            <div style={{ display: 'flex', background: 'rgba(0,0,0,0.05)', borderRadius: '20px', padding: '0.25rem' }}>
+                              <button onClick={() => setViewMode({...viewMode, [campaign.id]: 'banner'})} style={{ background: viewMode[campaign.id] === 'banner' ? 'white' : 'transparent', border: 'none', padding: '0.25rem 0.75rem', borderRadius: '15px', fontSize: '0.8rem', fontWeight: viewMode[campaign.id] === 'banner' ? 'bold' : 'normal', cursor: 'pointer', boxShadow: viewMode[campaign.id] === 'banner' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none' }}>
+                                <ImageIcon size={14} style={{ display: 'inline', marginRight: '4px' }}/> Banner
+                              </button>
+                              <button onClick={() => setViewMode({...viewMode, [campaign.id]: 'sms'})} style={{ background: viewMode[campaign.id] === 'sms' ? 'white' : 'transparent', border: 'none', padding: '0.25rem 0.75rem', borderRadius: '15px', fontSize: '0.8rem', fontWeight: viewMode[campaign.id] === 'sms' ? 'bold' : 'normal', cursor: 'pointer', boxShadow: viewMode[campaign.id] === 'sms' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none' }}>
+                                <MessageSquare size={14} style={{ display: 'inline', marginRight: '4px' }}/> SMS
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* Demographics Display */}
+                        {campaign.demographics && (
+                          <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                            <span><strong style={{ color: 'var(--text-primary)' }}>Age:</strong> {campaign.demographics.age}</span>
+                            <span><strong style={{ color: 'var(--text-primary)' }}>Gender:</strong> {campaign.demographics.gender}</span>
+                            <span><strong style={{ color: 'var(--text-primary)' }}>Factor:</strong> {campaign.demographics.factor}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {editingId !== campaign.id ? (
+                        <button onClick={() => startEditing(campaign)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          <Edit2 size={16} /> Edit Ad
+                        </button>
+                      ) : (
+                        <button onClick={saveEdit} style={{ background: 'var(--success)', border: 'none', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.4rem 1rem', borderRadius: '4px', fontSize: '0.9rem' }}>
+                          <Check size={16} /> Save Changes
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Subtle Demo Guide Inline Popover / Card */}
+                    {isGuideOpen && (
+                      <div className="animate-fade-in" style={{ 
+                        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', 
+                        color: 'white', 
+                        padding: '1rem 1.25rem', 
+                        borderRadius: '14px', 
+                        marginBottom: '1.25rem',
+                        boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        display: 'flex',
+                        justify: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div style={{ fontSize: '0.85rem' }}>
+                          <div style={{ color: '#38bdf8', fontWeight: '700', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                            <KeyRound size={14} /> Demo Persona Details for Target [{campaign.target}]
+                          </div>
+                          <div>Select Persona: <strong>{demoGuide.persona}</strong></div>
+                          <div>Encrypted Token ID: <code style={{ background: 'rgba(255,255,255,0.15)', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>#{demoGuide.token}</code></div>
+                        </div>
+
+                        <Link 
+                          to="/" 
+                          target="_blank"
+                          style={{ 
+                            background: '#38bdf8', 
+                            color: '#0f172a', 
+                            fontWeight: '800', 
+                            fontSize: '0.8rem', 
+                            padding: '0.45rem 1rem', 
+                            borderRadius: '8px',
+                            textDecoration: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            boxShadow: '0 2px 8px rgba(56, 189, 248, 0.4)'
+                          }}
+                        >
+                          Preview Live Ad <ExternalLink size={13} />
+                        </Link>
+                      </div>
+                    )}
+
+                    {/* Editing Interface */}
+                    {editingId === campaign.id ? (
+                      <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', border: '2px dashed var(--accent-primary)' }}>
+                        
+                        <div style={{ marginBottom: '2rem' }}>
+                          <h4 style={{ margin: '0 0 1rem 0', fontSize: '1rem', color: 'var(--text-secondary)' }}>1. Visual Background</h4>
+                          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                            <img src={editForm.imageUrl} alt="Background" style={{ width: '120px', height: '60px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--bg-main)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.9rem', border: '1px solid var(--border-color)' }}>
+                              <Upload size={16} /> Upload Custom Photo
+                              <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+                            </label>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '2rem' }}>
+                          <h4 style={{ margin: '0 0 1rem 0', fontSize: '1rem', color: 'var(--text-secondary)' }}>2. Banner Copy & Position</h4>
+                          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                            <button onClick={() => setEditForm({...editForm, textPosition: 'flex-start'})} style={{ padding: '0.5rem', background: editForm.textPosition === 'flex-start' ? 'var(--accent-primary)' : 'var(--bg-main)', color: editForm.textPosition === 'flex-start' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer' }}><AlignLeft size={16} /></button>
+                            <button onClick={() => setEditForm({...editForm, textPosition: 'center'})} style={{ padding: '0.5rem', background: editForm.textPosition === 'center' ? 'var(--accent-primary)' : 'var(--bg-main)', color: editForm.textPosition === 'center' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer' }}><AlignCenter size={16} /></button>
+                            <button onClick={() => setEditForm({...editForm, textPosition: 'flex-end'})} style={{ padding: '0.5rem', background: editForm.textPosition === 'flex-end' ? 'var(--accent-primary)' : 'var(--bg-main)', color: editForm.textPosition === 'flex-end' ? 'white' : 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer' }}><AlignRight size={16} /></button>
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                            <input type="text" placeholder="Headline" value={editForm.title} onChange={e => setEditForm({...editForm, title: e.target.value})} style={{ fontSize: '1.1rem', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.5rem' }} />
+                            <input type="text" placeholder="Sub-headline" value={editForm.subtitle} onChange={e => setEditForm({...editForm, subtitle: e.target.value})} style={{ fontSize: '0.95rem', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.5rem' }} />
+                            <input type="text" placeholder="Button Text" value={editForm.cta} onChange={e => setEditForm({...editForm, cta: e.target.value})} style={{ fontSize: '0.95rem', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.5rem' }} />
+                          </div>
+                        </div>
+
+                        <div>
+                          <h4 style={{ margin: '0 0 1rem 0', fontSize: '1rem', color: 'var(--text-secondary)' }}>3. SMS Copy</h4>
+                          <textarea value={editForm.smsCopy} onChange={e => setEditForm({...editForm, smsCopy: e.target.value})} style={{ width: '100%', fontSize: '0.95rem', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.75rem', resize: 'none', height: '80px', fontFamily: 'monospace' }} />
+                          <div style={{ fontSize: '0.75rem', color: editForm.smsCopy.length > 160 ? 'var(--danger)' : 'var(--text-secondary)', textAlign: 'right', marginTop: '0.25rem' }}>{editForm.smsCopy.length} / 160 chars</div>
+                        </div>
+
+                      </div>
+                    ) : (
+                      <>
+                        {/* View Mode: Banner */}
+                        {viewMode[campaign.id] === 'banner' && (
+                          <div style={{ 
+                            height: '240px', 
+                            borderRadius: '12px', 
+                            overflow: 'hidden',
+                            position: 'relative',
+                            backgroundImage: `url(${campaign.imageUrl})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            boxShadow: 'var(--card-shadow)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: campaign.textPosition,
+                            padding: '2rem'
+                          }}>
+                            {/* Dark Overlay for text readability */}
+                            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1 }}></div>
+                            
+                            <div style={{ position: 'relative', zIndex: 2, textAlign: campaign.textPosition === 'center' ? 'center' : campaign.textPosition === 'flex-start' ? 'left' : 'right', maxWidth: '70%' }}>
+                              <h4 style={{ fontSize: '2rem', marginBottom: '0.5rem', letterSpacing: '-0.5px', color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{campaign.title}</h4>
+                              <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.9)', marginBottom: '1.5rem', lineHeight: '1.4', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>{campaign.subtitle}</p>
+                              <button style={{ background: 'white', color: 'black', border: 'none', padding: '0.75rem 2rem', borderRadius: '30px', fontSize: '0.95rem', cursor: 'pointer', fontWeight: 'bold', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
+                                {campaign.cta}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* View Mode: SMS */}
+                        {viewMode[campaign.id] === 'sms' && (
+                          <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                              <MessageSquare size={18} />
+                              <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>SMS PREVIEW</span>
+                            </div>
+                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '16px 16px 16px 0', border: '1px solid #e2e8f0', fontFamily: 'system-ui, -apple-system, sans-serif', fontSize: '1.05rem', color: '#0f172a', lineHeight: '1.5', maxWidth: '80%' }}>
+                              {campaign.smsCopy}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+        </div>
+      </div>
     </div>
   );
 }

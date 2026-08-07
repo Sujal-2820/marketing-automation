@@ -1,13 +1,81 @@
 [
-  { 
-    "token_id": "usr_91A_xyz",
-    "segments": ["High-Value", "Sneakerhead"],
-    "purchase_history": ["p1", "p4"],
-    "recent_activity": [],
+  {
+    "token_id": "usr_full_consent_001",
+    "segments": [
+      "High-Spender",
+      "Tech Enthusiast",
+      "Early Adopter"
+    ],
+    "purchase_history": [
+      "PROD_101",
+      "PROD_104",
+      "PROD_107"
+    ],
     "consent_flags": {
       "location": true,
-      "purchase_history": true,
-      "age": true
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_private_002",
+    "segments": [
+      "Discount Seeker",
+      "Casual Buyer"
+    ],
+    "purchase_history": [
+      "PROD_105"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_no_history_003",
+    "segments": [
+      "Fitness Buff"
+    ],
+    "purchase_history": [
+      "PROD_106",
+      "PROD_109"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_opt_out_004",
+    "segments": [
+      "Unknown"
+    ],
+    "purchase_history": [
+      "PROD_102"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_fitness_005",
+    "segments": [
+      "Active Lifestyle",
+      "Millennial"
+    ],
+    "purchase_history": [
+      "PROD_105",
+      "PROD_108",
+      "PROD_109"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
     }
   }
 ]
