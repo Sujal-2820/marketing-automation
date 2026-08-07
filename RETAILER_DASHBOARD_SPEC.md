@@ -69,13 +69,15 @@ This document outlines the end-to-end workflow, screens, and features required f
 ---
 
 ## Screen 6: Live Agentic Feed & Human-in-the-Loop
-*Real-time monitoring of the AI generating the creative assets.*
+*Real-time monitoring and active collaboration with the AI generating the creative assets.*
 *   **Features:**
     *   **Generation Console:** A scrolling feed showing the Promotional Agent's thought process (e.g., *Retrieving context -> Assembling prompt -> Generating fusion copy*).
     *   **Asset Previews:** High-fidelity visual mockups of the generated outputs:
         *   Horizontal Ad Banners.
         *   Mobile SMS/WhatsApp text bubbles.
         *   Interactive Sale Popups.
+    *   **Direct Asset Editor:** Clicking on any generated asset (Banner, SMS, or Popup) opens an inline visual editor. This allows the retailer to manually tweak the copy, change specific design elements, or adjust the layout before final approval.
+    *   **AI Prompt Input (Steerability):** A chat-like prompt input box attached to each generated asset block. Retailers can type natural language instructions (e.g., *"Make the SMS tone more urgent"* or *"Change the popup copy to highlight the 20% discount more"*) to force the LLM to instantly revise that specific element.
     *   **Human-in-the-Loop (HITL) Controls:** Action buttons attached to high-risk generated assets: [Approve], [Reject], [Regenerate].
 
 ---
