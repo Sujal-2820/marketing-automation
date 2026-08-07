@@ -31,3 +31,15 @@ This document contains the foundational guidelines and checklist to be strictly 
 *   **Realistic Flows:** Prepare realistic demo flows using quality input data, edge cases, failure paths, and expected outcomes.
 *   **Value Proposition:** Show how AI, GenAI, or Agentic AI improves the solution versus a conventional approach in speed, scale, quality, reliability, or personalization.
 *   **Business Value:** Clearly explain business value, adoption path, measurable outcomes, design choices, alternatives, trade-offs, and prototype-to-enterprise readiness.
+
+## 7. SECURITY & IP CONTROL STRATEGY
+
+### How do we prevent Customer PII from being transmitted to external Models?
+*   **The Tokenization Interceptor:** Before any payload is sent to a Language Model, it passes through our proprietary, locally-hosted scrubbing middleware. 
+*   **The Process:** This middleware detects sensitive PII (Names, Phone Numbers, Addresses) and replaces them with secure, meaningless hash tokens (e.g., `<USER_91A>`). 
+*   **The Result:** The external Model only ever receives the tokens and the behavioral context (e.g., "Write a snappy ad for <USER_91A> about shoes"). Once the model returns the generated copy, our local middleware reverses the process, safely injecting the real PII back into the text before it is displayed to the user. The model provider never sees the raw data.
+
+### How do we ensure the models are hybrid, proprietary, and fully under our control?
+*   **Decoupled Architecture:** We achieve complete control through a Hybrid AI approach, splitting the architecture into "Brain" (Orchestration) and "Muscle" (Generation).
+*   **Proprietary Small Models (Local & Controlled):** For sensitive tasks like customer clustering, pattern recognition, and tokenization, we use open-source, highly efficient models (like Llama-3 or Mistral) hosted locally on our own secure VPCs. We own the weights, we control the data flow, and it never touches the public internet.
+*   **API Abstraction Layer:** For heavy creative generation (the "fusion" ad copy), we use external LLMs, but they are wrapped in our proprietary Abstraction Layer. This means we are never locked into a single provider (like OpenAI or Anthropic). If a provider changes their terms of service, we can instantly swap them out with zero downtime. Our true IP is the Orchestration Layer that dictates *how* the models are used, ensuring we maintain absolute control over the platform's behavior.
