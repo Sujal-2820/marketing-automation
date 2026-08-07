@@ -1,0 +1,8 @@
+- `[ ]` 1. **Project Initialization:** Scaffold the React application using Vite in `C:\Users\Administrator\Desktop\Team IP`.
+- `[ ]` 2. **Design System Setup:** Define global CSS variables, typography, and premium aesthetic rules in `index.css`.
+- `[ ]` 3. **Data Modeling:** Create the synthetic JSON datasets for customers and products in the `src/data/` folder.
+- `[ ]` 4. **State Management:** Build the Context API provider and link it to `localStorage` for persistence.
+- `[ ]` 5. **Component Development (Store):** Build the Customer Login, Ad Banner, SMS Dropdown, Product Grid, and Popup components.
+- `[ ]` 6. **Component Development (Dashboard):** Build the Retailer Login, Consent Manager, and Campaign Viewer.
+- `[ ]` 7. **Integration & Routing:** Wire the components together using React Router.
+- `[ ]` 8. **Polish:** Add micro-animations and ensure responsive design.
