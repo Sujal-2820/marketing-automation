@@ -43,3 +43,15 @@ This document contains the foundational guidelines and checklist to be strictly 
 *   **Decoupled Architecture:** We achieve complete control through a Hybrid AI approach, splitting the architecture into "Brain" (Orchestration) and "Muscle" (Generation).
 *   **Proprietary Small Models (Local & Controlled):** For sensitive tasks like customer clustering, pattern recognition, and tokenization, we use open-source, highly efficient models (like Llama-3 or Mistral) hosted locally on our own secure VPCs. We own the weights, we control the data flow, and it never touches the public internet.
 *   **API Abstraction Layer:** For heavy creative generation (the "fusion" ad copy), we use external LLMs, but they are wrapped in our proprietary Abstraction Layer. This means we are never locked into a single provider (like OpenAI or Anthropic). If a provider changes their terms of service, we can instantly swap them out with zero downtime. Our true IP is the Orchestration Layer that dictates *how* the models are used, ensuring we maintain absolute control over the platform's behavior.
+
+## 8. PATH TO PRODUCTION (ENTERPRISE SCALING)
+
+While the immediate MVP utilizes simulated local storage layers (`localStorage`/`sessionStorage`) to guarantee zero latency during demonstrations, the architecture is explicitly designed to seamlessly swap out these layers for enterprise-grade solutions post-funding:
+
+### A. Vector Database: Chroma DB
+*   **Purpose:** Essential for true RAG at an "Amazon-scale". Simple text matching cannot handle millions of product SKUs.
+*   **Implementation:** Chroma DB will store vector embeddings of massive product descriptions and complex customer behavioral patterns. This allows the Behavioral Agent to perform hyper-fast semantic searches (e.g., finding products conceptually related to "shoes and snacks").
+
+### B. Enterprise Backend & Zero Trust Auth: Supabase
+*   **Purpose:** To serve as the true Zero Trust Gatekeeper and physical Secure Vault.
+*   **Implementation:** Supabase will handle strict Row-Level Security (RLS) ensuring Tenant Isolation (Retailer A cannot see Retailer B's data). It will host the actual, physically separated database where the real PII is locked away, completing the physical separation of the tokenization mechanism.

@@ -1,0 +1,13 @@
+[
+  { 
+    "token_id": "usr_91A_xyz",
+    "segments": ["High-Value", "Sneakerhead"],
+    "purchase_history": ["p1", "p4"],
+    "recent_activity": [],
+    "consent_flags": {
+      "location": true,
+      "purchase_history": true,
+      "age": true
+    }
+  }
+]

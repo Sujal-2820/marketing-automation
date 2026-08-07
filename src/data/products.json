@@ -1,0 +1,6 @@
+[
+  { "id": "p1", "name": "Premium Running Shoes", "category": "Footwear", "price": 120, "image": "shoe.png", "tags": ["sports", "premium", "shoes"] },
+  { "id": "p2", "name": "Spicy Nacho Chips", "category": "Snacks", "price": 5, "image": "snack.png", "tags": ["snack", "spicy", "food"] },
+  { "id": "p3", "name": "Wireless Noise-Canceling Headphones", "category": "Electronics", "price": 250, "image": "headphones.png", "tags": ["tech", "music", "premium"] },
+  { "id": "p4", "name": "Cotton Graphic Tee", "category": "Apparel", "price": 25, "image": "tee.png", "tags": ["clothing", "casual"] }
+]
