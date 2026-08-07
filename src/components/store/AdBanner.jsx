@@ -1,18 +1,23 @@
 import React from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function AdBanner({ activeCustomer }) {
   const { campaigns } = useAppContext();
   
   // Consent flag check
   const hasHistoryConsent = activeCustomer?.consent_flags?.purchase_history !== false;
-  
+  const customerSegments = activeCustomer?.segments || ['Gym Freak'];
+
+  // Detect cross-category multi-segment shopper
+  const isMultiCategory = customerSegments.length > 1;
+  const primarySegment = customerSegments[0];
+  const secondarySegment = customerSegments[1] || 'Gym Freak';
+
   // Find matching campaign based on customer segments
   let matchedCampaign = null;
   
   if (hasHistoryConsent && campaigns && campaigns.length > 0) {
-    const customerSegments = activeCustomer?.segments || [];
     matchedCampaign = campaigns.find(c => customerSegments.includes(c.target)) || campaigns[0];
   }
 
@@ -54,13 +59,35 @@ export default function AdBanner({ activeCustomer }) {
       title: "Gym Freak Ho? Bhaag ke aao, naya activewear collection is here. Flat 30% off!",
       subtitle: "Ultra-lightweight mesh gear engineered for peak performance.",
       cta: "Shop Now",
-      target: "Gym Freak",
+      target: primarySegment,
       imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop",
       textPosition: "flex-start"
     };
   }
 
-  const { title, subtitle, cta, imageUrl, textPosition } = matchedCampaign;
+  let { title, subtitle, cta, imageUrl, textPosition } = matchedCampaign;
+
+  // SUBTLE CROSS-CATEGORY ADAPTATION ENGINE
+  // If the customer bought an item from a different category, subtly blend the banner copy!
+  if (isMultiCategory) {
+    if (primarySegment === 'Gamer' && customerSegments.includes('Gym Freak')) {
+      title = "Game Hard, Stay Fit, Boss!";
+      subtitle = "High-performance gear & activewear for long gaming streams and gym sessions. Flat 25% off.";
+      imageUrl = "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=1200&auto=format&fit=crop";
+    } else if (primarySegment === 'Decor' && customerSegments.includes('Gym Freak')) {
+      title = "Post-Workout Relaxed Vibes";
+      subtitle = "Aesthetic warm Nordic lamps to unwind and recharge after a heavy workout session.";
+      imageUrl = "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1200&auto=format&fit=crop";
+    } else if (primarySegment === 'Snack Lover' && customerSegments.includes('Gym Freak')) {
+      title = "Guilt-Free Healthy Munchies!";
+      subtitle = "High protein crunchy snacks & Whey isolate for your workout energy.";
+      imageUrl = "https://images.unsplash.com/photo-1622484210800-885100062b08?q=80&w=1200&auto=format&fit=crop";
+    } else if (primarySegment === 'Gym Freak' && customerSegments.includes('Gamer')) {
+      title = "Gym Freak & Gamer Combo!";
+      subtitle = "ANC noise-cancelling audio & activewear engineered for peak focus.";
+      imageUrl = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop";
+    }
+  }
 
   return (
     <div 
@@ -88,6 +115,26 @@ export default function AdBanner({ activeCustomer }) {
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '650px', textAlign: textPosition === 'center' ? 'center' : textPosition === 'flex-end' ? 'right' : 'left' }}>
         
+        {/* Subtle Multi-Interest Tag if cross-category purchase detected */}
+        {isMultiCategory && (
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            background: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(8px)',
+            color: 'white',
+            padding: '0.25rem 0.85rem',
+            borderRadius: '20px',
+            fontSize: '0.78rem',
+            fontWeight: '700',
+            marginBottom: '0.85rem'
+          }}>
+            <Sparkles size={13} style={{ color: '#38bdf8' }} />
+            Personalized Combo Offer ({customerSegments.slice(0, 2).join(' + ')})
+          </div>
+        )}
+
         <h2 style={{ 
           fontSize: '2.25rem', 
           fontWeight: '800', 

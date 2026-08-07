@@ -3,7 +3,7 @@ import AdBanner from '../components/store/AdBanner';
 import ProductGrid from '../components/store/ProductGrid';
 import CustomerLogin from '../components/store/CustomerLogin';
 import { useAppContext } from '../context/AppContext';
-import { Shield, Bell, User, ChevronLeft, Send, Sparkles, AlertTriangle, RefreshCw, Menu, X, MessageSquare, Check, Power } from 'lucide-react';
+import { Shield, Bell, User, ChevronLeft, Send, Sparkles, AlertTriangle, RefreshCw, Menu, X, MessageSquare } from 'lucide-react';
 
 export default function StoreHome() {
   const { customers, updateCustomer, campaigns } = useAppContext();
@@ -66,6 +66,21 @@ export default function StoreHome() {
       target: 'Gym Freak',
       smsCopy: 'Bhai gym apparel ka naya stock aagaya hai! Surprize flat 30% discount sirf aaj ke liye valid hai. Abhi claim karo: apexsports.store/gym'
     };
+
+  // Subtle Cross-Category SMS Copy Adaptation
+  let activeSmsCopy = matchedCampaign?.smsCopy;
+  if (currentCustomer.segments?.length > 1) {
+    const primary = currentCustomer.segments[0];
+    if (primary === 'Gamer' && currentCustomer.segments.includes('Gym Freak')) {
+      activeSmsCopy = "Bhai long gaming stream aur workout dono sorted! ANC headphones & activewear pe flat 25% combo discount active hai: store.com/deal";
+    } else if (primary === 'Decor' && currentCustomer.segments.includes('Gym Freak')) {
+      activeSmsCopy = "Heavy workout ke baad relaxing home vibes! Warm LED Nordic lamps now at 25% off for active members: homevibe.store/decor";
+    } else if (primary === 'Snack Lover' && currentCustomer.segments.includes('Gym Freak')) {
+      activeSmsCopy = "Gym protein & crunchy snacks bundle! 20g protein bars & organic almond milk ab combo price pe available hain: freshmart.store/deal";
+    } else if (primary === 'Gym Freak' && currentCustomer.segments.includes('Gamer')) {
+      activeSmsCopy = "Workout beats & extreme gaming! ANC noise-cancelling headphones & runners now on special bundle discount: apexsports.store/deal";
+    }
+  }
 
   if (isLoggedOut) {
     return (
@@ -150,7 +165,7 @@ export default function StoreHome() {
             border: '1px solid rgba(255,255,255,0.08)',
             fontFamily: 'system-ui, -apple-system, sans-serif'
           }}>
-            {matchedCampaign?.smsCopy}
+            {activeSmsCopy}
           </div>
         </div>
       )}
@@ -495,7 +510,7 @@ export default function StoreHome() {
             marginBottom: '1.5rem',
             fontFamily: 'system-ui, -apple-system, sans-serif'
           }}>
-            {matchedCampaign?.smsCopy}
+            {activeSmsCopy}
           </div>
 
           {/* Dummy Input bar */}
