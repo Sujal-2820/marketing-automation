@@ -35,7 +35,7 @@ export const generateCampaign = async (stpData, secureVault) => {
           message: "Because you love Sneakers AND Snacks: Get 20% off Nachos when you buy any running shoe today.",
           type: "fusion"
         };
-        sms = `[Aura Alerts] ${customerName}, unexpected combo? We love it! Show this text in-store for a free snack with your next shoe purchase.`;
+        sms = `[Nexus Alerts] ${customerName}, unexpected combo? We love it! Show this text in-store for a free snack with your next shoe purchase.`;
       } else if (!stpData.consentFlags.purchase_history) {
         // Fallback for revoked consent
         banner = {

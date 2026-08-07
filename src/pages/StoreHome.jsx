@@ -12,7 +12,7 @@ export default function StoreHome() {
   return (
     <div className="animate-fade-in" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ margin: 0, fontSize: '2.5rem', color: 'var(--accent-primary)', letterSpacing: '-1px' }}>Aura E-Commerce</h1>
+        <h1 style={{ margin: 0, fontSize: '2.5rem', color: 'var(--accent-primary)', letterSpacing: '-1px' }}>Nexus Retail</h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <span style={{ fontWeight: '500' }}>Welcome, {customerName}</span>
           <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }} />
