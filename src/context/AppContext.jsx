@@ -14,45 +14,92 @@ export const AppProvider = ({ children }) => {
 
   // State
   const [role, setRole] = useState('customer'); // 'customer' or 'retailer'
-  const [customers, setCustomers] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [customers, setCustomers] = useState([
+    {
+      token_id: 'usr_sports_042',
+      segments: ['Gym Freak', 'Marathon Runner'],
+      purchase_history: ['1x Nike ZoomX', '2x Whey Protein'],
+      consent_flags: { location: true, age: true, purchase_history: true }
+    },
+    {
+      token_id: 'usr_tech_012',
+      segments: ['Gamer', 'Audioophile'],
+      purchase_history: ['1x RTX 4090 GPU'],
+      consent_flags: { location: true, age: true, purchase_history: true }
+    },
+    {
+      token_id: 'usr_grocery_008',
+      segments: ['Health Conscious', 'Organic Shopper'],
+      purchase_history: ['2x Organic Almond Milk'],
+      consent_flags: { location: true, age: true, purchase_history: true }
+    },
+    {
+      token_id: 'usr_home_021',
+      segments: ['Decor Enthusiast', 'Plant Parent'],
+      purchase_history: ['1x Nordic Lamp'],
+      consent_flags: { location: true, age: true, purchase_history: true }
+    }
+  ]);
   
-  // Campaigns stay in local storage as they are transient generated AI output
+  const [products, setProducts] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load live data from Supabase
+  // Load live data from Supabase if available
   useEffect(() => {
     async function fetchLiveDB() {
       setLoading(true);
-      
-      const { data: prods, error: prodErr } = await supabase.from('products').select('*');
-      if (!prodErr && prods) setProducts(prods);
+      try {
+        const { data: prods, error: prodErr } = await supabase.from('products').select('*');
+        if (!prodErr && prods && prods.length > 0) setProducts(prods);
 
-      const { data: custs, error: custErr } = await supabase.from('customers').select('*');
-      if (!custErr && custs) setCustomers(custs);
-      
+        const { data: custs, error: custErr } = await supabase.from('customers').select('*');
+        if (!custErr && custs && custs.length > 0) {
+          setCustomers(prev => {
+            // Merge DB customers with initial demo personas
+            const merged = [...custs];
+            prev.forEach(p => {
+              if (!merged.some(m => m.token_id === p.token_id)) {
+                merged.push(p);
+              }
+            });
+            return merged;
+          });
+        }
+      } catch (err) {
+        console.warn("Using local state fallback for AppContext DB");
+      }
       setLoading(false);
     }
     fetchLiveDB();
   }, []);
 
-  // Helper to sync specific customer updates back to live DB
+  // Helper to sync specific customer updates back to state & DB
   const updateCustomer = async (token_id, updates) => {
-    // Optimistic UI update
-    setCustomers(prev => prev.map(c => c.token_id === token_id ? { ...c, ...updates } : c));
-    
-    const customerToUpdate = customers.find(c => c.token_id === token_id);
-    const payload = { ...customerToUpdate, ...updates };
-    
-    const { error } = await supabase.from('customers').upsert({
-      token_id: payload.token_id,
-      segments: payload.segments,
-      purchase_history: payload.purchase_history,
-      consent_flags: payload.consent_flags
+    // Optimistic state update: update or append
+    setCustomers(prev => {
+      const exists = prev.some(c => c.token_id === token_id);
+      if (exists) {
+        return prev.map(c => c.token_id === token_id ? { ...c, ...updates } : c);
+      } else {
+        return [...prev, { token_id, consent_flags: { location: true, age: true, purchase_history: true }, ...updates }];
+      }
     });
     
-    if (error) console.error("Failed to sync customer to live DB:", error);
+    // Sync to Supabase if connected
+    try {
+      const customerToUpdate = customers.find(c => c.token_id === token_id) || {};
+      const payload = { ...customerToUpdate, ...updates };
+      
+      await supabase.from('customers').upsert({
+        token_id,
+        segments: payload.segments || ['Gym Freak'],
+        purchase_history: payload.purchase_history || [],
+        consent_flags: payload.consent_flags || { location: true, age: true, purchase_history: true }
+      });
+    } catch (e) {
+      console.warn("Supabase upsert sync:", e.message);
+    }
   };
 
   useEffect(() => {

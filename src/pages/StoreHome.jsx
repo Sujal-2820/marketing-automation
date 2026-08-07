@@ -3,7 +3,7 @@ import AdBanner from '../components/store/AdBanner';
 import ProductGrid from '../components/store/ProductGrid';
 import CustomerLogin from '../components/store/CustomerLogin';
 import { useAppContext } from '../context/AppContext';
-import { Shield, Bell, User, ChevronLeft, Send, Sparkles, AlertTriangle, RefreshCw, Menu, X, MessageSquare } from 'lucide-react';
+import { Shield, Bell, User, ChevronLeft, Send, Sparkles, AlertTriangle, RefreshCw, Menu, X, MessageSquare, Check, Power } from 'lucide-react';
 
 export default function StoreHome() {
   const { customers, updateCustomer, campaigns } = useAppContext();
@@ -25,7 +25,7 @@ export default function StoreHome() {
   // Mobile Navigation Drawer Toggle
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Active Customer Object
+  // Active Customer Object from global state
   const currentCustomer = customers.find(c => c.token_id === activePersona.tokenId) || {
     token_id: activePersona.tokenId,
     segments: ['Gym Freak', 'Marathon Runner'],
@@ -41,7 +41,9 @@ export default function StoreHome() {
   // Consent Toggles handler
   const handleToggleConsent = (flagKey) => {
     const currentFlags = currentCustomer.consent_flags || { location: true, age: true, purchase_history: true };
-    const newFlags = { ...currentFlags, [flagKey]: !currentFlags[flagKey] };
+    const currentValue = currentFlags[flagKey] !== false; // Default to true if undefined
+    const newFlags = { ...currentFlags, [flagKey]: !currentValue };
+    
     updateCustomer(currentCustomer.token_id, { consent_flags: newFlags });
   };
 
@@ -76,6 +78,10 @@ export default function StoreHome() {
       />
     );
   }
+
+  const isPurchaseHistoryAllowed = currentCustomer.consent_flags?.purchase_history !== false;
+  const isLocationAllowed = currentCustomer.consent_flags?.location !== false;
+  const isSmsAllowed = currentCustomer.consent_flags?.age !== false;
 
   return (
     <div className="animate-fade-in" style={{ padding: '1.5rem 1.5rem 4rem 1.5rem', maxWidth: '1280px', margin: '0 auto', position: 'relative' }}>
@@ -314,75 +320,141 @@ export default function StoreHome() {
           {/* Toggle Switches */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             
-            {/* Toggle 1 */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+            {/* Toggle 1: Purchase History */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
               <div>
-                <strong style={{ fontSize: '0.95rem', color: '#0f172a', display: 'block' }}>Purchase History</strong>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Used to recommend related products and personalized banners.</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>Purchase History & Behavior</strong>
+                  <span style={{ fontSize: '0.72rem', background: isPurchaseHistoryAllowed ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)', color: isPurchaseHistoryAllowed ? '#047857' : '#dc2626', padding: '0.15rem 0.5rem', borderRadius: '10px', fontWeight: '700' }}>
+                    {isPurchaseHistoryAllowed ? 'ALLOWED' : 'DENIED'}
+                  </span>
+                </div>
+                <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem', display: 'block' }}>
+                  Used to recommend related products and targeted ad banners.
+                </span>
               </div>
+
+              {/* Interactive Switch */}
               <button 
+                type="button"
                 onClick={() => handleToggleConsent('purchase_history')}
                 style={{ 
-                  width: '48px', 
-                  height: '26px', 
-                  borderRadius: '13px', 
-                  background: currentCustomer.consent_flags?.purchase_history !== false ? 'var(--accent-primary)' : '#cbd5e1', 
+                  width: '54px', 
+                  height: '28px', 
+                  borderRadius: '14px', 
+                  background: isPurchaseHistoryAllowed ? 'linear-gradient(135deg, #4f46e5, #6366f1)' : '#cbd5e1', 
                   border: 'none', 
                   cursor: 'pointer',
                   position: 'relative',
-                  transition: 'all 0.2s',
-                  flexShrink: 0
+                  transition: 'all 0.2s ease',
+                  flexShrink: 0,
+                  outline: 'none',
+                  boxShadow: isPurchaseHistoryAllowed ? '0 4px 10px rgba(79, 70, 229, 0.3)' : 'none'
                 }}
               >
-                <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', position: 'absolute', top: '3px', left: currentCustomer.consent_flags?.purchase_history !== false ? '25px' : '3px', transition: 'all 0.2s' }} />
+                <div style={{ 
+                  width: '22px', 
+                  height: '22px', 
+                  borderRadius: '50%', 
+                  background: 'white', 
+                  position: 'absolute', 
+                  top: '3px', 
+                  left: isPurchaseHistoryAllowed ? '29px' : '3px', 
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.2)' 
+                }} />
               </button>
             </div>
 
-            {/* Toggle 2 */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+            {/* Toggle 2: Location */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
               <div>
-                <strong style={{ fontSize: '0.95rem', color: '#0f172a', display: 'block' }}>Precise Location</strong>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>For hyper-local store offers and express delivery estimates.</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>Precise Location</strong>
+                  <span style={{ fontSize: '0.72rem', background: isLocationAllowed ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)', color: isLocationAllowed ? '#047857' : '#dc2626', padding: '0.15rem 0.5rem', borderRadius: '10px', fontWeight: '700' }}>
+                    {isLocationAllowed ? 'ALLOWED' : 'DENIED'}
+                  </span>
+                </div>
+                <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem', display: 'block' }}>
+                  For hyper-local store offers and express delivery estimates.
+                </span>
               </div>
+
+              {/* Interactive Switch */}
               <button 
+                type="button"
                 onClick={() => handleToggleConsent('location')}
                 style={{ 
-                  width: '48px', 
-                  height: '26px', 
-                  borderRadius: '13px', 
-                  background: currentCustomer.consent_flags?.location ? 'var(--accent-primary)' : '#cbd5e1', 
+                  width: '54px', 
+                  height: '28px', 
+                  borderRadius: '14px', 
+                  background: isLocationAllowed ? 'linear-gradient(135deg, #4f46e5, #6366f1)' : '#cbd5e1', 
                   border: 'none', 
                   cursor: 'pointer',
                   position: 'relative',
-                  transition: 'all 0.2s',
-                  flexShrink: 0
+                  transition: 'all 0.2s ease',
+                  flexShrink: 0,
+                  outline: 'none',
+                  boxShadow: isLocationAllowed ? '0 4px 10px rgba(79, 70, 229, 0.3)' : 'none'
                 }}
               >
-                <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', position: 'absolute', top: '3px', left: currentCustomer.consent_flags?.location ? '25px' : '3px', transition: 'all 0.2s' }} />
+                <div style={{ 
+                  width: '22px', 
+                  height: '22px', 
+                  borderRadius: '50%', 
+                  background: 'white', 
+                  position: 'absolute', 
+                  top: '3px', 
+                  left: isLocationAllowed ? '29px' : '3px', 
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.2)' 
+                }} />
               </button>
             </div>
 
-            {/* Toggle 3 */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+            {/* Toggle 3: Hinglish SMS */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
               <div>
-                <strong style={{ fontSize: '0.95rem', color: '#0f172a', display: 'block' }}>Hinglish SMS Campaigns</strong>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Receive localized, culturally relevant text alerts.</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>Hinglish SMS Campaigns</strong>
+                  <span style={{ fontSize: '0.72rem', background: isSmsAllowed ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)', color: isSmsAllowed ? '#047857' : '#dc2626', padding: '0.15rem 0.5rem', borderRadius: '10px', fontWeight: '700' }}>
+                    {isSmsAllowed ? 'ALLOWED' : 'DENIED'}
+                  </span>
+                </div>
+                <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem', display: 'block' }}>
+                  Receive localized, culturally relevant text alerts.
+                </span>
               </div>
+
+              {/* Interactive Switch */}
               <button 
+                type="button"
                 onClick={() => handleToggleConsent('age')}
                 style={{ 
-                  width: '48px', 
-                  height: '26px', 
-                  borderRadius: '13px', 
-                  background: currentCustomer.consent_flags?.age !== false ? 'var(--accent-primary)' : '#cbd5e1', 
+                  width: '54px', 
+                  height: '28px', 
+                  borderRadius: '14px', 
+                  background: isSmsAllowed ? 'linear-gradient(135deg, #4f46e5, #6366f1)' : '#cbd5e1', 
                   border: 'none', 
                   cursor: 'pointer',
                   position: 'relative',
-                  transition: 'all 0.2s',
-                  flexShrink: 0
+                  transition: 'all 0.2s ease',
+                  flexShrink: 0,
+                  outline: 'none',
+                  boxShadow: isSmsAllowed ? '0 4px 10px rgba(79, 70, 229, 0.3)' : 'none'
                 }}
               >
-                <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', position: 'absolute', top: '3px', left: currentCustomer.consent_flags?.age !== false ? '25px' : '3px', transition: 'all 0.2s' }} />
+                <div style={{ 
+                  width: '22px', 
+                  height: '22px', 
+                  borderRadius: '50%', 
+                  background: 'white', 
+                  position: 'absolute', 
+                  top: '3px', 
+                  left: isSmsAllowed ? '29px' : '3px', 
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.2)' 
+                }} />
               </button>
             </div>
 
