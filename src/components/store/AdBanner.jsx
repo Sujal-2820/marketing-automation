@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { Sparkles, ShieldAlert } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 
 export default function AdBanner({ activeCustomer }) {
   const { campaigns } = useAppContext();
@@ -56,12 +56,11 @@ export default function AdBanner({ activeCustomer }) {
       cta: "Shop Now",
       target: "Gym Freak",
       imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop",
-      textPosition: "flex-start",
-      demographics: { age: "18-35", gender: "All", factor: "High Fitness Intent" }
+      textPosition: "flex-start"
     };
   }
 
-  const { title, subtitle, cta, imageUrl, textPosition, demographics, target } = matchedCampaign;
+  const { title, subtitle, cta, imageUrl, textPosition } = matchedCampaign;
 
   return (
     <div 
@@ -89,28 +88,6 @@ export default function AdBanner({ activeCustomer }) {
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '650px', textAlign: textPosition === 'center' ? 'center' : textPosition === 'flex-end' ? 'right' : 'left' }}>
         
-        {/* Targeting Badge */}
-        {demographics && (
-          <div style={{ 
-            display: 'inline-flex', 
-            alignItems: 'center', 
-            gap: '0.4rem', 
-            background: 'rgba(236, 72, 153, 0.35)', 
-            backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            color: 'white', 
-            padding: '0.35rem 1rem', 
-            borderRadius: '20px', 
-            fontSize: '0.8rem', 
-            fontWeight: '700',
-            marginBottom: '1rem',
-            letterSpacing: '0.5px'
-          }}>
-            <Sparkles size={14} />
-            Targeting Matched: Age {demographics.age} | {demographics.factor || target}
-          </div>
-        )}
-
         <h2 style={{ 
           fontSize: '2.25rem', 
           fontWeight: '800', 
