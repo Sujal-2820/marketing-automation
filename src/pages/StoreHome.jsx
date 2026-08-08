@@ -64,18 +64,20 @@ export default function StoreHome() {
     }, 4500);
   };
 
-  // Matched Campaign for SMS Simulator & Top Toast (Prioritizing primary segment first)
+  // Matched Campaign for SMS Simulator & Top Toast (Prioritizing primary segment first among APPROVED campaigns)
   const custSegs = currentCustomer.segments || ['Gym Freak'];
   let matchedCampaign = null;
-  if (campaigns && campaigns.length > 0) {
+  const approvedCampaigns = (campaigns || []).filter(c => c.isApproved === true);
+
+  if (approvedCampaigns.length > 0) {
     for (const seg of custSegs) {
-      const found = campaigns.find(c => c.target === seg);
+      const found = approvedCampaigns.find(c => c.target === seg);
       if (found) {
         matchedCampaign = found;
         break;
       }
     }
-    if (!matchedCampaign) matchedCampaign = campaigns[0];
+    if (!matchedCampaign) matchedCampaign = approvedCampaigns[0];
   } else {
     matchedCampaign = {
       target: 'Gym Freak',

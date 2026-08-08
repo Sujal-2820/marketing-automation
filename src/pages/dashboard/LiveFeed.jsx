@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit2, Check, Sparkles, Loader2, PlayCircle, Store, MessageSquare, Image as ImageIcon, Upload, AlignLeft, AlignCenter, AlignRight, KeyRound, ExternalLink, Info, X, ShieldAlert } from 'lucide-react';
+import { Edit2, Check, Sparkles, Loader2, PlayCircle, Store, MessageSquare, Image as ImageIcon, Upload, AlignLeft, AlignCenter, AlignRight, KeyRound, ExternalLink, Info, X, ShieldAlert, CheckCircle2, RefreshCw, AlertTriangle, ThumbsUp } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { Link } from 'react-router-dom';
 import { validateCampaignsAgainstCatalog } from '../../agents/campaignGuardrail';
@@ -23,6 +23,14 @@ export default function LiveFeed() {
 
   // Active Demo Info Popover (campaignId)
   const [activeGuideId, setActiveGuideId] = useState(null);
+
+  // Approval Warning Toast State
+  const [toastWarning, setToastWarning] = useState(null);
+
+  // AI Prompt Regeneration Drawer States
+  const [aiRegenId, setAiRegenId] = useState(null);
+  const [aiPromptText, setAiPromptText] = useState('');
+  const [isAiLoading, setIsAiLoading] = useState({});
 
   // Store inference
   const storeType = customers.length > 0 ? customers[0].token_id.split('_')[1] : 'gen';
@@ -259,7 +267,8 @@ export default function LiveFeed() {
       smsCopy: copy.smsCopy,
       imageUrl: storeImages[i],
       textPosition: positions[i],
-      demographics: storeDemos[i]
+      demographics: storeDemos[i],
+      isApproved: false
     }));
 
     // Run Campaign Guardrail Validation Engine against Product Catalog
@@ -271,6 +280,86 @@ export default function LiveFeed() {
     const views = {};
     newCampaigns.forEach(c => views[c.id] = 'banner');
     setViewMode(views);
+  };
+
+  const toggleApprove = (campaignId) => {
+    setCampaigns(prev => prev.map(c => c.id === campaignId ? { ...c, isApproved: !c.isApproved } : c));
+  };
+
+  const handlePreviewClick = (e, campaign) => {
+    if (!campaign.isApproved) {
+      e.preventDefault();
+      setToastWarning(`⚠️ Campaign for [${campaign.target}] is not approved yet! Click "Approve" to publish it before previewing on the Customer Dashboard.`);
+      setTimeout(() => setToastWarning(null), 5000);
+    }
+  };
+
+  const handleAiRegenerate = (campaignId, promptText) => {
+    if (!promptText || !promptText.trim()) return;
+
+    setIsAiLoading(prev => ({ ...prev, [campaignId]: true }));
+
+    setTimeout(() => {
+      const lowerPrompt = promptText.toLowerCase();
+
+      // Dynamic image selection from keyword analysis
+      let newImageUrl = null;
+      if (lowerPrompt.includes('mountain') || lowerPrompt.includes('nature') || lowerPrompt.includes('outdoor') || lowerPrompt.includes('trail')) {
+        newImageUrl = 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop';
+      } else if (lowerPrompt.includes('runner') || lowerPrompt.includes('shoes') || lowerPrompt.includes('nike') || lowerPrompt.includes('footwear')) {
+        newImageUrl = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop';
+      } else if (lowerPrompt.includes('gym') || lowerPrompt.includes('fitness') || lowerPrompt.includes('workout') || lowerPrompt.includes('body')) {
+        newImageUrl = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop';
+      } else if (lowerPrompt.includes('tech') || lowerPrompt.includes('laptop') || lowerPrompt.includes('gaming') || lowerPrompt.includes('gpu')) {
+        newImageUrl = 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop';
+      } else if (lowerPrompt.includes('food') || lowerPrompt.includes('organic') || lowerPrompt.includes('health') || lowerPrompt.includes('snack')) {
+        newImageUrl = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop';
+      } else if (lowerPrompt.includes('home') || lowerPrompt.includes('lamp') || lowerPrompt.includes('decor') || lowerPrompt.includes('room')) {
+        newImageUrl = 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=800&auto=format&fit=crop';
+      }
+
+      setCampaigns(prev => prev.map(c => {
+        if (c.id === campaignId) {
+          const pctMatch = promptText.match(/(\d+)%/);
+          const discountText = pctMatch ? `Flat ${pctMatch[1]}% OFF` : 'Special AI Offer';
+
+          let updatedTitle = c.title;
+          let updatedSubtitle = c.subtitle;
+          let updatedSms = c.smsCopy;
+
+          if (lowerPrompt.includes('urgent') || lowerPrompt.includes('hurry') || lowerPrompt.includes('fast') || lowerPrompt.includes('limited')) {
+            updatedTitle = `🔥 HURRY! ${c.target} ${discountText}!`;
+            updatedSubtitle = `Limited stock remaining! ${promptText}`;
+            updatedSms = `🔥 URGENT DEAL: ${c.target} collection on ${discountText}! Claim before stock ends: store.link/deal`;
+          } else if (lowerPrompt.includes('festive') || lowerPrompt.includes('diwali') || lowerPrompt.includes('celebrate')) {
+            updatedTitle = `✨ Festive Dhamaka for ${c.target}!`;
+            updatedSubtitle = `Celebrate with premium choices. ${discountText} valid this week.`;
+            updatedSms = `✨ Festive Offer for ${c.target}! Claim ${discountText} on top collections: store.link/festive`;
+          } else {
+            updatedTitle = `${c.target}: ${discountText}`;
+            updatedSubtitle = `AI Refined: ${promptText}`;
+            updatedSms = `Special AI Custom Deal for ${c.target}! ${discountText} on active selection: store.com/custom`;
+          }
+
+          const candidate = {
+            ...c,
+            title: updatedTitle,
+            subtitle: updatedSubtitle,
+            smsCopy: updatedSms,
+            imageUrl: newImageUrl || c.imageUrl,
+            isApproved: false // Requires re-approval after AI regeneration
+          };
+
+          const { validatedCampaigns } = validateCampaignsAgainstCatalog([candidate], productCatalog);
+          return validatedCampaigns[0];
+        }
+        return c;
+      }));
+
+      setIsAiLoading(prev => ({ ...prev, [campaignId]: false }));
+      setAiRegenId(null);
+      setAiPromptText('');
+    }, 1200);
   };
 
   const startEditing = (campaign) => {
@@ -389,12 +478,23 @@ export default function LiveFeed() {
                   <div key={campaign.id} className="glass-panel animate-fade-in" style={{ padding: '1.5rem', background: 'var(--bg-main)', position: 'relative' }}>
                     
                     {/* Header Controls */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
                           <span style={{ fontWeight: '600', color: 'var(--accent-primary)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px', background: 'rgba(79, 70, 229, 0.1)', padding: '0.25rem 0.75rem', borderRadius: '12px' }}>
                             Target: {campaign.target}
                           </span>
+
+                          {/* Approval Status Badge */}
+                          {campaign.isApproved ? (
+                            <span style={{ background: 'rgba(16, 185, 129, 0.12)', color: '#047857', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.25rem 0.75rem', borderRadius: '12px', fontSize: '0.8rem', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                              <CheckCircle2 size={13} /> Approved ✅
+                            </span>
+                          ) : (
+                            <span style={{ background: 'rgba(245, 158, 11, 0.12)', color: '#b45309', border: '1px solid rgba(245, 158, 11, 0.3)', padding: '0.25rem 0.75rem', borderRadius: '12px', fontSize: '0.8rem', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                              <AlertTriangle size={13} /> Pending Approval ⏳
+                            </span>
+                          )}
 
                           {/* Subtle Demo Guide Button */}
                           <button
@@ -442,16 +542,87 @@ export default function LiveFeed() {
                         )}
                       </div>
                       
-                      {editingId !== campaign.id ? (
-                        <button onClick={() => startEditing(campaign)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                          <Edit2 size={16} /> Edit
+                      {/* Action Controls Bar */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        {/* Approve Button */}
+                        <button
+                          onClick={() => toggleApprove(campaign.id)}
+                          style={{
+                            background: campaign.isApproved ? '#10b981' : 'white',
+                            color: campaign.isApproved ? 'white' : '#0f172a',
+                            border: `1.5px solid ${campaign.isApproved ? '#10b981' : 'var(--border-color)'}`,
+                            padding: '0.4rem 0.85rem',
+                            borderRadius: '8px',
+                            fontWeight: '700',
+                            fontSize: '0.82rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.03)',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          {campaign.isApproved ? <><Check size={14} /> Approved</> : <><ThumbsUp size={14} /> Approve</>}
                         </button>
-                      ) : (
-                        <button onClick={saveEdit} style={{ background: 'var(--success)', border: 'none', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.4rem 1rem', borderRadius: '4px', fontSize: '0.9rem' }}>
-                          <Check size={16} /> Save Changes
+
+                        {/* Regenerate AI Button */}
+                        <button
+                          onClick={() => {
+                            setAiRegenId(aiRegenId === campaign.id ? null : campaign.id);
+                            setAiPromptText('');
+                          }}
+                          style={{
+                            background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
+                            color: 'white',
+                            border: 'none',
+                            padding: '0.4rem 0.85rem',
+                            borderRadius: '8px',
+                            fontWeight: '700',
+                            fontSize: '0.82rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            boxShadow: '0 2px 6px rgba(139, 92, 246, 0.3)'
+                          }}
+                        >
+                          <Sparkles size={14} /> Regenerate
                         </button>
-                      )}
+
+                        {/* Edit Button */}
+                        {editingId !== campaign.id ? (
+                          <button onClick={() => startEditing(campaign)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.4rem' }}>
+                            <Edit2 size={16} /> Edit
+                          </button>
+                        ) : (
+                          <button onClick={saveEdit} style={{ background: 'var(--success)', border: 'none', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.4rem 1rem', borderRadius: '4px', fontSize: '0.9rem' }}>
+                            <Check size={16} /> Save Changes
+                          </button>
+                        )}
+                      </div>
                     </div>
+
+                    {/* AI Prompt Regeneration Drawer Box */}
+                    {aiRegenId === campaign.id && (
+                      <div className="animate-fade-in" style={{ background: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)', border: '1.5px solid #a78bfa', borderRadius: '14px', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 8px 20px rgba(139, 92, 246, 0.12)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6d28d9', fontWeight: '800', fontSize: '0.9rem', marginBottom: '0.75rem' }}>
+                          <Sparkles size={16} /> AI Prompt for Custom Campaign Refinement
+                        </div>
+                        <textarea
+                          placeholder="Enter instructions to regenerate image or copy (e.g., 'Make title urgent with 15% discount on Nike', 'Use outdoor trail background', 'Make SMS shorter in Hinglish')..."
+                          value={aiPromptText}
+                          onChange={e => setAiPromptText(e.target.value)}
+                          style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', resize: 'vertical', minHeight: '65px', marginBottom: '0.75rem', outline: 'none', background: 'white', color: '#0f172a' }}
+                        />
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                          <button onClick={() => setAiRegenId(null)} style={{ background: 'white', border: '1px solid #cbd5e1', padding: '0.45rem 1rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '600', cursor: 'pointer' }}>Cancel</button>
+                          <button onClick={() => handleAiRegenerate(campaign.id, aiPromptText)} disabled={isAiLoading[campaign.id]} style={{ background: '#7c3aed', color: 'white', border: 'none', padding: '0.45rem 1.25rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', boxShadow: '0 2px 8px rgba(124, 58, 237, 0.3)' }}>
+                            {isAiLoading[campaign.id] ? <><Loader2 size={14} className="animate-spin" /> Generating AI Refinement...</> : <><Sparkles size={14} /> Generate AI Refinement</>}
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Brand Policy Guardrail Warning Badges */}
                     {campaign.guardrailWarnings && campaign.guardrailWarnings.length > 0 && (
@@ -504,8 +675,9 @@ export default function LiveFeed() {
                         <Link 
                           to="/" 
                           target="_blank"
+                          onClick={(e) => handlePreviewClick(e, campaign)}
                           style={{ 
-                            background: '#38bdf8', 
+                            background: campaign.isApproved ? '#38bdf8' : '#94a3b8', 
                             color: '#0f172a', 
                             fontWeight: '800', 
                             fontSize: '0.8rem', 
@@ -515,7 +687,8 @@ export default function LiveFeed() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.35rem',
-                            boxShadow: '0 2px 8px rgba(56, 189, 248, 0.4)'
+                            boxShadow: campaign.isApproved ? '0 2px 8px rgba(56, 189, 248, 0.4)' : 'none',
+                            cursor: campaign.isApproved ? 'pointer' : 'not-allowed'
                           }}
                         >
                           Preview Live Ad <ExternalLink size={13} />
@@ -614,6 +787,14 @@ export default function LiveFeed() {
 
         </div>
       </div>
+
+      {/* Approval Warning Toast Notification */}
+      {toastWarning && (
+        <div className="animate-fade-in" style={{ position: 'fixed', bottom: '2rem', right: '2rem', background: '#0f172a', color: 'white', padding: '1rem 1.5rem', borderRadius: '16px', border: '1.5px solid #f59e0b', boxShadow: '0 20px 40px rgba(0,0,0,0.35)', zIndex: 10000, maxWidth: '450px', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <AlertTriangle size={24} style={{ color: '#f59e0b', flexShrink: 0 }} />
+          <div style={{ fontSize: '0.88rem', lineHeight: '1.4' }}>{toastWarning}</div>
+        </div>
+      )}
     </div>
   );
 }

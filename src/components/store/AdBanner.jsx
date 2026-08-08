@@ -14,18 +14,19 @@ export default function AdBanner({ activeCustomer }) {
   const primarySegment = customerSegments[0];
   const secondarySegment = customerSegments[1] || 'Gym Freak';
 
-  // Find matching campaign prioritizing customer's primary segment first
+  // Find matching campaign prioritizing customer's primary segment first among APPROVED campaigns
   let matchedCampaign = null;
+  const approvedCampaigns = (campaigns || []).filter(c => c.isApproved === true);
   
-  if (hasHistoryConsent && campaigns && campaigns.length > 0) {
+  if (hasHistoryConsent && approvedCampaigns.length > 0) {
     for (const seg of customerSegments) {
-      const found = campaigns.find(c => c.target === seg);
+      const found = approvedCampaigns.find(c => c.target === seg);
       if (found) {
         matchedCampaign = found;
         break;
       }
     }
-    if (!matchedCampaign) matchedCampaign = campaigns[0];
+    if (!matchedCampaign) matchedCampaign = approvedCampaigns[0];
   }
 
   // Fallback banner if privacy consent is turned off
