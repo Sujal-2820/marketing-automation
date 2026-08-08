@@ -10,6 +10,12 @@ import LiveFeed from './pages/dashboard/LiveFeed';
 import Analytics from './pages/dashboard/Analytics';
 import { AppProvider } from './context/AppContext';
 
+// Protected Route Component (Redirects to /login if unauthorized)
+function ProtectedRoute({ children }) {
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+}
+
 export default function App() {
   return (
     <AppProvider>
@@ -21,9 +27,23 @@ export default function App() {
             
             {/* Retailer Flow */}
             <Route path="/login" element={<Login />} />
-            <Route path="/onboarding" element={<Onboarding />} />
+            <Route 
+              path="/onboarding" 
+              element={
+                <ProtectedRoute>
+                  <Onboarding />
+                </ProtectedRoute>
+              } 
+            />
             
-            <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate to="command-center" replace />} />
               <Route path="command-center" element={<CommandCenter />} />
               <Route path="consent-manager" element={<ConsentManager />} />

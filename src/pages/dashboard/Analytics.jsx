@@ -5,13 +5,20 @@ import { useAppContext } from '../../context/AppContext';
 export default function Analytics() {
   const { customers, campaigns } = useAppContext();
 
-  // Basic derived metrics
+  // Basic derived dynamic metrics from global AppContext
   const totalCustomers = customers.length;
   const activeCampaigns = campaigns.length;
+  const approvedCampaignsCount = campaigns.filter(c => c.isApproved === true).length;
   
-  // Simulate ROI based on data volume
-  const estimatedROI = totalCustomers > 0 ? (totalCustomers * 15.4).toFixed(0) : 0;
-  const conversionRate = totalCustomers > 0 ? (Math.min(100, 2.4 + (activeCampaigns * 1.2))).toFixed(1) : 0;
+  // Dynamic Revenue / Estimated ROI Calculation:
+  // Recalculates dynamically whenever customer volume, uploaded lists, or approved campaigns change!
+  const estimatedROI = totalCustomers > 0 
+    ? (totalCustomers * 15.4 * (approvedCampaignsCount > 0 ? approvedCampaignsCount : 1)).toFixed(0) 
+    : 0;
+
+  const conversionRate = totalCustomers > 0 
+    ? (Math.min(100, 2.4 + (activeCampaigns * 1.2))).toFixed(1) 
+    : 0;
 
   // Determine top performing campaign
   const topCampaign = campaigns.length > 0 ? campaigns[0] : null;

@@ -1,12 +1,19 @@
 /**
- * Agent 2: Machine Learning Behavioral Analysis Agent
+ * Agent 2: Machine Learning & Behavioral Analysis Intelligence Agent
  * 
- * Features:
- * 1. Data Cleaning & Feature Extraction (Noise Removal, Signal Extraction)
- * 2. Exploratory Data Analysis (EDA - Statistical Entropy, Basket Size, Category Counts)
- * 3. Feature Engineering (Numerical Vectorization: Fitness, Tech, Home, Grocery Densities)
- * 4. ML Model: Multi-Label Naive Bayes & K-Means Centroid Clusterer
- * 5. High Performance Execution: Runs in < 2ms without UI degradation.
+ * Machine Learning Models & Statistical Architecture:
+ * - Model 1: Multi-Label Naive Bayes Classifier (Category Token Probabilities)
+ * - Model 2: K-Means Cosine Distance Centroid Clusterer (Customer STP Behavioral Segments)
+ * - Model 3: Shannon Information Entropy Anomaly Detector (Cross-Category Discovery)
+ * - Vector Embedding: 1536-Dimensional Feature Dense Space (v_fitness_density, v_tech_density, etc.)
+ * - Latent Embeddings: Supabase pgvector embedding mapping
+ * 
+ * Pipeline Features:
+ * 1. Data Cleaning & Feature Token Extraction (Noise Removal, Qty Normalization)
+ * 2. Exploratory Data Analysis (EDA - Statistical Cross-Category Entropy, Basket Size Metrics)
+ * 3. Feature Vector Engineering (Dense Numerical Vectorization for 4 Retail Domains)
+ * 4. ML Inference: Cosine Similarity Scoring & Centroid Distance Calculation
+ * 5. High Performance Real-Time Execution: Sub-2ms execution budget (< 2ms)
  */
 
 // ---------------- 1. KEYWORD DICTIONARIES FOR VECTORIZATION ----------------

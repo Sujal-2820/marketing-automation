@@ -15,25 +15,75 @@ export default function Login() {
     setLoading(true);
     setError('');
 
-    // Try Supabase auth first
-    const { data, error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    // 1. Basic Format Validation
+    if (!email || !email.includes('@')) {
+      setError('❌ Please enter a valid retailer email address (e.g. retailer@apex.com).');
+      setLoading(false);
+      return;
+    }
 
-    if (authError) {
-      console.warn("Supabase auth bypass for demo mode:", authError.message);
-      // Fallback for Demo Mode
+    if (!password || password.length < 6) {
+      setError('❌ Invalid Credentials: Password must be at least 6 characters.');
+      setLoading(false);
+      return;
+    }
+
+    // 2. Try Live Supabase Authentication
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (!authError && data?.session) {
+        // Authenticated with live Supabase credentials!
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('retailerUser', JSON.stringify({ email }));
+        setLoading(false);
+        navigate('/onboarding');
+        return;
+      }
+    } catch (e) {
+      // Supabase network error handling
+    }
+
+    // 3. Demo Retailer Credentials Validation Matrix
+    // Known valid retailer credentials or valid domain email + password combination
+    const validDemoEmails = [
+      'retailer@apex.com', 
+      'admin@retailer.com', 
+      'demo@store.com', 
+      'retailer@nexus.vault', 
+      'apex@sports.com',
+      'store@admin.com'
+    ];
+
+    const isRecognizedEmail = validDemoEmails.includes(email.toLowerCase().trim()) || 
+                              email.toLowerCase().endsWith('.com') || 
+                              email.toLowerCase().endsWith('.store') ||
+                              email.toLowerCase().endsWith('.vault');
+
+    const isValidPassword = password === 'admin123' || password === 'retailer123' || password === 'pass123' || password === 'demo1234' || password === 'password123';
+
+    if (isRecognizedEmail && isValidPassword) {
+      // Access Granted
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('retailerUser', JSON.stringify({ email: email.trim() }));
       setLoading(false);
       navigate('/onboarding');
     } else {
-      // Successfully authenticated against live Supabase!
+      // Access Denied: Block navigation & display warning
       setLoading(false);
-      navigate('/onboarding');
+      setError('❌ Access Denied: Incorrect email or password. Please verify your retailer credentials.');
     }
   };
 
   const handleQuickDemoLogin = () => {
+    setEmail('retailer@apex.com');
+    setPassword('admin123');
+    localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('retailerUser', JSON.stringify({ email: 'retailer@apex.com' }));
+    setError('');
     navigate('/onboarding');
   };
 
