@@ -2,10 +2,16 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict
 
-from ml_engine import MLEngine
-from llm_service import DeepSeekLLMService
-from embedding_service import EmbeddingService
-from guardrails import GuardrailEngine
+try:
+    from backend.ml_engine import MLEngine
+    from backend.llm_service import DeepSeekLLMService
+    from backend.embedding_service import EmbeddingService
+    from backend.guardrails import GuardrailEngine
+except ImportError:
+    from ml_engine import MLEngine
+    from llm_service import DeepSeekLLMService
+    from embedding_service import EmbeddingService
+    from guardrails import GuardrailEngine
 
 app = FastAPI(title="Marketing Automation Backend API")
 
