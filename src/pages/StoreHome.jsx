@@ -49,6 +49,9 @@ export default function StoreHome() {
 
   // Purchase Toast handler
   const handlePurchaseSuccess = (product, mutated, newSegment) => {
+    if (mutated) {
+      setShowSmsToast(true);
+    }
     setPurchaseToast({
       title: `Purchase Recorded: ${product.name}`,
       message: mutated ? `Behavioral profile updated to [${newSegment}] → Re-ranking live ads...` : `Added to order history. Re-ranking recommendations...`
@@ -59,26 +62,40 @@ export default function StoreHome() {
     }, 4500);
   };
 
-  // Matched Campaign for SMS Simulator & Top Toast
-  const matchedCampaign = (campaigns && campaigns.length > 0) ?
-    (campaigns.find(c => currentCustomer.segments?.includes(c.target)) || campaigns[0]) :
-    {
+  // Matched Campaign for SMS Simulator & Top Toast (Prioritizing primary segment first)
+  const custSegs = currentCustomer.segments || ['Gym Freak'];
+  let matchedCampaign = null;
+  if (campaigns && campaigns.length > 0) {
+    for (const seg of custSegs) {
+      const found = campaigns.find(c => c.target === seg);
+      if (found) {
+        matchedCampaign = found;
+        break;
+      }
+    }
+    if (!matchedCampaign) matchedCampaign = campaigns[0];
+  } else {
+    matchedCampaign = {
       target: 'Gym Freak',
       smsCopy: 'Bhai gym apparel ka naya stock aagaya hai! Surprize flat 30% discount sirf aaj ke liye valid hai. Abhi claim karo: apexsports.store/gym'
     };
+  }
 
   // Subtle Cross-Category SMS Copy Adaptation
   let activeSmsCopy = matchedCampaign?.smsCopy;
-  if (currentCustomer.segments?.length > 1) {
-    const primary = currentCustomer.segments[0];
-    if (primary === 'Gamer' && currentCustomer.segments.includes('Gym Freak')) {
+  if (custSegs.length > 1) {
+    const primary = custSegs[0];
+    const secondary = custSegs[1];
+    if (primary === 'Gamer' && custSegs.includes('Gym Freak')) {
       activeSmsCopy = "Bhai long gaming stream aur workout dono sorted! ANC headphones & activewear pe flat 25% combo discount active hai: store.com/deal";
-    } else if (primary === 'Decor' && currentCustomer.segments.includes('Gym Freak')) {
+    } else if (primary === 'Decor' && custSegs.includes('Gym Freak')) {
       activeSmsCopy = "Heavy workout ke baad relaxing home vibes! Warm LED Nordic lamps now at 25% off for active members: homevibe.store/decor";
-    } else if (primary === 'Snack Lover' && currentCustomer.segments.includes('Gym Freak')) {
+    } else if (primary === 'Snack Lover' && custSegs.includes('Gym Freak')) {
       activeSmsCopy = "Gym protein & crunchy snacks bundle! 20g protein bars & organic almond milk ab combo price pe available hain: freshmart.store/deal";
-    } else if (primary === 'Gym Freak' && currentCustomer.segments.includes('Gamer')) {
+    } else if (primary === 'Gym Freak' && custSegs.includes('Gamer')) {
       activeSmsCopy = "Workout beats & extreme gaming! ANC noise-cancelling headphones & runners now on special bundle discount: apexsports.store/deal";
+    } else {
+      activeSmsCopy = `Special ${primary} & ${secondary} combo offer unlocked! Check out exclusive deals tailored for your updated buying pattern: store.com/deal`;
     }
   }
 

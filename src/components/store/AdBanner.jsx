@@ -14,11 +14,18 @@ export default function AdBanner({ activeCustomer }) {
   const primarySegment = customerSegments[0];
   const secondarySegment = customerSegments[1] || 'Gym Freak';
 
-  // Find matching campaign based on customer segments
+  // Find matching campaign prioritizing customer's primary segment first
   let matchedCampaign = null;
   
   if (hasHistoryConsent && campaigns && campaigns.length > 0) {
-    matchedCampaign = campaigns.find(c => customerSegments.includes(c.target)) || campaigns[0];
+    for (const seg of customerSegments) {
+      const found = campaigns.find(c => c.target === seg);
+      if (found) {
+        matchedCampaign = found;
+        break;
+      }
+    }
+    if (!matchedCampaign) matchedCampaign = campaigns[0];
   }
 
   // Fallback banner if privacy consent is turned off
@@ -82,10 +89,21 @@ export default function AdBanner({ activeCustomer }) {
       title = "Guilt-Free Healthy Munchies!";
       subtitle = "High protein crunchy snacks & Whey isolate for your workout energy.";
       imageUrl = "https://images.unsplash.com/photo-1622484210800-885100062b08?q=80&w=1200&auto=format&fit=crop";
+    } else if (primarySegment === 'Health Conscious' && customerSegments.includes('Gym Freak')) {
+      title = "Clean Energy & Organic Fuel";
+      subtitle = "Unsweetened plant milk & organic nutrition tailored for your daily fitness routine.";
+      imageUrl = "https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=1200&auto=format&fit=crop";
+    } else if (primarySegment === 'Plant Parent' && customerSegments.includes('Gym Freak')) {
+      title = "Green Space & Active Mind";
+      subtitle = "Air-purifying ceramic potted greens to refresh your recovery environment.";
+      imageUrl = "https://images.unsplash.com/photo-1416879598555-220f8bb10864?q=80&w=1200&auto=format&fit=crop";
     } else if (primarySegment === 'Gym Freak' && customerSegments.includes('Gamer')) {
       title = "Gym Freak & Gamer Combo!";
       subtitle = "ANC noise-cancelling audio & activewear engineered for peak focus.";
       imageUrl = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop";
+    } else {
+      title = `${primarySegment} & ${secondarySegment} Personalised Offer!`;
+      subtitle = `Special cross-category deals dynamically tailored for your updated purchase patterns.`;
     }
   }
 
