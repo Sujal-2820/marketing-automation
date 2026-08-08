@@ -13,7 +13,13 @@ except ImportError:
     from embedding_service import EmbeddingService
     from guardrails import GuardrailEngine
 
+from fastapi.responses import RedirectResponse
+
 app = FastAPI(title="Marketing Automation Backend API")
+
+@app.get("/")
+def root():
+    return RedirectResponse(url="/docs")
 
 ml = MLEngine()
 llm = DeepSeekLLMService()
