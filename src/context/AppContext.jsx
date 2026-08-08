@@ -133,7 +133,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Sync states to LocalStorage
+  // Sync states to LocalStorage & Supabase DB dynamically
   useEffect(() => {
     localStorage.setItem('role', role);
   }, [role]);
@@ -144,14 +144,41 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('customers', JSON.stringify(customers));
+    if (customers && customers.length > 0) {
+      try {
+        supabase.from('customers').upsert(customers, { onConflict: 'token_id' }).then(({ error }) => {
+          if (error) console.warn("Supabase customers sync notice:", error.message);
+        });
+      } catch (e) {
+        console.warn("Supabase customers sync exception:", e);
+      }
+    }
   }, [customers]);
 
   useEffect(() => {
     localStorage.setItem('productCatalog', JSON.stringify(productCatalog));
+    if (productCatalog && productCatalog.length > 0) {
+      try {
+        supabase.from('products').upsert(productCatalog, { onConflict: 'product_id' }).then(({ error }) => {
+          if (error) console.warn("Supabase products sync notice:", error.message);
+        });
+      } catch (e) {
+        console.warn("Supabase products sync exception:", e);
+      }
+    }
   }, [productCatalog]);
 
   useEffect(() => {
     localStorage.setItem('campaigns', JSON.stringify(campaigns));
+    if (campaigns && campaigns.length > 0) {
+      try {
+        supabase.from('campaigns').upsert(campaigns, { onConflict: 'id' }).then(({ error }) => {
+          if (error) console.warn("Supabase campaigns sync notice:", error.message);
+        });
+      } catch (e) {
+        console.warn("Supabase campaigns sync exception:", e);
+      }
+    }
   }, [campaigns]);
 
   const value = {
