@@ -5,52 +5,90 @@ import { ShoppingBag, Sparkles } from 'lucide-react';
 export default function ProductGrid({ activeCustomer, onPurchaseSuccess }) {
   const { updateCustomer } = useAppContext();
 
-  // Comprehensive catalog with categories mapped to behavioral segments
+  // Comprehensive catalog with categories mapped to behavioral segments and domains
   const catalog = [
-    // ---------------- PERSONALIZEABLE SEGMENT PRODUCTS (ROWS 1 - 3) ----------------
-    // Sports / Gym / Fitness Segment
-    { id: 'sp_101', name: 'Aero Glide Runners', category: 'Sports Wear', price: 4999, originalPrice: 6999, discount: '-28%', desc: 'Ultra-lightweight breathable mesh', segment: 'Gym Freak', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500&auto=format&fit=crop' },
-    { id: 'sp_102', name: 'Pure Isolate Pro', category: 'Fitness Nutrition', price: 2975, originalPrice: 3500, discount: '-15%', desc: '28g Pure Whey Protein / Serving', segment: 'Gym Freak', image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?q=80&w=500&auto=format&fit=crop' },
-    { id: 'sp_103', name: 'Zen Grip Mat', category: 'Yoga & Wellness', price: 1899, originalPrice: 2499, discount: '-24%', desc: 'Eco-friendly non-slip natural rubber', segment: 'Yoga Lover', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop' },
-    { id: 'sp_104', name: 'Summit Trekking Boots', category: 'Outdoor Gear', price: 5499, originalPrice: 7999, discount: '-31%', desc: 'Waterproof rugged trail grips', segment: 'Weekend Warrior', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500&auto=format&fit=crop' },
-    { id: 'sp_105', name: 'Pro Sprint Compression Set', category: 'Sports Wear', price: 2199, originalPrice: 2999, discount: '-26%', desc: 'Moisture-wicking athletic fit', segment: 'Marathon Runner', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=500&auto=format&fit=crop' },
-    { id: 'sp_106', name: 'HydraFlask 1L', category: 'Fitness Accessories', price: 999, originalPrice: 1299, discount: '-23%', desc: 'Insulated vacuum stainless steel', segment: 'Gym Freak', image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=500&auto=format&fit=crop' },
+    // Sports / Gym / Fitness Domain
+    { id: 'sp_101', name: 'Aero Glide Runners', category: 'Sports Wear', domain: 'sports', price: 4999, originalPrice: 6999, discount: '-28%', desc: 'Ultra-lightweight breathable mesh', segment: 'Gym Freak', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500&auto=format&fit=crop' },
+    { id: 'sp_102', name: 'Pure Isolate Pro', category: 'Fitness Nutrition', domain: 'sports', price: 2975, originalPrice: 3500, discount: '-15%', desc: '28g Pure Whey Protein / Serving', segment: 'Gym Freak', image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?q=80&w=500&auto=format&fit=crop' },
+    { id: 'sp_103', name: 'Zen Grip Mat', category: 'Yoga & Wellness', domain: 'sports', price: 1899, originalPrice: 2499, discount: '-24%', desc: 'Eco-friendly non-slip natural rubber', segment: 'Yoga Lover', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop' },
+    { id: 'sp_104', name: 'Summit Trekking Boots', category: 'Outdoor Gear', domain: 'sports', price: 5499, originalPrice: 7999, discount: '-31%', desc: 'Waterproof rugged trail grips', segment: 'Weekend Warrior', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500&auto=format&fit=crop' },
+    { id: 'sp_105', name: 'Pro Sprint Compression Set', category: 'Sports Wear', domain: 'sports', price: 2199, originalPrice: 2999, discount: '-26%', desc: 'Moisture-wicking athletic fit', segment: 'Marathon Runner', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=500&auto=format&fit=crop' },
+    { id: 'sp_106', name: 'HydraFlask 1L', category: 'Fitness Accessories', domain: 'sports', price: 999, originalPrice: 1299, discount: '-23%', desc: 'Insulated vacuum stainless steel', segment: 'Gym Freak', image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=500&auto=format&fit=crop' },
 
-    // Tech / Gaming Segment
-    { id: 'tc_201', name: 'RTX 4090 Gaming GPU', category: 'PC Hardware', price: 154999, originalPrice: 169999, discount: '-8%', desc: '24GB GDDR6X extreme performance', segment: 'Gamer', image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=500&auto=format&fit=crop' },
-    { id: 'tc_202', name: 'Sonic Pro ANC Headphones', category: 'Audio', price: 12999, originalPrice: 16999, discount: '-23%', desc: 'Active noise cancelling with 40h battery', segment: 'Audioophile', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop' },
-    { id: 'tc_203', name: 'Aura Ambient Smart Bulbs (Pack of 4)', category: 'Smart Home', price: 2499, originalPrice: 3499, discount: '-28%', desc: '16M RGB colors, Alexa & Google sync', segment: 'Smart Home', image: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=500&auto=format&fit=crop' },
-    { id: 'tc_204', name: 'Mechanix RGB Keyboard', category: 'Gaming Peripherals', price: 4999, originalPrice: 6999, discount: '-28%', desc: 'Tactile mechanical blue switches', segment: 'Gamer', image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=500&auto=format&fit=crop' },
+    // Tech / Gaming Domain
+    { id: 'tc_201', name: 'RTX 4090 Gaming GPU', category: 'PC Hardware', domain: 'tech', price: 154999, originalPrice: 169999, discount: '-8%', desc: '24GB GDDR6X extreme performance', segment: 'Gamer', image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=500&auto=format&fit=crop' },
+    { id: 'tc_202', name: 'Sonic Pro ANC Headphones', category: 'Audio', domain: 'tech', price: 12999, originalPrice: 16999, discount: '-23%', desc: 'Active noise cancelling with 40h battery', segment: 'Audioophile', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop' },
+    { id: 'tc_203', name: 'Aura Ambient Smart Bulbs (Pack of 4)', category: 'Smart Home', domain: 'tech', price: 2499, originalPrice: 3499, discount: '-28%', desc: '16M RGB colors, Alexa & Google sync', segment: 'Smart Home', image: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=500&auto=format&fit=crop' },
+    { id: 'tc_204', name: 'Mechanix RGB Keyboard', category: 'Gaming Peripherals', domain: 'tech', price: 4999, originalPrice: 6999, discount: '-28%', desc: 'Tactile mechanical blue switches', segment: 'Gamer', image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=500&auto=format&fit=crop' },
+    { id: 'tc_205', name: 'MagSafe Wireless Charging Pad', category: 'Tech Accessories', domain: 'tech', price: 2999, originalPrice: 3999, discount: '-25%', desc: 'Fast 15W magnetic wireless dock', segment: 'Apple Fanboy', image: 'https://images.unsplash.com/photo-1622445268121-ec11d3266331?q=80&w=500&auto=format&fit=crop' },
+    { id: 'tc_206', name: 'UltraWide 4K Gaming Monitor', category: 'Displays', domain: 'tech', price: 34999, originalPrice: 42999, discount: '-18%', desc: '144Hz 1ms Curved HDR display', segment: 'Gamer', image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=500&auto=format&fit=crop' },
 
-    // Grocery / Health Segment
-    { id: 'gr_301', name: 'Organic Almond Milk 1L (Pack of 3)', category: 'Health Grocery', price: 699, originalPrice: 899, discount: '-22%', desc: 'Unsweetened 100% plant based', segment: 'Health Conscious', image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=500&auto=format&fit=crop' },
-    { id: 'gr_302', name: 'Crunchy Protein Bar Assortment', category: 'Snacks', price: 849, originalPrice: 1099, discount: '-22%', desc: '20g protein per bar, zero added sugar', segment: 'Snack Lover', image: 'https://images.unsplash.com/photo-1622484210800-885100062b08?q=80&w=500&auto=format&fit=crop' },
+    // Grocery / Health Domain
+    { id: 'gr_301', name: 'Organic Almond Milk 1L (Pack of 3)', category: 'Health Grocery', domain: 'grocery', price: 699, originalPrice: 899, discount: '-22%', desc: 'Unsweetened 100% plant based', segment: 'Health Conscious', image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=500&auto=format&fit=crop' },
+    { id: 'gr_302', name: 'Crunchy Protein Bar Assortment', category: 'Snacks', domain: 'grocery', price: 849, originalPrice: 1099, discount: '-22%', desc: '20g protein per bar, zero added sugar', segment: 'Snack Lover', image: 'https://images.unsplash.com/photo-1622484210800-885100062b08?q=80&w=500&auto=format&fit=crop' },
+    { id: 'gr_303', name: 'Organic Rolled Oats & Quinoa 2kg', category: 'Health Grocery', domain: 'grocery', price: 549, originalPrice: 749, discount: '-26%', desc: 'High fiber whole grain breakfast', segment: 'Health Conscious', image: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?q=80&w=500&auto=format&fit=crop' },
+    { id: 'gr_304', name: 'Extra Virgin Cold Pressed Olive Oil 1L', category: 'Health Grocery', domain: 'grocery', price: 1299, originalPrice: 1699, discount: '-23%', desc: '100% Mediterranean organic olives', segment: 'Health Conscious', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=500&auto=format&fit=crop' },
+    { id: 'gr_305', name: 'Artisanal French Press Coffee Powder', category: 'Gourmet Beverage', domain: 'grocery', price: 499, originalPrice: 699, discount: '-28%', desc: '100% Arabica dark roast ground beans', segment: 'Bulk Buyer', image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=500&auto=format&fit=crop' },
+    { id: 'gr_306', name: 'Raw Honey & Iranian Pistachios Combo', category: 'Organic Snacks', domain: 'grocery', price: 999, originalPrice: 1399, discount: '-28%', desc: 'Pure wildflower honey & premium nuts', segment: 'Vegan', image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?q=80&w=500&auto=format&fit=crop' },
 
-    // Home / Decor Segment
-    { id: 'hm_401', name: 'Minimalist Nordic Desk Lamp', category: 'Home Decor', price: 1799, originalPrice: 2499, discount: '-28%', desc: 'Warm LED touch dimmable light', segment: 'Decor', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=500&auto=format&fit=crop' },
-    { id: 'hm_402', name: 'Monstera Deliciosa Plant + Ceramic Pot', category: 'Indoor Plants', price: 899, originalPrice: 1299, discount: '-30%', desc: 'Air purifying easy-care indoor green', segment: 'Plant Parent', image: 'https://images.unsplash.com/photo-1416879598555-220f8bb10864?q=80&w=500&auto=format&fit=crop' },
-
-    // ---------------- GENERAL / RANDOM DISCOVERY PRODUCTS (ROWS 4 - 6) ----------------
-    { id: 'gn_501', name: 'Classic Leather Minimalist Wallet', category: 'Accessories', price: 1299, originalPrice: 1799, discount: '-27%', desc: 'RFID blocking genuine leather', segment: 'General', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=500&auto=format&fit=crop' },
-    { id: 'gn_502', name: 'Atomic Habits (Hardcover)', category: 'Books', price: 499, originalPrice: 799, discount: '-37%', desc: 'Bestselling self-improvement guide', segment: 'General', image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=500&auto=format&fit=crop' },
-    { id: 'gn_503', name: 'Double Espresso French Press', category: 'Kitchenware', price: 1499, originalPrice: 1999, discount: '-25%', desc: 'Stainless steel mesh filter 800ml', segment: 'General', image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=500&auto=format&fit=crop' },
-    { id: 'gn_504', name: 'Urban Canvas Travel Backpack', category: 'Travel', price: 2999, originalPrice: 3999, discount: '-25%', desc: 'Water resistant laptop sleeve 30L', segment: 'General', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=500&auto=format&fit=crop' },
-    { id: 'gn_505', name: 'Ergonomic Memory Foam Pillow', category: 'Bedding', price: 1899, originalPrice: 2499, discount: '-24%', desc: 'Cervical spine support contour design', segment: 'General', image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?q=80&w=500&auto=format&fit=crop' },
-    { id: 'gn_506', name: 'Aroma Essential Oil Diffuser', category: 'Wellness', price: 1199, originalPrice: 1599, discount: '-25%', desc: '7 color mood light ultrasonic mist', segment: 'General', image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=500&auto=format&fit=crop' }
+    // Home / Decor Domain
+    { id: 'hm_401', name: 'Minimalist Nordic Desk Lamp', category: 'Home Decor', domain: 'home', price: 1799, originalPrice: 2499, discount: '-28%', desc: 'Warm LED touch dimmable light', segment: 'Decor', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=500&auto=format&fit=crop' },
+    { id: 'hm_402', name: 'Monstera Deliciosa Plant + Ceramic Pot', category: 'Indoor Plants', domain: 'home', price: 899, originalPrice: 1299, discount: '-30%', desc: 'Air purifying easy-care indoor green', segment: 'Plant Parent', image: 'https://images.unsplash.com/photo-1416879598555-220f8bb10864?q=80&w=500&auto=format&fit=crop' },
+    { id: 'hm_403', name: 'Non-Stick Granite Cookware Combo', category: 'Kitchenware', domain: 'home', price: 3499, originalPrice: 4999, discount: '-30%', desc: '3-piece non-stick induction cookware', segment: 'Kitchen Master', image: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=500&auto=format&fit=crop' },
+    { id: 'hm_404', name: 'Velvet Accent Living Room Chair', category: 'Furniture', domain: 'home', price: 8999, originalPrice: 12999, discount: '-30%', desc: 'Ergonomic plush velvet armchair', segment: 'New Homeowner', image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=500&auto=format&fit=crop' },
+    { id: 'hm_405', name: 'Aroma Essential Oil Diffuser', category: 'Wellness', domain: 'home', price: 1199, originalPrice: 1599, discount: '-25%', desc: '7 color mood light ultrasonic mist', segment: 'Decor', image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=500&auto=format&fit=crop' },
+    { id: 'hm_406', name: 'Ergonomic Memory Foam Contour Pillow', category: 'Bedding', domain: 'home', price: 1899, originalPrice: 2499, discount: '-24%', desc: 'Cervical spine support contour design', segment: 'New Homeowner', image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?q=80&w=500&auto=format&fit=crop' }
   ];
 
-  // Derive Customer Segments
+  // Infer Active Customer Domain & Segments
   const activeSegments = activeCustomer?.segments || ['Gym Freak'];
+  const customerToken = activeCustomer?.token_id || '';
+  const customerDomain = customerToken.split('_')[1] || 'gen';
 
-  // SORTING ALGORITHM:
-  // Rows 1 - 3: Targeted recommendations matching customer's active segments
-  // Rows 4 - 6: Random / Discovery products from general catalog
-  const personalizedProducts = catalog.filter(item => activeSegments.includes(item.segment));
-  const generalProducts = catalog.filter(item => !activeSegments.includes(item.segment));
+  // SMART BEHAVIORAL SCORING ALGORITHM
+  const scoredProducts = catalog.map(item => {
+    let score = 0;
+    
+    // 1. Direct behavioral segment match (Highest Priority)
+    if (activeSegments.includes(item.segment)) {
+      score += 100;
+    }
 
-  // If personalized list is small, backfill with top items
-  const behavioralRows = [...personalizedProducts, ...generalProducts.slice(0, Math.max(0, 6 - personalizedProducts.length))];
-  const discoveryRows = generalProducts.slice(Math.max(0, 6 - personalizedProducts.length));
+    // 2. Domain / Category Vertical Match
+    if (item.domain === customerDomain) {
+      score += 50;
+    }
+
+    // 3. Purchase History Keyword Match
+    const historyStr = (activeCustomer?.purchase_history || []).join(' ').toLowerCase();
+    if (historyStr) {
+      item.name.toLowerCase().split(' ').forEach(word => {
+        if (word.length > 3 && historyStr.includes(word)) score += 30;
+      });
+    }
+
+    // 4. Secondary Domain Affinity
+    if (customerDomain === 'grocery' && (item.domain === 'grocery' || item.category.toLowerCase().includes('health') || item.category.toLowerCase().includes('snack'))) {
+      score += 25;
+    } else if (customerDomain === 'sports' && (item.domain === 'sports' || item.category.toLowerCase().includes('sport') || item.category.toLowerCase().includes('fitness'))) {
+      score += 25;
+    } else if (customerDomain === 'tech' && (item.domain === 'tech' || item.category.toLowerCase().includes('audio') || item.category.toLowerCase().includes('hardware'))) {
+      score += 25;
+    } else if (customerDomain === 'home' && (item.domain === 'home' || item.category.toLowerCase().includes('decor') || item.category.toLowerCase().includes('kitchen'))) {
+      score += 25;
+    }
+
+    return { ...item, score };
+  });
+
+  // Sort products descending by relevance score
+  scoredProducts.sort((a, b) => b.score - a.score);
+
+  // Trending for You: Top 6 Highest-Scoring Relevant Products
+  const behavioralRows = scoredProducts.slice(0, 6);
+  
+  // Explore More Categories: Remaining catalog items
+  const discoveryRows = scoredProducts.slice(6, 12);
 
   const handleBuyItem = (product) => {
     // 1. Determine if this purchase represents a new behavioral segment

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit2, Check, Sparkles, Loader2, PlayCircle, Store, MessageSquare, Image as ImageIcon, Upload, AlignLeft, AlignCenter, AlignRight, KeyRound, ExternalLink, Info, X, ShieldAlert, CheckCircle2, RefreshCw, AlertTriangle, ThumbsUp } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { Link } from 'react-router-dom';
@@ -27,13 +27,20 @@ export default function LiveFeed() {
   // Approval Warning Toast State
   const [toastWarning, setToastWarning] = useState(null);
 
-  // AI Prompt Regeneration Drawer States
+  // AI Prompt Regeneration Drawer States (Per-Campaign Object Maps)
   const [aiRegenId, setAiRegenId] = useState(null);
-  const [aiPromptText, setAiPromptText] = useState('');
-  const [isAiLoading, setIsAiLoading] = useState({});
+  const [aiImagePrompts, setAiImagePrompts] = useState({}); // { [campaignId]: string }
+  const [aiCopyPrompts, setAiCopyPrompts] = useState({});   // { [campaignId]: string }
+  const [loadingState, setLoadingState] = useState({});     // { [campaignId]: 'image' | 'copy' | 'both' | null }
 
   // Store inference
   const storeType = customers.length > 0 ? customers[0].token_id.split('_')[1] : 'gen';
+
+  useEffect(() => {
+    if (!campaigns || campaigns.length === 0) {
+      generateCampaigns(contentLanguage);
+    }
+  }, []);
 
   const simulateGeneration = () => {
     setIsGenerating(true);
@@ -93,22 +100,22 @@ export default function LiveFeed() {
         { title: 'Music Ka Asli Maza', subtitle: 'Noise cancelling headphones for that perfect commute. Try it today.', cta: 'Hear The Magic', smsCopy: 'Daily commute ko concert banao! Active noise cancelling headphones with 40h battery now at special price: techzone.store/audio' }
       ],
       grocery: [
-        { title: 'Healthy Khao, Fit Raho', subtitle: 'Organic oats and almond milk combo on discount today.', cta: 'Add to Cart', smsCopy: 'Clean eating made affordable! Organic oats & unsweetened almond milk bundle on 20% off today. Grab health deal: freshmart.store/health' },
-        { title: 'Midnight Cravings?', subtitle: 'Munchies delivered in 10 minutes. Binge watching just got better.', cta: 'Order Snacks', smsCopy: 'Late night binge-watching sessions? Crunchiest protein & gourmet snacks delivered in 10 mins. Order now: freshmart.store/snacks' },
-        { title: 'Mahine Ka Ration, Sasta!', subtitle: 'Buy 5kg rice and get 1kg free. Offer valid till weekend.', cta: 'Stock Up', smsCopy: 'Ghar ka monthly grocery budget bachao! Buy 5kg premium Basmati, get 1kg free today. Order: freshmart.store/ration' },
-        { title: '100% Plant Based', subtitle: 'Delicious vegan alternatives that taste amazing. Try kar ke dekho.', cta: 'Go Vegan', smsCopy: 'Guilt-free plant-based goodness! Discover delicious dairy-free cheeses & vegan meats on sale: freshmart.store/vegan' }
+        { title: 'Healthy Khao, Fit Raho', subtitle: 'Organic oats aur almond milk combo pe 20% discount aaj hi.', cta: 'Add to Cart', smsCopy: 'Clean eating budget mein! Organic oats & almond milk bundle pe 20% discount aaj. Health deal grab karo: freshmart.store/health' },
+        { title: 'Midnight Cravings?', subtitle: 'Munchies delivered in 10 minutes. Binge watching just got better.', cta: 'Order Snacks', smsCopy: 'Late night binge-watching sessions? Protein & gourmet snacks 10 mins mein delivered. Order karo: freshmart.store/snacks' },
+        { title: 'Mahine Ka Ration, Sasta!', subtitle: 'Buy 5kg rice and get 1kg free. Offer valid till weekend.', cta: 'Stock Up', smsCopy: 'Ghar ka monthly grocery budget bachao! Buy 5kg Basmati, get 1kg free today. Order: freshmart.store/ration' },
+        { title: '100% Plant Based', subtitle: 'Delicious vegan alternatives jo taste karein amazing.', cta: 'Go Vegan', smsCopy: 'Guilt-free plant-based goodness! Dairy-free cheeses & vegan meats sale pe: freshmart.store/vegan' }
       ],
       home: [
-        { title: 'Ghar Naya, Furniture Naya', subtitle: 'Complete living room sets at wholesale prices. Sahi daam, badhiya kaam.', cta: 'View Sets', smsCopy: 'Naye ghar ko sajane ki taiyari? Premium solid wood living room sets at factory wholesale prices. Free assembly: homevibe.store/furniture' },
-        { title: 'Vibe Set Karo', subtitle: 'Aesthetic lamps and wall art to make your room pop.', cta: 'Shop Decor', smsCopy: 'Room ki aesthetic badal do! Touch dimmable Nordic lamps & wall art on flash sale today. Check collection: homevibe.store/decor' },
-        { title: 'Masterchef Bano', subtitle: 'Non-stick pan sets that make cooking a breeze. Clean up is easy too.', cta: 'Upgrade Kitchen', smsCopy: 'Cooking experience ko effortless banao! Non-stick granite cookware combo set on 30% discount: homevibe.store/kitchen' },
-        { title: 'Green Living, Yaar', subtitle: 'Indoor plants that are hard to kill. Perfect for your desk.', cta: 'Adopt a Plant', smsCopy: 'Ghar mein positive green vibes lao! Low-maintenance indoor plants with ceramic pots now on sale: homevibe.store/plants' }
+        { title: 'Naya Ghar, Naya Furniture', subtitle: 'Complete living room sets at wholesale prices. Sahi daam, badhiya kaam.', cta: 'View Sets', smsCopy: 'Naye ghar ko sajane ki taiyari? Solid wood living room sets factory wholesale prices pe. Free assembly: homevibe.store/furniture' },
+        { title: 'Vibe Set Karo', subtitle: 'Aesthetic lamps and wall art to make your room pop.', cta: 'Shop Decor', smsCopy: 'Room ki aesthetic badal do! Nordic lamps & wall art flash sale pe aaj: homevibe.store/decor' },
+        { title: 'Masterchef Bano', subtitle: 'Non-stick pan sets jo cooking ko easy banayein.', cta: 'Upgrade Kitchen', smsCopy: 'Cooking experience ko effortless banao! Non-stick granite cookware combo set 30% discount pe: homevibe.store/kitchen' },
+        { title: 'Green Living, Yaar', subtitle: 'Indoor plants jo desk pe lagein mast. Low maintenance!', cta: 'Adopt a Plant', smsCopy: 'Ghar mein positive green vibes lao! Low-maintenance indoor plants ceramic pots ke saath sale pe: homevibe.store/plants' }
       ],
       gen: [
-        { title: 'Trend Set Kar', subtitle: 'Latest ethnic and western wear. Diwali aane wali hai, ready raho!', cta: 'Shop Looks', smsCopy: 'Diwali festive looks are live! Designer ethnic kurtas and western dresses at flat 35% off. Elevate style: store.com/fashion' },
-        { title: 'Sasta Aur Tikau', subtitle: 'Under ₹499 store. Sab kuch budget mein, bina compromise ke.', cta: 'Shop Under 499', smsCopy: 'Super savings zone! Everything under ₹499 store open now. Premium quality on budget prices: store.com/499' },
-        { title: 'Gadgets Jo Deewane Bana De', subtitle: 'Latest smartwatches and TWS earbuds. Don\'t miss out.', cta: 'Explore Tech', smsCopy: 'Smart lifestyle upgrade! ANC wireless earbuds & AMOLED smartwatches at unbeatable prices: store.com/gadgets' },
-        { title: 'Padhai Chalu Rakh', subtitle: 'Bestselling fiction and self-help books at 40% off.', cta: 'Buy Books', smsCopy: 'Weekend reading sorted! Top self-help bestsellers & fiction paperbacks at 40% off today: store.com/books' }
+        { title: 'Trend Set Karo', subtitle: 'Latest ethnic aur western wear. Festive season ready raho!', cta: 'Shop Looks', smsCopy: 'Festive looks live hain! Designer ethnic kurtas aur western dresses flat 35% off pe: store.com/fashion' },
+        { title: 'Sasta Aur Tikau', subtitle: 'Under ₹499 store. Sab kuch budget mein, bina compromise ke.', cta: 'Shop Under 499', smsCopy: 'Super savings zone! Everything under ₹499 store open now. Premium quality budget prices pe: store.com/499' },
+        { title: 'Gadgets Jo Deewane Bana De', subtitle: 'Latest smartwatches and TWS earbuds. Don\'t miss out.', cta: 'Explore Tech', smsCopy: 'Smart lifestyle upgrade! ANC wireless earbuds & AMOLED smartwatches best prices pe: store.com/gadgets' },
+        { title: 'Padhai Chalu Rakh', subtitle: 'Bestselling fiction aur self-help books 40% off pe.', cta: 'Buy Books', smsCopy: 'Weekend reading sorted! Top bestsellers & fiction paperbacks 40% off pe aaj: store.com/books' }
       ]
     },
     english: {
@@ -157,30 +164,29 @@ export default function LiveFeed() {
         { title: 'संगीत का असली आनंद', subtitle: 'नॉइज़ कैंसलिंग हेडफ़ोन्स। 40 घंटे की बैटरी।', cta: 'सुनो जादू', smsCopy: 'ANC हेडफ़ोन्स विशेष कीमत पर: techzone.store/audio' }
       ],
       grocery: [
-        { title: 'स्वस्थ खाओ, फिट रहो', subtitle: 'ऑर्गेनिक ओट्स और बादाम दूध कॉम्बो पर छूट।', cta: 'कार्ट में डालें', smsCopy: 'ऑर्गेनिक ओट्स और बादाम दूध बंडल 20% छूट पर: freshmart.store/health' },
-        { title: 'रात की भूख?', subtitle: '10 मिनट में स्नैक्स डिलीवरी। बिंज वॉचिंग और मज़ेदार!', cta: 'स्नैक्स ऑर्डर करें', smsCopy: 'प्रोटीन स्नैक्स 10 मिनट में डिलीवरी: freshmart.store/snacks' },
-        { title: 'महीने का राशन, सस्ता!', subtitle: '5 किलो चावल खरीदो, 1 किलो मुफ़्त। वीकेंड तक ऑफर।', cta: 'स्टॉक करें', smsCopy: '5 किलो प्रीमियम बासमती पर 1 किलो मुफ़्त: freshmart.store/ration' },
-        { title: '100% प्लांट बेस्ड', subtitle: 'स्वादिष्ट शाकाहारी विकल्प। ज़रूर आज़माएं।', cta: 'वीगन ट्राई करें', smsCopy: 'डेयरी-फ्री चीज़ और वीगन मीट सेल पर: freshmart.store/vegan' }
+        { title: 'हेल्दी खाओ, फिट रहो', subtitle: 'ऑर्गेनिक ओट्स और बादाम दूध का कॉम्बो आज डिस्काउंट पर।', cta: 'कार्ट में जोड़ें', smsCopy: 'ऑर्गेनिक ओट्स और बादाम दूध का कॉम्बो 20% छूट पर: freshmart.store/health' },
+        { title: 'रात की भूख?', subtitle: 'स्नैक्स 10 मिनट में डिलीवर। बिंज वॉचिंग का मज़ा दोगुना।', cta: 'स्नैक्स ऑर्डर करें', smsCopy: 'प्रोटीन और गॉरमेट स्नैक्स 10 मिनट में डिलीवर: freshmart.store/snacks' },
+        { title: 'महीने का राशन, सबसे सस्ता!', subtitle: '5 किलो चावल खरीदें और 1 किलो मुफ्त पाएं।', cta: 'स्टॉक करें', smsCopy: '5 किलो बासमती खरीदें, 1 किलो मुफ़्त पाएं: freshmart.store/ration' },
+        { title: '100% प्लांट बेस्ड', subtitle: 'स्वादिष्ट वीगन विकल्प जो स्वाद में बेहतरीन हैं।', cta: 'वीगन बनें', smsCopy: 'डेयरी-फ्री चीज़ और वीगन मीट सेल पर: freshmart.store/vegan' }
       ],
       home: [
-        { title: 'नया घर, नया फ़र्नीचर', subtitle: 'लिविंग रूम सेट थोक दाम पर। बढ़िया काम, सही दाम।', cta: 'सेट देखें', smsCopy: 'प्रीमियम लिविंग रूम सेट फ़ैक्टरी कीमत पर, मुफ़्त असेंबली: homevibe.store/furniture' },
-        { title: 'माहौल बनाओ', subtitle: 'एस्थेटिक लैंप और वॉल आर्ट से कमरा सजाओ।', cta: 'डेकोर खरीदें', smsCopy: 'नॉर्डिक लैंप और वॉल आर्ट फ़्लैश सेल पर: homevibe.store/decor' },
-        { title: 'मास्टरशेफ़ बनो', subtitle: 'नॉन-स्टिक पैन सेट। खाना बनाना आसान, सफ़ाई और भी।', cta: 'किचन अपग्रेड', smsCopy: 'नॉन-स्टिक ग्रेनाइट कुकवेयर कॉम्बो 30% छूट पर: homevibe.store/kitchen' },
-        { title: 'हरी-भरी ज़िंदगी', subtitle: 'आसान देखभाल वाले इंडोर प्लांट्स। डेस्क के लिए परफ़ेक्ट।', cta: 'पौधा अपनाएं', smsCopy: 'इंडोर प्लांट्स सिरेमिक पॉट के साथ सेल पर: homevibe.store/plants' }
+        { title: 'नया घर, नया फर्नीचर', subtitle: 'होलसेल कीमतों पर पूरे लिविंग रूम सेट।', cta: 'सेट देखें', smsCopy: 'फैक्ट्री होलसेल रेट पर लिविंग रूम सेट, फ्री असेंबली: homevibe.store/furniture' },
+        { title: 'घर सजाओ', subtitle: 'आपके कमरे को खूबसूरत बनाने के लिए लैंप और वॉल आर्ट।', cta: 'डेकोर खरीदें', smsCopy: 'नॉर्डिक लैंप और वॉल आर्ट फ्लैश सेल पर: homevibe.store/decor' },
+        { title: 'मास्टरशेफ़ बनो', subtitle: 'नॉन-स्टिक पैन सेट जो खाना पकाना आसान बनाते हैं।', cta: 'किचन अपग्रेड', smsCopy: 'नॉन-स्टिक ग्रेनाइट कुकवेयर कॉम्बो 30% छूट पर: homevibe.store/kitchen' },
+        { title: 'हरियाली लाओ', subtitle: 'कम देखभाल वाले इंडोर पौधे जो आपके डेस्क के लिए सही हैं।', cta: 'पौधा लाएं', smsCopy: 'सिरेमिक पॉट के साथ इंडोर पौधे सेल पर: homevibe.store/plants' }
       ],
       gen: [
-        { title: 'ट्रेंड सेट करो', subtitle: 'एथनिक और वेस्टर्न वियर। दिवाली की तैयारी करो!', cta: 'लुक देखें', smsCopy: 'डिज़ाइनर एथनिक कुर्ते और ड्रेस 35% छूट पर: store.com/fashion' },
-        { title: 'सस्ता और टिकाऊ', subtitle: '₹499 से कम का स्टोर। बजट में सब कुछ।', cta: '₹499 में खरीदें', smsCopy: '₹499 से कम का स्टोर खुला है। प्रीमियम क्वालिटी: store.com/499' },
-        { title: 'गैजेट्स जो दीवाना बना दें', subtitle: 'स्मार्टवॉच और TWS इयरबड्स। बेहतरीन कीमत पर।', cta: 'टेक देखें', smsCopy: 'ANC इयरबड्स और AMOLED स्मार्टवॉच बेस्ट प्राइस पर: store.com/gadgets' },
-        { title: 'पढ़ाई जारी रखो', subtitle: 'बेस्टसेलिंग फ़िक्शन और सेल्फ-हेल्प किताबें 40% छूट पर।', cta: 'किताबें खरीदें', smsCopy: 'टॉप बेस्टसेलर किताबें 40% छूट पर: store.com/books' }
+        { title: 'ट्रेंड सेट करो', subtitle: 'नवीनतम एथनिक और वेस्टर्न वियर। दिवाली के लिए तैयार रहो!', cta: 'लुक देखें', smsCopy: 'डिजाइनर एथनिक कुर्ते और वेस्टर्न ड्रेसेस पर 35% छूट: store.com/fashion' },
+        { title: 'सब कुछ ₹499 के अंदर', subtitle: 'बजट में प्रीमियम क्वालिटी, बिना किसी समझौते के।', cta: '499 स्टोर देखें', smsCopy: 'सुपर सेविंग्स ज़ोन! ₹499 के अंदर सब कुछ उपलब्ध: store.com/499' },
+        { title: 'गैजेट्स जो पसंद आएं', subtitle: 'स्मार्टवॉच और ईयरबड्स बेहतरीन दामों पर।', cta: 'टेक देखें', smsCopy: 'ANC ईयरबड्स और AMOLED स्मार्टवॉच बेस्ट प्राइस पर: store.com/gadgets' },
+        { title: 'किताबें जो प्रेरित करें', subtitle: 'बेस्टसेलिंग किताबें 40% छूट पर।', cta: 'किताबें खरीदें', smsCopy: 'टॉप बेस्टसेलर्स आज 40% छूट पर: store.com/books' }
       ]
     }
   };
 
   const generateCampaigns = (lang = 'hinglish') => {
-    const langCopy = copyVariants[lang] || copyVariants.hinglish;
-    const storeCopy = langCopy[storeType] || langCopy.gen;
-    
+    const langVariants = copyVariants[lang] || copyVariants.hinglish;
+    const storeCopy = langVariants[storeType] || langVariants.gen;
     const targets = {
       sports: ['Gym Freak', 'Yoga Lover', 'Weekend Warrior', 'Marathon Runner'],
       tech: ['Gamer', 'Smart Home', 'Apple Fanboy', 'Audioophile'],
@@ -271,12 +277,10 @@ export default function LiveFeed() {
       isApproved: false
     }));
 
-    // Run Campaign Guardrail Validation Engine against Product Catalog
     const { validatedCampaigns } = validateCampaignsAgainstCatalog(newCampaigns, productCatalog);
 
     setCampaigns(validatedCampaigns);
     
-    // Initialize view modes to banner
     const views = {};
     newCampaigns.forEach(c => views[c.id] = 'banner');
     setViewMode(views);
@@ -291,54 +295,135 @@ export default function LiveFeed() {
       e.preventDefault();
       setToastWarning(`⚠️ Campaign for [${campaign.target}] is not approved yet! Click "Approve" to publish it before previewing on the Customer Dashboard.`);
       setTimeout(() => setToastWarning(null), 5000);
+      return;
     }
+
+    // Set active persona matching the target segment of this campaign so Customer Dashboard displays THIS exact campaign!
+    const guide = getDemoGuide(campaign.target);
+    const personaObj = {
+      name: guide.persona.split(' ')[0],
+      segmentLabel: campaign.target,
+      tokenId: guide.token,
+      storeName: 'APEX SPORTS'
+    };
+    localStorage.setItem('activePersona', JSON.stringify(personaObj));
   };
 
-  const handleAiRegenerate = (campaignId, promptText) => {
-    if (!promptText || !promptText.trim()) return;
+  // Safety & Modesty Guardrail Filter (Enforces store domain alignment & strict modesty/appropriateness)
+  const sanitizePromptForSafety = (rawPrompt, currentStoreType, targetSegment) => {
+    // Restricted terms regex (nudity, sexual, revealing, tight clothes, breasts, vulgarity, etc.)
+    const restrictedRegex = /\b(breast|breasts|nudity|nude|sexual|sex|erotic|cleavage|bikini|lingerie|revealing|body tight|tight clothes|tight outfit|tight wear|vulgar|vulgarity|explicit|nsfw|exposed body|underwear|bare skin|topless|bottomless|transparent)\b/gi;
+    
+    let wasFiltered = false;
+    if (restrictedRegex.test(rawPrompt)) {
+      wasFiltered = true;
+    }
 
-    setIsAiLoading(prev => ({ ...prev, [campaignId]: true }));
+    // Strip forbidden terms from user prompt
+    let cleanUserPrompt = rawPrompt.replace(restrictedRegex, '').replace(/\s+/g, ' ').trim();
+    cleanUserPrompt = cleanUserPrompt.replace(/^change (the )?image (to|with)?\s*/i, '').trim();
+
+    // Store Alignment Modifiers (Inline with store type)
+    const storeContextMap = {
+      sports: 'Modest commercial athletic product photoshoot, modest sportswear, athletic shoes, gym gear, fully covered modest sports apparel',
+      tech: 'Modern consumer electronics commercial product display photoshoot, gaming hardware, smart devices, clean office workspace',
+      grocery: 'Wholesome fresh organic groceries photoshoot, fresh fruits, vegetables, almond milk, clean food display',
+      home: 'Nordic home interior decor commercial photoshoot, aesthetic furniture, indoor green plants, ambient warm lighting',
+      gen: 'Clean modern retail commercial product advertisement photoshoot'
+    };
+
+    const storeContext = storeContextMap[currentStoreType] || storeContextMap.gen;
+
+    // Universal Safety & Modesty Mandates
+    const safetyDirectives = 'modest fully covered clothing, tasteful elegant attire, family friendly commercial retail ad, non-nsfw, high quality studio lighting, professional photoshoot';
+
+    const finalPrompt = `${storeContext}, ${targetSegment ? `${targetSegment} theme,` : ''} ${cleanUserPrompt || 'product showcase'}, ${safetyDirectives}`;
+
+    return { sanitizedPrompt: finalPrompt, wasFiltered };
+  };
+
+  // 1. Pure AI Image Regeneration Handler (With Mandatory Modesty & Safety Guardrails)
+  const handleRegenerateImage = (campaignId, explicitPrompt) => {
+    const promptText = explicitPrompt || aiImagePrompts[campaignId] || '';
+    if (!promptText.trim()) return;
+
+    const targetCampaign = campaigns.find(c => c.id === campaignId);
+    const targetSeg = targetCampaign ? targetCampaign.target : '';
+
+    setLoadingState(prev => ({ ...prev, [campaignId]: 'image' }));
 
     setTimeout(() => {
-      const lowerPrompt = promptText.toLowerCase();
-
-      // Dynamic image selection from keyword analysis
+      const trimmed = promptText.trim();
       let newImageUrl = null;
-      if (lowerPrompt.includes('mountain') || lowerPrompt.includes('nature') || lowerPrompt.includes('outdoor') || lowerPrompt.includes('trail')) {
-        newImageUrl = 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop';
-      } else if (lowerPrompt.includes('runner') || lowerPrompt.includes('shoes') || lowerPrompt.includes('nike') || lowerPrompt.includes('footwear')) {
-        newImageUrl = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop';
-      } else if (lowerPrompt.includes('gym') || lowerPrompt.includes('fitness') || lowerPrompt.includes('workout') || lowerPrompt.includes('body')) {
-        newImageUrl = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop';
-      } else if (lowerPrompt.includes('tech') || lowerPrompt.includes('laptop') || lowerPrompt.includes('gaming') || lowerPrompt.includes('gpu')) {
-        newImageUrl = 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop';
-      } else if (lowerPrompt.includes('food') || lowerPrompt.includes('organic') || lowerPrompt.includes('health') || lowerPrompt.includes('snack')) {
-        newImageUrl = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop';
-      } else if (lowerPrompt.includes('home') || lowerPrompt.includes('lamp') || lowerPrompt.includes('decor') || lowerPrompt.includes('room')) {
-        newImageUrl = 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=800&auto=format&fit=crop';
+
+      if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+        newImageUrl = trimmed;
+      } else {
+        const { sanitizedPrompt, wasFiltered } = sanitizePromptForSafety(trimmed, storeType, targetSeg);
+
+        if (wasFiltered) {
+          setToastWarning('🛡️ Safety Guardrail Active: Sanitized prompt to enforce modest, professional, family-friendly commercial advertisement standards.');
+          setTimeout(() => setToastWarning(null), 6000);
+        }
+
+        const seed = Math.floor(Math.random() * 90000) + 10000;
+        newImageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(sanitizedPrompt)}?width=1200&height=800&nologo=true&seed=${seed}`;
       }
+
+      setCampaigns(prev => prev.map(c => c.id === campaignId ? { ...c, imageUrl: newImageUrl, isApproved: false } : c));
+      setLoadingState(prev => ({ ...prev, [campaignId]: null }));
+    }, 1800);
+  };
+
+  // 2. Separate Copy & Content AI Regeneration Handler
+  const handleRegenerateCopy = (campaignId, explicitPrompt) => {
+    const promptText = explicitPrompt || aiCopyPrompts[campaignId] || '';
+    if (!promptText.trim()) return;
+
+    setLoadingState(prev => ({ ...prev, [campaignId]: 'copy' }));
+
+    setTimeout(() => {
+      const lowerPrompt = promptText.toLowerCase().trim();
 
       setCampaigns(prev => prev.map(c => {
         if (c.id === campaignId) {
           const pctMatch = promptText.match(/(\d+)%/);
-          const discountText = pctMatch ? `Flat ${pctMatch[1]}% OFF` : 'Special AI Offer';
+          const discountText = pctMatch ? `Flat ${pctMatch[1]}% OFF` : '';
 
           let updatedTitle = c.title;
           let updatedSubtitle = c.subtitle;
           let updatedSms = c.smsCopy;
 
-          if (lowerPrompt.includes('urgent') || lowerPrompt.includes('hurry') || lowerPrompt.includes('fast') || lowerPrompt.includes('limited')) {
-            updatedTitle = `🔥 HURRY! ${c.target} ${discountText}!`;
-            updatedSubtitle = `Limited stock remaining! ${promptText}`;
-            updatedSms = `🔥 URGENT DEAL: ${c.target} collection on ${discountText}! Claim before stock ends: store.link/deal`;
+          // Direct title or SMS directives
+          const titleMatch = promptText.match(/(?:title|headline|heading|title is|headline is)[:=]?\s*["']?([^"'\n\r]+)["']?/i);
+          const smsMatch = promptText.match(/(?:sms|text|message|sms is)[:=]?\s*["']?([^"'\n\r]+)["']?/i);
+
+          if (titleMatch && titleMatch[1]) {
+            updatedTitle = titleMatch[1].trim();
+            updatedSubtitle = discountText ? `${discountText} on active selection.` : `Curated special offer for ${c.target}.`;
+            updatedSms = smsMatch && smsMatch[1] ? smsMatch[1].trim() : `${updatedTitle}! Claim now: store.com/deal`;
+          } else if (lowerPrompt.includes('sherwani') || lowerPrompt.includes('saree') || lowerPrompt.includes('ethnic') || lowerPrompt.includes('lehenga') || lowerPrompt.includes('wedding') || lowerPrompt.includes('kurta')) {
+            updatedTitle = `✨ Royal Festive Ethnic Collection!`;
+            updatedSubtitle = `Handcrafted Sherwanis & Designer Sarees. ${discountText || 'Special pricing'} valid this week.`;
+            updatedSms = `✨ Royal Ethnic Sale! Premium Sherwanis & Silk Sarees at ${discountText || 'special prices'}. Elevate your festive look: store.link/ethnic`;
+          } else if (lowerPrompt.includes('urgent') || lowerPrompt.includes('hurry') || lowerPrompt.includes('fast') || lowerPrompt.includes('limited')) {
+            updatedTitle = `🔥 HURRY! ${c.target} ${discountText || 'Special Offer'}!`;
+            updatedSubtitle = `Limited stock remaining! Offer ending soon.`;
+            updatedSms = `🔥 URGENT OFFER: ${c.target} deal active! ${discountText || 'Special pricing'} on premium selection. Claim now: store.link/deal`;
           } else if (lowerPrompt.includes('festive') || lowerPrompt.includes('diwali') || lowerPrompt.includes('celebrate')) {
-            updatedTitle = `✨ Festive Dhamaka for ${c.target}!`;
-            updatedSubtitle = `Celebrate with premium choices. ${discountText} valid this week.`;
-            updatedSms = `✨ Festive Offer for ${c.target}! Claim ${discountText} on top collections: store.link/festive`;
+            updatedTitle = `✨ Festive Sale for ${c.target}!`;
+            updatedSubtitle = `Celebrate this season with curated recommendations. ${discountText || 'Special offer'} today.`;
+            updatedSms = `✨ Festive Dhamaka for ${c.target}! Claim ${discountText || 'exclusive discount'} on top collections: store.link/festive`;
+          } else if (lowerPrompt.includes('short') || lowerPrompt.includes('crisp')) {
+            updatedTitle = `${c.target}: ${discountText || 'Special Deal'}`;
+            updatedSubtitle = `Curated items on special pricing. Shop now!`;
+            updatedSms = `${c.target} Offer: ${discountText || 'Special pricing'}. Order now: store.com/deal`;
           } else {
-            updatedTitle = `${c.target}: ${discountText}`;
-            updatedSubtitle = `AI Refined: ${promptText}`;
-            updatedSms = `Special AI Custom Deal for ${c.target}! ${discountText} on active selection: store.com/custom`;
+            // General dynamic prompt parsing: Uses exact words provided by the retailer!
+            const cleanText = promptText.replace(/change (content|copy|text|headline) to|make|set/gi, '').trim();
+            updatedTitle = cleanText.length > 3 ? cleanText.charAt(0).toUpperCase() + cleanText.slice(1) : `${c.target} Special: ${discountText || 'Exclusive Offer'}`;
+            updatedSubtitle = discountText ? `${discountText} - valid for a limited time.` : `AI Refined for ${c.target}: "${promptText}"`;
+            updatedSms = smsMatch && smsMatch[1] ? smsMatch[1].trim() : `${updatedTitle}! Claim now: store.com/custom`;
           }
 
           const candidate = {
@@ -346,8 +431,7 @@ export default function LiveFeed() {
             title: updatedTitle,
             subtitle: updatedSubtitle,
             smsCopy: updatedSms,
-            imageUrl: newImageUrl || c.imageUrl,
-            isApproved: false // Requires re-approval after AI regeneration
+            isApproved: false
           };
 
           const { validatedCampaigns } = validateCampaignsAgainstCatalog([candidate], productCatalog);
@@ -356,10 +440,22 @@ export default function LiveFeed() {
         return c;
       }));
 
-      setIsAiLoading(prev => ({ ...prev, [campaignId]: false }));
-      setAiRegenId(null);
-      setAiPromptText('');
-    }, 1200);
+      setLoadingState(prev => ({ ...prev, [campaignId]: null }));
+    }, 1500);
+  };
+
+  // 3. Regenerate Both Handler
+  const handleRegenerateBoth = (campaignId) => {
+    setLoadingState(prev => ({ ...prev, [campaignId]: 'both' }));
+    setTimeout(() => {
+      if (aiImagePrompt && aiImagePrompt.trim()) {
+        handleRegenerateImage(campaignId);
+      }
+      if (aiCopyPrompt && aiCopyPrompt.trim()) {
+        handleRegenerateCopy(campaignId);
+      }
+      setLoadingState(prev => ({ ...prev, [campaignId]: null }));
+    }, 1600);
   };
 
   const startEditing = (campaign) => {
@@ -566,11 +662,12 @@ export default function LiveFeed() {
                           {campaign.isApproved ? <><Check size={14} /> Approved</> : <><ThumbsUp size={14} /> Approve</>}
                         </button>
 
-                        {/* Regenerate AI Button */}
+                        {/* Regenerate AI Studio Button */}
                         <button
                           onClick={() => {
                             setAiRegenId(aiRegenId === campaign.id ? null : campaign.id);
-                            setAiPromptText('');
+                            setAiImagePrompt('');
+                            setAiCopyPrompt('');
                           }}
                           style={{
                             background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
@@ -603,22 +700,69 @@ export default function LiveFeed() {
                       </div>
                     </div>
 
-                    {/* AI Prompt Regeneration Drawer Box */}
+                    {/* AI Prompt Regeneration Drawer Box (Separated for Image & Copy) */}
                     {aiRegenId === campaign.id && (
                       <div className="animate-fade-in" style={{ background: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)', border: '1.5px solid #a78bfa', borderRadius: '14px', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 8px 20px rgba(139, 92, 246, 0.12)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6d28d9', fontWeight: '800', fontSize: '0.9rem', marginBottom: '0.75rem' }}>
-                          <Sparkles size={16} /> AI Prompt for Custom Campaign Refinement
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6d28d9', fontWeight: '800', fontSize: '0.95rem', marginBottom: '1rem' }}>
+                          <Sparkles size={18} /> AI Campaign Refinement Studio
                         </div>
-                        <textarea
-                          placeholder="Enter instructions to regenerate image or copy (e.g., 'Make title urgent with 15% discount on Nike', 'Use outdoor trail background', 'Make SMS shorter in Hinglish')..."
-                          value={aiPromptText}
-                          onChange={e => setAiPromptText(e.target.value)}
-                          style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', resize: 'vertical', minHeight: '65px', marginBottom: '0.75rem', outline: 'none', background: 'white', color: '#0f172a' }}
-                        />
-                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                          <button onClick={() => setAiRegenId(null)} style={{ background: 'white', border: '1px solid #cbd5e1', padding: '0.45rem 1rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '600', cursor: 'pointer' }}>Cancel</button>
-                          <button onClick={() => handleAiRegenerate(campaign.id, aiPromptText)} disabled={isAiLoading[campaign.id]} style={{ background: '#7c3aed', color: 'white', border: 'none', padding: '0.45rem 1.25rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', boxShadow: '0 2px 8px rgba(124, 58, 237, 0.3)' }}>
-                            {isAiLoading[campaign.id] ? <><Loader2 size={14} className="animate-spin" /> Generating AI Refinement...</> : <><Sparkles size={14} /> Generate AI Refinement</>}
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                          {/* 1. Image Prompt Box */}
+                          <div style={{ background: 'white', padding: '1rem', borderRadius: '10px', border: '1px solid #ddd6fe' }}>
+                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: '700', fontSize: '0.85rem', color: '#4c1d95', marginBottom: '0.5rem' }}>
+                              <ImageIcon size={15} /> 1. Image / Visual Prompt
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="e.g. 'Man wearing sherwani and woman wearing saree', 'Black leather jacket', 'Beach sunset' or Image URL..."
+                              value={aiImagePrompts[campaign.id] || ''}
+                              onChange={e => setAiImagePrompts({ ...aiImagePrompts, [campaign.id]: e.target.value })}
+                              style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.85rem', marginBottom: '0.6rem', outline: 'none' }}
+                            />
+                            <button
+                              onClick={() => handleRegenerateImage(campaign.id, aiImagePrompts[campaign.id])}
+                              disabled={loadingState[campaign.id] || !(aiImagePrompts[campaign.id] || '').trim()}
+                              style={{ width: '100%', background: '#6d28d9', color: 'white', border: 'none', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', opacity: !(aiImagePrompts[campaign.id] || '').trim() ? 0.6 : 1 }}
+                            >
+                              <ImageIcon size={14} /> Regenerate Image Only
+                            </button>
+                          </div>
+
+                          {/* 2. Copy & Content Prompt Box */}
+                          <div style={{ background: 'white', padding: '1rem', borderRadius: '10px', border: '1px solid #ddd6fe' }}>
+                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: '700', fontSize: '0.85rem', color: '#4c1d95', marginBottom: '0.5rem' }}>
+                              <MessageSquare size={15} /> 2. Content & Copy Prompt
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="e.g. 'Flat 20% discount on Nike', 'Make headline super urgent', 'Short Hinglish SMS'..."
+                              value={aiCopyPrompts[campaign.id] || ''}
+                              onChange={e => setAiCopyPrompts({ ...aiCopyPrompts, [campaign.id]: e.target.value })}
+                              style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.85rem', marginBottom: '0.6rem', outline: 'none' }}
+                            />
+                            <button
+                              onClick={() => handleRegenerateCopy(campaign.id, aiCopyPrompts[campaign.id])}
+                              disabled={loadingState[campaign.id] || !(aiCopyPrompts[campaign.id] || '').trim()}
+                              style={{ width: '100%', background: '#4f46e5', color: 'white', border: 'none', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', opacity: !(aiCopyPrompts[campaign.id] || '').trim() ? 0.6 : 1 }}
+                            >
+                              <MessageSquare size={14} /> Regenerate Copy Only
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Drawer Bottom Actions */}
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', alignItems: 'center' }}>
+                          <button onClick={() => setAiRegenId(null)} style={{ background: 'white', border: '1px solid #cbd5e1', padding: '0.45rem 1rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '600', cursor: 'pointer' }}>
+                            Close Studio
+                          </button>
+                          
+                          <button
+                            onClick={() => handleRegenerateBoth(campaign.id)}
+                            disabled={loadingState[campaign.id] || (!(aiImagePrompts[campaign.id] || '').trim() && !(aiCopyPrompts[campaign.id] || '').trim())}
+                            style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)', color: 'white', border: 'none', padding: '0.45rem 1.25rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', boxShadow: '0 2px 8px rgba(124, 58, 237, 0.3)', opacity: (!(aiImagePrompts[campaign.id] || '').trim() && !(aiCopyPrompts[campaign.id] || '').trim()) ? 0.6 : 1 }}
+                          >
+                            <Sparkles size={14} /> Regenerate Both (Image & Copy)
                           </button>
                         </div>
                       </div>
@@ -747,12 +891,38 @@ export default function LiveFeed() {
                             boxShadow: 'var(--card-shadow)',
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'center',
+                            justify: 'center',
                             alignItems: campaign.textPosition,
                             padding: '2rem'
                           }}>
                             {/* Dark Overlay for text readability */}
                             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1 }}></div>
+
+                            {/* AI Regenerate Loading Overlay */}
+                            {loadingState[campaign.id] && (
+                              <div className="animate-fade-in" style={{ 
+                                position: 'absolute', 
+                                top: 0, left: 0, right: 0, bottom: 0, 
+                                background: 'rgba(15, 23, 42, 0.88)', 
+                                backdropFilter: 'blur(8px)', 
+                                zIndex: 10, 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                color: 'white',
+                                gap: '0.75rem',
+                                padding: '1.5rem',
+                                textAlign: 'center'
+                              }}>
+                                <Loader2 className="animate-spin" size={40} style={{ color: '#a78bfa' }} />
+                                <span style={{ fontWeight: '800', fontSize: '1.05rem', color: '#f3e8ff', letterSpacing: '0.3px' }}>
+                                  {loadingState[campaign.id] === 'image' && '🎨 AI Generating & Rendering New Visual Background...'}
+                                  {loadingState[campaign.id] === 'copy' && '✍️ AI Refining Copy & Guardrail Validating Catalog...'}
+                                  {loadingState[campaign.id] === 'both' && '✨ AI Regenerating Visual Image & Copy Content...'}
+                                </span>
+                              </div>
+                            )}
                             
                             <div style={{ position: 'relative', zIndex: 2, textAlign: campaign.textPosition === 'center' ? 'center' : campaign.textPosition === 'flex-start' ? 'left' : 'right', maxWidth: '70%' }}>
                               <h4 style={{ fontSize: '2rem', marginBottom: '0.5rem', letterSpacing: '-0.5px', color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{campaign.title}</h4>
@@ -766,7 +936,13 @@ export default function LiveFeed() {
 
                         {/* View Mode: SMS */}
                         {viewMode[campaign.id] === 'sms' && (
-                          <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)' }}>
+                          <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)', position: 'relative', overflow: 'hidden', minHeight: '130px' }}>
+                            {loadingState[campaign.id] && (
+                              <div className="animate-fade-in" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.88)', backdropFilter: 'blur(6px)', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a78bfa', fontWeight: '700', gap: '0.75rem' }}>
+                                <Loader2 className="animate-spin" size={28} />
+                                <span>✍️ AI Crafting & Guardrail Validating SMS Copy...</span>
+                              </div>
+                            )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
                               <MessageSquare size={18} />
                               <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>SMS PREVIEW</span>

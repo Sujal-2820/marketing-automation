@@ -8,12 +8,24 @@ import { Shield, Bell, User, ChevronLeft, Send, Sparkles, AlertTriangle, Refresh
 export default function StoreHome() {
   const { customers, updateCustomer, campaigns, brandName } = useAppContext();
   
-  // Active Customer Session State
-  const [activePersona, setActivePersona] = useState({
-    name: 'Rahul',
-    segmentLabel: 'Gym Freak',
-    tokenId: 'usr_sports_042',
-    storeName: 'APEX SPORTS'
+  // Active Customer Session State (Persisted with localStorage for seamless Live Preview navigation)
+  const [activePersona, setActivePersona] = useState(() => {
+    try {
+      const stored = localStorage.getItem('activePersona');
+      return stored ? JSON.parse(stored) : {
+        name: 'Rahul',
+        segmentLabel: 'Gym Freak',
+        tokenId: 'usr_sports_042',
+        storeName: 'APEX SPORTS'
+      };
+    } catch {
+      return {
+        name: 'Rahul',
+        segmentLabel: 'Gym Freak',
+        tokenId: 'usr_sports_042',
+        storeName: 'APEX SPORTS'
+      };
+    }
   });
 
   const effectiveStoreName = brandName || activePersona.storeName || 'APEX SPORTS';
@@ -30,13 +42,22 @@ export default function StoreHome() {
   // Active Customer Object from global state
   const currentCustomer = customers.find(c => c.token_id === activePersona.tokenId) || {
     token_id: activePersona.tokenId,
-    segments: ['Gym Freak', 'Marathon Runner'],
-    purchase_history: ['1x Nike ZoomX'],
+    segments: [activePersona.segmentLabel || 'Gym Freak'],
+    purchase_history: ['1x Item'],
     consent_flags: { location: true, age: true, purchase_history: true }
   };
 
-  // Re-enable SMS Toast when persona switches
+  // Re-enable SMS Toast & sync activePersona from localStorage when persona switches
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem('activePersona');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed.tokenId !== activePersona.tokenId) {
+          setActivePersona(parsed);
+        }
+      }
+    } catch (e) {}
     setShowSmsToast(true);
   }, [activePersona.tokenId]);
 
