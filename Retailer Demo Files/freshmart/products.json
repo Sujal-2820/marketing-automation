@@ -1,0 +1,57 @@
+[
+  {
+    "product_id": "PRD_GROCERY_001",
+    "brand": "Organic India",
+    "name": "Organic Almond Milk 1L",
+    "category": "Dairy Alternatives",
+    "segment": "Health Conscious",
+    "mrp": 299,
+    "max_discount_pct": 10,
+    "stock_qty": 85,
+    "brand_policy": "Organic India max discount 10%."
+  },
+  {
+    "product_id": "PRD_GROCERY_002",
+    "brand": "Whole Truth",
+    "name": "Protein Bars Combo (Pack of 6)",
+    "category": "Snacks",
+    "segment": "Snack Lover",
+    "mrp": 650,
+    "max_discount_pct": 15,
+    "stock_qty": 50,
+    "brand_policy": "Standard 15% promotional cap."
+  },
+  {
+    "product_id": "PRD_GROCERY_003",
+    "brand": "Daawat",
+    "name": "Biryani Basmati Rice 5kg",
+    "category": "Staples",
+    "segment": "Bulk Buyer",
+    "mrp": 1250,
+    "max_discount_pct": 20,
+    "stock_qty": 0,
+    "brand_policy": "Out of stock - zero inventory."
+  },
+  {
+    "product_id": "PRD_GROCERY_004",
+    "brand": "Violife",
+    "name": "Vegan Cheese Slices",
+    "category": "Plant Based",
+    "segment": "Vegan",
+    "mrp": 499,
+    "max_discount_pct": 12,
+    "stock_qty": 30,
+    "brand_policy": "Violife 12% max promo allowed."
+  },
+  {
+    "product_id": "PRD_GROCERY_005",
+    "brand": "Happilo",
+    "name": "Premium Iranian Pistachios 500g",
+    "category": "Dry Fruits",
+    "segment": "Health Conscious",
+    "mrp": 899,
+    "max_discount_pct": 25,
+    "stock_qty": 60,
+    "brand_policy": "Happilo 25% max discount."
+  }
+]

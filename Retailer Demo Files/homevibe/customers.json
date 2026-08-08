@@ -1,0 +1,802 @@
+[
+  {
+    "token_id": "usr_home_042",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "1x IKEA STRANDMON Chair",
+      "2x Nordic Amber Floor Lamp"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_012",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "1x Wonderchef Cookware Set",
+      "2x Monstera Ceramic Pot"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_008",
+    "segments": [
+      "New Homeowner",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "1x D’Decor Cushion Covers",
+      "2x Memory Foam Pillow"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_021",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "1x Aromatic Soy Candle",
+      "2x Air Purifying Fern"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_005",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "3x Memory Foam Pillow",
+      "1x Wall Art Canvas"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_006",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "1x Aromatic Soy Candle",
+      "1x IKEA STRANDMON Chair"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_007",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "2x Air Purifying Fern",
+      "1x Nordic Amber Floor Lamp"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_008",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "3x Cast Iron Skillet",
+      "1x Wonderchef Cookware Set"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_009",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "1x Wall Art Canvas",
+      "1x Monstera Ceramic Pot"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_010",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "2x IKEA STRANDMON Chair",
+      "1x D’Decor Cushion Covers"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_011",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "3x Nordic Amber Floor Lamp",
+      "1x Memory Foam Pillow"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_012",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "1x Wonderchef Cookware Set",
+      "1x Aromatic Soy Candle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_013",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "2x Monstera Ceramic Pot",
+      "1x Air Purifying Fern"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_014",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "3x D’Decor Cushion Covers",
+      "1x Cast Iron Skillet"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_015",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "1x Memory Foam Pillow",
+      "1x Wall Art Canvas"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_016",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "2x Aromatic Soy Candle",
+      "1x IKEA STRANDMON Chair"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_017",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "3x Air Purifying Fern",
+      "1x Nordic Amber Floor Lamp"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_018",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "1x Cast Iron Skillet",
+      "1x Wonderchef Cookware Set"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_019",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "2x Wall Art Canvas",
+      "1x Monstera Ceramic Pot"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_020",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "3x IKEA STRANDMON Chair",
+      "1x D’Decor Cushion Covers"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_021",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "1x Nordic Amber Floor Lamp",
+      "1x Memory Foam Pillow"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_022",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "2x Wonderchef Cookware Set",
+      "1x Aromatic Soy Candle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_023",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "3x Monstera Ceramic Pot",
+      "1x Air Purifying Fern"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_024",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "1x D’Decor Cushion Covers",
+      "1x Cast Iron Skillet"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_025",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "2x Memory Foam Pillow",
+      "1x Wall Art Canvas"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_026",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "3x Aromatic Soy Candle",
+      "1x IKEA STRANDMON Chair"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_027",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "1x Air Purifying Fern",
+      "1x Nordic Amber Floor Lamp"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_028",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "2x Cast Iron Skillet",
+      "1x Wonderchef Cookware Set"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_029",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "3x Wall Art Canvas",
+      "1x Monstera Ceramic Pot"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_030",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "1x IKEA STRANDMON Chair",
+      "1x D’Decor Cushion Covers"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_031",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "2x Nordic Amber Floor Lamp",
+      "1x Memory Foam Pillow"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_032",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "3x Wonderchef Cookware Set",
+      "1x Aromatic Soy Candle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_033",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "1x Monstera Ceramic Pot",
+      "1x Air Purifying Fern"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_034",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "2x D’Decor Cushion Covers",
+      "1x Cast Iron Skillet"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_035",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "3x Memory Foam Pillow",
+      "1x Wall Art Canvas"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_036",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "1x Aromatic Soy Candle",
+      "1x IKEA STRANDMON Chair"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_037",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "2x Air Purifying Fern",
+      "1x Nordic Amber Floor Lamp"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_038",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "3x Cast Iron Skillet",
+      "1x Wonderchef Cookware Set"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_039",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "1x Wall Art Canvas",
+      "1x Monstera Ceramic Pot"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_040",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "2x IKEA STRANDMON Chair",
+      "1x D’Decor Cushion Covers"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_041",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "3x Nordic Amber Floor Lamp",
+      "1x Memory Foam Pillow"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_042",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "1x Wonderchef Cookware Set",
+      "1x Aromatic Soy Candle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_043",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "2x Monstera Ceramic Pot",
+      "1x Air Purifying Fern"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_044",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "3x D’Decor Cushion Covers",
+      "1x Cast Iron Skillet"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_045",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "1x Memory Foam Pillow",
+      "1x Wall Art Canvas"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_home_046",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "2x Aromatic Soy Candle",
+      "1x IKEA STRANDMON Chair"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_047",
+    "segments": [
+      "Plant Parent",
+      "New Homeowner"
+    ],
+    "purchase_history": [
+      "3x Air Purifying Fern",
+      "1x Nordic Amber Floor Lamp"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_048",
+    "segments": [
+      "New Homeowner",
+      "Decor"
+    ],
+    "purchase_history": [
+      "1x Cast Iron Skillet",
+      "1x Wonderchef Cookware Set"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_049",
+    "segments": [
+      "Decor",
+      "Kitchen Master"
+    ],
+    "purchase_history": [
+      "2x Wall Art Canvas",
+      "1x Monstera Ceramic Pot"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_home_050",
+    "segments": [
+      "Kitchen Master",
+      "Plant Parent"
+    ],
+    "purchase_history": [
+      "3x IKEA STRANDMON Chair",
+      "1x D’Decor Cushion Covers"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  }
+]

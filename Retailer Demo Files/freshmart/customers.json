@@ -1,0 +1,802 @@
+[
+  {
+    "token_id": "usr_grocery_042",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "1x Organic Almond Milk",
+      "2x Whole Truth Protein Bars"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_012",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "1x Daawat Basmati Rice 5kg",
+      "2x Violife Vegan Cheese"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_008",
+    "segments": [
+      "Health Conscious",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "1x Happilo Pistachios",
+      "2x Cold Pressed Olive Oil"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_021",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "1x Oat Milk 1L",
+      "2x Quinoa 1kg"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_005",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "3x Cold Pressed Olive Oil",
+      "1x Avocado Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_006",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "1x Oat Milk 1L",
+      "1x Organic Almond Milk"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_007",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "2x Quinoa 1kg",
+      "1x Whole Truth Protein Bars"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_008",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "3x Mixed Berry Granola",
+      "1x Daawat Basmati Rice 5kg"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_009",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "1x Avocado Oil",
+      "1x Violife Vegan Cheese"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_010",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "2x Organic Almond Milk",
+      "1x Happilo Pistachios"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_011",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "3x Whole Truth Protein Bars",
+      "1x Cold Pressed Olive Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_012",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "1x Daawat Basmati Rice 5kg",
+      "1x Oat Milk 1L"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_013",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "2x Violife Vegan Cheese",
+      "1x Quinoa 1kg"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_014",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "3x Happilo Pistachios",
+      "1x Mixed Berry Granola"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_015",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "1x Cold Pressed Olive Oil",
+      "1x Avocado Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_016",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "2x Oat Milk 1L",
+      "1x Organic Almond Milk"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_017",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "3x Quinoa 1kg",
+      "1x Whole Truth Protein Bars"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_018",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "1x Mixed Berry Granola",
+      "1x Daawat Basmati Rice 5kg"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_019",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "2x Avocado Oil",
+      "1x Violife Vegan Cheese"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_020",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "3x Organic Almond Milk",
+      "1x Happilo Pistachios"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_021",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "1x Whole Truth Protein Bars",
+      "1x Cold Pressed Olive Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_022",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "2x Daawat Basmati Rice 5kg",
+      "1x Oat Milk 1L"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_023",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "3x Violife Vegan Cheese",
+      "1x Quinoa 1kg"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_024",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "1x Happilo Pistachios",
+      "1x Mixed Berry Granola"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_025",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "2x Cold Pressed Olive Oil",
+      "1x Avocado Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_026",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "3x Oat Milk 1L",
+      "1x Organic Almond Milk"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_027",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "1x Quinoa 1kg",
+      "1x Whole Truth Protein Bars"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_028",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "2x Mixed Berry Granola",
+      "1x Daawat Basmati Rice 5kg"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_029",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "3x Avocado Oil",
+      "1x Violife Vegan Cheese"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_030",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "1x Organic Almond Milk",
+      "1x Happilo Pistachios"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_031",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "2x Whole Truth Protein Bars",
+      "1x Cold Pressed Olive Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_032",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "3x Daawat Basmati Rice 5kg",
+      "1x Oat Milk 1L"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_033",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "1x Violife Vegan Cheese",
+      "1x Quinoa 1kg"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_034",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "2x Happilo Pistachios",
+      "1x Mixed Berry Granola"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_035",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "3x Cold Pressed Olive Oil",
+      "1x Avocado Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_036",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "1x Oat Milk 1L",
+      "1x Organic Almond Milk"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_037",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "2x Quinoa 1kg",
+      "1x Whole Truth Protein Bars"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_038",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "3x Mixed Berry Granola",
+      "1x Daawat Basmati Rice 5kg"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_039",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "1x Avocado Oil",
+      "1x Violife Vegan Cheese"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_040",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "2x Organic Almond Milk",
+      "1x Happilo Pistachios"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_041",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "3x Whole Truth Protein Bars",
+      "1x Cold Pressed Olive Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_042",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "1x Daawat Basmati Rice 5kg",
+      "1x Oat Milk 1L"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_043",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "2x Violife Vegan Cheese",
+      "1x Quinoa 1kg"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_044",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "3x Happilo Pistachios",
+      "1x Mixed Berry Granola"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_045",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "1x Cold Pressed Olive Oil",
+      "1x Avocado Oil"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_grocery_046",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "2x Oat Milk 1L",
+      "1x Organic Almond Milk"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_047",
+    "segments": [
+      "Vegan",
+      "Health Conscious"
+    ],
+    "purchase_history": [
+      "3x Quinoa 1kg",
+      "1x Whole Truth Protein Bars"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_048",
+    "segments": [
+      "Health Conscious",
+      "Snack Lover"
+    ],
+    "purchase_history": [
+      "1x Mixed Berry Granola",
+      "1x Daawat Basmati Rice 5kg"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_049",
+    "segments": [
+      "Snack Lover",
+      "Bulk Buyer"
+    ],
+    "purchase_history": [
+      "2x Avocado Oil",
+      "1x Violife Vegan Cheese"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_grocery_050",
+    "segments": [
+      "Bulk Buyer",
+      "Vegan"
+    ],
+    "purchase_history": [
+      "3x Organic Almond Milk",
+      "1x Happilo Pistachios"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  }
+]

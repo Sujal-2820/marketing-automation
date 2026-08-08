@@ -1,0 +1,57 @@
+[
+  {
+    "product_id": "PRD_SPORTS_001",
+    "brand": "Nike",
+    "name": "Nike ZoomX Running Shoes",
+    "category": "Sports Wear",
+    "segment": "Gym Freak",
+    "mrp": 8999,
+    "max_discount_pct": 15,
+    "stock_qty": 42,
+    "brand_policy": "Nike limits reseller discounts to 15% max."
+  },
+  {
+    "product_id": "PRD_SPORTS_002",
+    "brand": "Under Armour",
+    "name": "UA Compression Top",
+    "category": "Sports Wear",
+    "segment": "Gym Freak",
+    "mrp": 3499,
+    "max_discount_pct": 20,
+    "stock_qty": 0,
+    "brand_policy": "Out of stock - zero inventory available."
+  },
+  {
+    "product_id": "PRD_SPORTS_003",
+    "brand": "Manduka",
+    "name": "Eco Grip Yoga Mat",
+    "category": "Yoga & Wellness",
+    "segment": "Yoga Lover",
+    "mrp": 2499,
+    "max_discount_pct": 10,
+    "stock_qty": 25,
+    "brand_policy": "Manduka MAP policy restricts discounts to 10%."
+  },
+  {
+    "product_id": "PRD_SPORTS_004",
+    "brand": "Salomon",
+    "name": "Quest Trail Boots",
+    "category": "Outdoor Gear",
+    "segment": "Weekend Warrior",
+    "mrp": 7999,
+    "max_discount_pct": 25,
+    "stock_qty": 18,
+    "brand_policy": "Standard 25% discount allowed."
+  },
+  {
+    "product_id": "PRD_SPORTS_005",
+    "brand": "Garmin",
+    "name": "Forerunner 255 GPS Watch",
+    "category": "Fitness Electronics",
+    "segment": "Marathon Runner",
+    "mrp": 32999,
+    "max_discount_pct": 12,
+    "stock_qty": 8,
+    "brand_policy": "Garmin strict 12% max promo limit."
+  }
+]

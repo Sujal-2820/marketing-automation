@@ -1,0 +1,802 @@
+[
+  {
+    "token_id": "usr_gen_042",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "1x FabIndia Silk Kurta",
+      "2x Boat Airdopes 141"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_012",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "1x Kindle Paperwhite",
+      "2x Atomic Habits Book"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_008",
+    "segments": [
+      "Fashionista",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "1x Bata Leather Shoes",
+      "2x Denim Jacket"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_021",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "1x Stainless Steel Bottle",
+      "2x Bluetooth Speaker"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_005",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "3x Denim Jacket",
+      "1x Notebook Journal"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_006",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "1x Stainless Steel Bottle",
+      "1x FabIndia Silk Kurta"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_007",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "2x Bluetooth Speaker",
+      "1x Boat Airdopes 141"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_008",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "3x Travel Backpack",
+      "1x Kindle Paperwhite"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_009",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "1x Notebook Journal",
+      "1x Atomic Habits Book"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_010",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "2x FabIndia Silk Kurta",
+      "1x Bata Leather Shoes"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_011",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "3x Boat Airdopes 141",
+      "1x Denim Jacket"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_012",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "1x Kindle Paperwhite",
+      "1x Stainless Steel Bottle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_013",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "2x Atomic Habits Book",
+      "1x Bluetooth Speaker"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_014",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "3x Bata Leather Shoes",
+      "1x Travel Backpack"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_015",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "1x Denim Jacket",
+      "1x Notebook Journal"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_016",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "2x Stainless Steel Bottle",
+      "1x FabIndia Silk Kurta"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_017",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "3x Bluetooth Speaker",
+      "1x Boat Airdopes 141"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_018",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "1x Travel Backpack",
+      "1x Kindle Paperwhite"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_019",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "2x Notebook Journal",
+      "1x Atomic Habits Book"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_020",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "3x FabIndia Silk Kurta",
+      "1x Bata Leather Shoes"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_021",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "1x Boat Airdopes 141",
+      "1x Denim Jacket"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_022",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "2x Kindle Paperwhite",
+      "1x Stainless Steel Bottle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_023",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "3x Atomic Habits Book",
+      "1x Bluetooth Speaker"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_024",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "1x Bata Leather Shoes",
+      "1x Travel Backpack"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_025",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "2x Denim Jacket",
+      "1x Notebook Journal"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_026",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "3x Stainless Steel Bottle",
+      "1x FabIndia Silk Kurta"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_027",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "1x Bluetooth Speaker",
+      "1x Boat Airdopes 141"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_028",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "2x Travel Backpack",
+      "1x Kindle Paperwhite"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_029",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "3x Notebook Journal",
+      "1x Atomic Habits Book"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_030",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "1x FabIndia Silk Kurta",
+      "1x Bata Leather Shoes"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_031",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "2x Boat Airdopes 141",
+      "1x Denim Jacket"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_032",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "3x Kindle Paperwhite",
+      "1x Stainless Steel Bottle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_033",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "1x Atomic Habits Book",
+      "1x Bluetooth Speaker"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_034",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "2x Bata Leather Shoes",
+      "1x Travel Backpack"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_035",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "3x Denim Jacket",
+      "1x Notebook Journal"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_036",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "1x Stainless Steel Bottle",
+      "1x FabIndia Silk Kurta"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_037",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "2x Bluetooth Speaker",
+      "1x Boat Airdopes 141"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_038",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "3x Travel Backpack",
+      "1x Kindle Paperwhite"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_039",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "1x Notebook Journal",
+      "1x Atomic Habits Book"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_040",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "2x FabIndia Silk Kurta",
+      "1x Bata Leather Shoes"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_041",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "3x Boat Airdopes 141",
+      "1x Denim Jacket"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_042",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "1x Kindle Paperwhite",
+      "1x Stainless Steel Bottle"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_043",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "2x Atomic Habits Book",
+      "1x Bluetooth Speaker"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_044",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "3x Bata Leather Shoes",
+      "1x Travel Backpack"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_045",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "1x Denim Jacket",
+      "1x Notebook Journal"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_gen_046",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "2x Stainless Steel Bottle",
+      "1x FabIndia Silk Kurta"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_047",
+    "segments": [
+      "Bookworm",
+      "Fashionista"
+    ],
+    "purchase_history": [
+      "3x Bluetooth Speaker",
+      "1x Boat Airdopes 141"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_048",
+    "segments": [
+      "Fashionista",
+      "Budget Shopper"
+    ],
+    "purchase_history": [
+      "1x Travel Backpack",
+      "1x Kindle Paperwhite"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_049",
+    "segments": [
+      "Budget Shopper",
+      "Tech Enthusiast"
+    ],
+    "purchase_history": [
+      "2x Notebook Journal",
+      "1x Atomic Habits Book"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_gen_050",
+    "segments": [
+      "Tech Enthusiast",
+      "Bookworm"
+    ],
+    "purchase_history": [
+      "3x FabIndia Silk Kurta",
+      "1x Bata Leather Shoes"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  }
+]

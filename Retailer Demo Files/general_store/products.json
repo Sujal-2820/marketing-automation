@@ -1,0 +1,57 @@
+[
+  {
+    "product_id": "PRD_GEN_001",
+    "brand": "FabIndia",
+    "name": "Chanderi Silk Kurta",
+    "category": "Fashion",
+    "segment": "Fashionista",
+    "mrp": 3490,
+    "max_discount_pct": 20,
+    "stock_qty": 15,
+    "brand_policy": "FabIndia 20% max discount."
+  },
+  {
+    "product_id": "PRD_GEN_002",
+    "brand": "Boat",
+    "name": "Airdopes 141 TWS",
+    "category": "Electronics",
+    "segment": "Budget Shopper",
+    "mrp": 1499,
+    "max_discount_pct": 35,
+    "stock_qty": 100,
+    "brand_policy": "Boat high volume 35% discount allowed."
+  },
+  {
+    "product_id": "PRD_GEN_003",
+    "brand": "Kindle",
+    "name": "Paperwhite 16GB",
+    "category": "Gadgets",
+    "segment": "Tech Enthusiast",
+    "mrp": 14999,
+    "max_discount_pct": 10,
+    "stock_qty": 0,
+    "brand_policy": "Out of stock."
+  },
+  {
+    "product_id": "PRD_GEN_004",
+    "brand": "Penguin",
+    "name": "Atomic Habits by James Clear",
+    "category": "Books",
+    "segment": "Bookworm",
+    "mrp": 799,
+    "max_discount_pct": 40,
+    "stock_qty": 75,
+    "brand_policy": "Penguin books up to 40% promo allowed."
+  },
+  {
+    "product_id": "PRD_GEN_005",
+    "brand": "Bata",
+    "name": "Formal Leather Shoes",
+    "category": "Footwear",
+    "segment": "Budget Shopper",
+    "mrp": 2499,
+    "max_discount_pct": 25,
+    "stock_qty": 30,
+    "brand_policy": "Bata 25% max discount."
+  }
+]

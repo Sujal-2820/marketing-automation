@@ -1,0 +1,57 @@
+[
+  {
+    "product_id": "PRD_HOME_001",
+    "brand": "IKEA",
+    "name": "STRANDMON Wing Chair",
+    "category": "Furniture",
+    "segment": "New Homeowner",
+    "mrp": 18990,
+    "max_discount_pct": 10,
+    "stock_qty": 12,
+    "brand_policy": "IKEA retail policy 10% maximum discount."
+  },
+  {
+    "product_id": "PRD_HOME_002",
+    "brand": "Nordic Light",
+    "name": "Minimalist Amber Floor Lamp",
+    "category": "Decor",
+    "segment": "Decor",
+    "mrp": 4500,
+    "max_discount_pct": 20,
+    "stock_qty": 28,
+    "brand_policy": "Decor promo cap 20%."
+  },
+  {
+    "product_id": "PRD_HOME_003",
+    "brand": "Wonderchef",
+    "name": "Granite Cookware Set 3Pc",
+    "category": "Kitchenware",
+    "segment": "Kitchen Master",
+    "mrp": 3999,
+    "max_discount_pct": 30,
+    "stock_qty": 0,
+    "brand_policy": "Out of stock."
+  },
+  {
+    "product_id": "PRD_HOME_004",
+    "brand": "Nursery Live",
+    "name": "Monstera Deliciosa with Ceramic Pot",
+    "category": "Indoor Plants",
+    "segment": "Plant Parent",
+    "mrp": 1299,
+    "max_discount_pct": 15,
+    "stock_qty": 40,
+    "brand_policy": "Live plant discount cap 15%."
+  },
+  {
+    "product_id": "PRD_HOME_005",
+    "brand": "D’Decor",
+    "name": "Velvet Cushion Covers (Set of 4)",
+    "category": "Soft Furnishings",
+    "segment": "Decor",
+    "mrp": 1999,
+    "max_discount_pct": 25,
+    "stock_qty": 35,
+    "brand_policy": "D’Decor 25% promo allowed."
+  }
+]

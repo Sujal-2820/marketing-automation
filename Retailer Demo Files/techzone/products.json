@@ -1,0 +1,57 @@
+[
+  {
+    "product_id": "PRD_TECH_001",
+    "brand": "NVIDIA",
+    "name": "RTX 4090 GPU",
+    "category": "Gaming Hardware",
+    "segment": "Gamer",
+    "mrp": 159999,
+    "max_discount_pct": 5,
+    "stock_qty": 4,
+    "brand_policy": "NVIDIA strict 5% MAP cap."
+  },
+  {
+    "product_id": "PRD_TECH_002",
+    "brand": "Razer",
+    "name": "Razer BlackWidow V4 Pro",
+    "category": "Peripherals",
+    "segment": "Gamer",
+    "mrp": 22999,
+    "max_discount_pct": 15,
+    "stock_qty": 0,
+    "brand_policy": "Out of stock."
+  },
+  {
+    "product_id": "PRD_TECH_003",
+    "brand": "Philips Hue",
+    "name": "Smart Starter Kit",
+    "category": "Smart Home",
+    "segment": "Smart Home",
+    "mrp": 14999,
+    "max_discount_pct": 20,
+    "stock_qty": 15,
+    "brand_policy": "Philips allows up to 20% bundle promo."
+  },
+  {
+    "product_id": "PRD_TECH_004",
+    "brand": "Apple",
+    "name": "MacBook Pro M3 Max",
+    "category": "Laptops",
+    "segment": "Apple Fanboy",
+    "mrp": 249900,
+    "max_discount_pct": 8,
+    "stock_qty": 10,
+    "brand_policy": "Apple Reseller MAP policy restricts discount to 8% max."
+  },
+  {
+    "product_id": "PRD_TECH_005",
+    "brand": "Sony",
+    "name": "WH-1000XM5 ANC Headphones",
+    "category": "Audio",
+    "segment": "Audioophile",
+    "mrp": 29990,
+    "max_discount_pct": 18,
+    "stock_qty": 22,
+    "brand_policy": "Sony authorized maximum discount is 18%."
+  }
+]

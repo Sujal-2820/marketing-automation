@@ -1,0 +1,802 @@
+[
+  {
+    "token_id": "usr_tech_042",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "1x RTX 4090 GPU",
+      "2x Razer Keyboard"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_012",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "1x Philips Hue Starter Kit",
+      "2x MacBook Pro M3"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_008",
+    "segments": [
+      "Gamer",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "1x Sony WH-1000XM5",
+      "2x Logitech MX Master 3S"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_021",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "1x 4K Gaming Monitor",
+      "2x Elgato Stream Deck"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_005",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "3x Logitech MX Master 3S",
+      "1x MagSafe Charger"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_006",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "1x 4K Gaming Monitor",
+      "1x RTX 4090 GPU"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_007",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "2x Elgato Stream Deck",
+      "1x Razer Keyboard"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_008",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "3x Smart Plug Duo",
+      "1x Philips Hue Starter Kit"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_009",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "1x MagSafe Charger",
+      "1x MacBook Pro M3"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_010",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "2x RTX 4090 GPU",
+      "1x Sony WH-1000XM5"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_011",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "3x Razer Keyboard",
+      "1x Logitech MX Master 3S"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_012",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "1x Philips Hue Starter Kit",
+      "1x 4K Gaming Monitor"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_013",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "2x MacBook Pro M3",
+      "1x Elgato Stream Deck"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_014",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "3x Sony WH-1000XM5",
+      "1x Smart Plug Duo"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_015",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "1x Logitech MX Master 3S",
+      "1x MagSafe Charger"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_016",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "2x 4K Gaming Monitor",
+      "1x RTX 4090 GPU"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_017",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "3x Elgato Stream Deck",
+      "1x Razer Keyboard"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_018",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "1x Smart Plug Duo",
+      "1x Philips Hue Starter Kit"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_019",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "2x MagSafe Charger",
+      "1x MacBook Pro M3"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_020",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "3x RTX 4090 GPU",
+      "1x Sony WH-1000XM5"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_021",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "1x Razer Keyboard",
+      "1x Logitech MX Master 3S"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_022",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "2x Philips Hue Starter Kit",
+      "1x 4K Gaming Monitor"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_023",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "3x MacBook Pro M3",
+      "1x Elgato Stream Deck"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_024",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "1x Sony WH-1000XM5",
+      "1x Smart Plug Duo"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_025",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "2x Logitech MX Master 3S",
+      "1x MagSafe Charger"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_026",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "3x 4K Gaming Monitor",
+      "1x RTX 4090 GPU"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_027",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "1x Elgato Stream Deck",
+      "1x Razer Keyboard"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_028",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "2x Smart Plug Duo",
+      "1x Philips Hue Starter Kit"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_029",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "3x MagSafe Charger",
+      "1x MacBook Pro M3"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_030",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "1x RTX 4090 GPU",
+      "1x Sony WH-1000XM5"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_031",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "2x Razer Keyboard",
+      "1x Logitech MX Master 3S"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_032",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "3x Philips Hue Starter Kit",
+      "1x 4K Gaming Monitor"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_033",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "1x MacBook Pro M3",
+      "1x Elgato Stream Deck"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_034",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "2x Sony WH-1000XM5",
+      "1x Smart Plug Duo"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_035",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "3x Logitech MX Master 3S",
+      "1x MagSafe Charger"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_036",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "1x 4K Gaming Monitor",
+      "1x RTX 4090 GPU"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_037",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "2x Elgato Stream Deck",
+      "1x Razer Keyboard"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_038",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "3x Smart Plug Duo",
+      "1x Philips Hue Starter Kit"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_039",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "1x MagSafe Charger",
+      "1x MacBook Pro M3"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_040",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "2x RTX 4090 GPU",
+      "1x Sony WH-1000XM5"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_041",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "3x Razer Keyboard",
+      "1x Logitech MX Master 3S"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_042",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "1x Philips Hue Starter Kit",
+      "1x 4K Gaming Monitor"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_043",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "2x MacBook Pro M3",
+      "1x Elgato Stream Deck"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_044",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "3x Sony WH-1000XM5",
+      "1x Smart Plug Duo"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_045",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "1x Logitech MX Master 3S",
+      "1x MagSafe Charger"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": false,
+      "purchase_history": false
+    }
+  },
+  {
+    "token_id": "usr_tech_046",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "2x 4K Gaming Monitor",
+      "1x RTX 4090 GPU"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_047",
+    "segments": [
+      "Audioophile",
+      "Gamer"
+    ],
+    "purchase_history": [
+      "3x Elgato Stream Deck",
+      "1x Razer Keyboard"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_048",
+    "segments": [
+      "Gamer",
+      "Smart Home"
+    ],
+    "purchase_history": [
+      "1x Smart Plug Duo",
+      "1x Philips Hue Starter Kit"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": false,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_049",
+    "segments": [
+      "Smart Home",
+      "Apple Fanboy"
+    ],
+    "purchase_history": [
+      "2x MagSafe Charger",
+      "1x MacBook Pro M3"
+    ],
+    "consent_flags": {
+      "location": false,
+      "age": true,
+      "purchase_history": true
+    }
+  },
+  {
+    "token_id": "usr_tech_050",
+    "segments": [
+      "Apple Fanboy",
+      "Audioophile"
+    ],
+    "purchase_history": [
+      "3x RTX 4090 GPU",
+      "1x Sony WH-1000XM5"
+    ],
+    "consent_flags": {
+      "location": true,
+      "age": true,
+      "purchase_history": false
+    }
+  }
+]
