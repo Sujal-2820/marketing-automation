@@ -90,7 +90,7 @@ export default function ProductGrid({ activeCustomer, onPurchaseSuccess }) {
             Trending for You
           </h3>
           <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.9rem' }}>
-            Personalized recommendations based on your buying behavior ({activeSegments.join(', ')}).
+            Picked for you based on your interests.
           </p>
         </div>
         <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--accent-primary)', cursor: 'pointer' }}>View All</span>
@@ -109,7 +109,7 @@ export default function ProductGrid({ activeCustomer, onPurchaseSuccess }) {
             Explore More Categories
           </h3>
           <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.85rem' }}>
-            Curated items across tech, apparel, and home essentials.
+            Discover something new across different categories.
           </p>
         </div>
       </div>

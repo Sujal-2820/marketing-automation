@@ -17,15 +17,15 @@ export default function CommandCenter() {
 
   return (
     <div>
-      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Command Center</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>Real-time system health and core metrics driven by your data.</p>
+      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Dashboard Overview</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>A quick look at how your store is performing right now.</p>
 
       {/* Metrics Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
         
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', color: 'var(--accent-primary)' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Active Campaigns</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Running Campaigns</span>
             <Megaphone size={20} />
           </div>
           <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{activeCampaignsCount}</div>
@@ -36,7 +36,7 @@ export default function CommandCenter() {
 
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', color: 'var(--accent-primary)' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Simulated Conversion</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Conversion Rate</span>
             <TrendingUp size={20} />
           </div>
           <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{conversionRate}%</div>
@@ -47,18 +47,18 @@ export default function CommandCenter() {
 
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', color: 'var(--accent-primary)' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Tracked Customers</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Your Customers</span>
             <Users size={20} />
           </div>
           <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{trackedCustomersCount.toLocaleString()}</div>
           <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', background: 'var(--bg-main)', padding: '0.25rem 0.5rem', borderRadius: '4px', fontWeight: '600' }}>
-            Live Supabase Sync
+            Synced & up to date
           </span>
         </div>
 
       </div>
 
-      <h3 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Activity size={20}/> Subsystem Status</h3>
+      <h3 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Activity size={20}/> System Health</h3>
       
       {/* Real Infrastructure Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
@@ -66,11 +66,11 @@ export default function CommandCenter() {
         {/* Pipeline */}
         <div className="glass-panel" style={{ padding: '0' }}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <strong style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Database size={18}/> Data Pipeline</strong>
+            <strong style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Database size={18}/> Data Sync</strong>
             <span style={{ color: 'var(--success)', fontSize: '0.85rem', fontWeight: '600', padding: '0.25rem 0.75rem', border: '1px solid var(--success)', borderRadius: '20px' }}>● Online</span>
           </div>
           <div style={{ padding: '1.5rem', background: 'rgba(79, 70, 229, 0.02)' }}>
-            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Current Operation:</p>
+            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Status:</p>
             <p style={{ margin: '0 0 1.5rem 0', fontWeight: '500' }}>
               {isDataLoaded ? `Indexing ${trackedCustomersCount} records` : 'Awaiting data upload'}
             </p>
@@ -87,11 +87,11 @@ export default function CommandCenter() {
         {/* Ad Server */}
         <div className="glass-panel" style={{ padding: '0' }}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <strong style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Server size={18}/> Campaign Server</strong>
+            <strong style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Server size={18}/> Ad Delivery</strong>
             <span style={{ color: 'var(--success)', fontSize: '0.85rem', fontWeight: '600', padding: '0.25rem 0.75rem', border: '1px solid var(--success)', borderRadius: '20px' }}>● Online</span>
           </div>
           <div style={{ padding: '1.5rem', background: 'rgba(79, 70, 229, 0.02)' }}>
-            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Current Operation:</p>
+            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Status:</p>
             <p style={{ margin: '0 0 1.5rem 0', fontWeight: '500' }}>
               {isCampaignsActive ? `Serving ${activeCampaignsCount} dynamic banners` : 'Idle'}
             </p>
@@ -108,12 +108,12 @@ export default function CommandCenter() {
         {/* Real-time sync */}
         <div className="glass-panel" style={{ padding: '0' }}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <strong style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Activity size={18}/> Webhooks</strong>
+            <strong style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Activity size={18}/> Live Sync</strong>
             <span style={{ color: 'var(--success)', fontSize: '0.85rem', fontWeight: '600', padding: '0.25rem 0.75rem', border: '1px solid var(--success)', borderRadius: '20px' }}>● Online</span>
           </div>
           <div style={{ padding: '1.5rem', background: 'rgba(79, 70, 229, 0.02)' }}>
-            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Current Operation:</p>
-            <p style={{ margin: '0 0 1.5rem 0', fontWeight: '500' }}>Monitoring consent changes</p>
+            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Status:</p>
+            <p style={{ margin: '0 0 1.5rem 0', fontWeight: '500' }}>Watching for consent updates</p>
             <div style={{ height: '6px', background: 'var(--border-color)', borderRadius: '3px', overflow: 'hidden' }}>
               <div style={{ width: '100%', height: '100%', background: 'var(--accent-vibrant)', animation: 'pulse 2s infinite' }}></div>
             </div>

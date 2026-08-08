@@ -42,6 +42,7 @@ export const AppProvider = ({ children }) => {
   ]);
   
   const [products, setProducts] = useState([]);
+  const [productCatalog, setProductCatalog] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -110,6 +111,7 @@ export const AppProvider = ({ children }) => {
     role, setRole,
     customers, setCustomers, updateCustomer,
     products, setProducts,
+    productCatalog, setProductCatalog,
     campaigns, setCampaigns,
     secureVault,
     loading

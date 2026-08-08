@@ -18,8 +18,8 @@ export default function Analytics() {
 
   return (
     <div>
-      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>ROI & Analytics</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>Simplified, text-guided performance insights for your store.</p>
+      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Performance & Insights</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>See how your campaigns are doing at a glance.</p>
       
       {/* 1. Textual Guided Insights Section */}
       <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(79, 70, 229, 0.15) 100%)', border: '1px solid rgba(79, 70, 229, 0.2)' }}>
@@ -28,14 +28,14 @@ export default function Analytics() {
             <Sparkles size={32} style={{ color: 'var(--accent-primary)' }} />
           </div>
           <div>
-            <h3 style={{ fontSize: '1.4rem', marginBottom: '0.75rem', color: '#1e1b4b' }}>Platform Insights</h3>
+            <h3 style={{ fontSize: '1.4rem', marginBottom: '0.75rem', color: '#1e1b4b' }}>What's Happening</h3>
             {totalCustomers === 0 ? (
               <p style={{ fontSize: '1.1rem', color: '#312e81', lineHeight: '1.6' }}>
-                Your store is currently quiet. To get started, head over to the <strong>Command Center</strong> to upload your customer data, or generate your first set of campaigns in the <strong>Live Feed</strong> to see insights populate here.
+                No data uploaded yet. Head to the <strong>Dashboard</strong> to upload your customer list, then visit <strong>Campaigns</strong> to create your first ads.
               </p>
             ) : campaigns.length === 0 ? (
               <p style={{ fontSize: '1.1rem', color: '#312e81', lineHeight: '1.6' }}>
-                You have successfully uploaded <strong>{totalCustomers} customers</strong>! The platform is ready to engage them. Head over to the <strong>Live Feed</strong> and click "Generate Campaigns" to start driving ROI.
+                You've added <strong>{totalCustomers} customers</strong>. Now go to <strong>Campaigns</strong> and click "Generate" to start reaching them with personalised ads.
               </p>
             ) : (
               <p style={{ fontSize: '1.1rem', color: '#312e81', lineHeight: '1.6' }}>
@@ -83,7 +83,7 @@ export default function Analytics() {
       {campaigns.length > 0 && (
         <>
           <h3 style={{ marginBottom: '1.5rem', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <MessageSquare size={20} /> Active Campaign Performance
+             <MessageSquare size={20} /> Campaign Results
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
             {campaigns.map((campaign, index) => {
@@ -96,7 +96,7 @@ export default function Analytics() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                     <div>
                       <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '1.1rem' }}>Target: {campaign.target}</h4>
-                      <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Banner & SMS Omni-channel</p>
+                      <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Banner + SMS</p>
                     </div>
                     {isGood ? (
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 'bold' }}>

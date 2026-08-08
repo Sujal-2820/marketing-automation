@@ -329,7 +329,7 @@ export default function StoreHome() {
           {/* Warning Message */}
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', background: 'rgba(239, 68, 68, 0.06)', border: '1px solid rgba(239, 68, 68, 0.15)', color: '#dc2626', padding: '0.75rem 1rem', borderRadius: '12px', fontSize: '0.85rem', marginBottom: '1.5rem', fontWeight: '500' }}>
             <AlertTriangle size={16} style={{ flexShrink: 0, marginTop: '2px' }} />
-            <span>Warning: Turning off Purchase History will immediately revert ads to generic fallbacks.</span>
+            <span>Turning off Shopping History will switch your ads to generic offers immediately.</span>
           </div>
 
           {/* Toggle Switches */}
@@ -339,13 +339,13 @@ export default function StoreHome() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>Purchase History & Behavior</strong>
+                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>Shopping History</strong>
                   <span style={{ fontSize: '0.72rem', background: isPurchaseHistoryAllowed ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)', color: isPurchaseHistoryAllowed ? '#047857' : '#dc2626', padding: '0.15rem 0.5rem', borderRadius: '10px', fontWeight: '700' }}>
                     {isPurchaseHistoryAllowed ? 'ALLOWED' : 'DENIED'}
                   </span>
                 </div>
                 <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem', display: 'block' }}>
-                  Used to recommend related products and targeted ad banners.
+                  Lets us recommend products and deals based on what you buy.
                 </span>
               </div>
 
@@ -391,7 +391,7 @@ export default function StoreHome() {
                   </span>
                 </div>
                 <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem', display: 'block' }}>
-                  For hyper-local store offers and express delivery estimates.
+                  Helps us show nearby store deals and delivery estimates.
                 </span>
               </div>
 
@@ -431,13 +431,13 @@ export default function StoreHome() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.25rem', background: '#f8fafc', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>Hinglish SMS Campaigns</strong>
+                  <strong style={{ fontSize: '0.98rem', color: '#0f172a' }}>SMS Notifications</strong>
                   <span style={{ fontSize: '0.72rem', background: isSmsAllowed ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)', color: isSmsAllowed ? '#047857' : '#dc2626', padding: '0.15rem 0.5rem', borderRadius: '10px', fontWeight: '700' }}>
                     {isSmsAllowed ? 'ALLOWED' : 'DENIED'}
                   </span>
                 </div>
                 <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem', display: 'block' }}>
-                  Receive localized, culturally relevant text alerts.
+                  Get personalised text messages about deals you'd like.
                 </span>
               </div>
 

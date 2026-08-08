@@ -38,13 +38,13 @@ export default function AdBanner({ activeCustomer }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.4)', color: '#fca5a5', padding: '0.35rem 1rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: '700', width: 'max-content', marginBottom: '1.25rem' }}>
-          <ShieldAlert size={14} /> Personalization Disabled (Privacy Consent OFF)
+          <ShieldAlert size={14} /> Personalisation Off
         </div>
         <h2 style={{ fontSize: '2.5rem', fontWeight: '800', margin: '0 0 0.75rem 0', letterSpacing: '-0.5px' }}>
           Diwali Dhamaka Sale is Live!
         </h2>
         <p style={{ fontSize: '1.1rem', color: 'rgba(255, 255, 255, 0.8)', margin: '0 0 1.75rem 0', maxWidth: '600px' }}>
-          Generic store-wide offers active. Turn on Purchase History consent in your Privacy Vault to receive personalized deals.
+          Generic store-wide offers are showing. Turn on Shopping History in your Privacy Vault to see deals picked just for you.
         </p>
         <button style={{ background: 'white', color: '#1e1b4b', border: 'none', padding: '0.85rem 2.25rem', borderRadius: '30px', fontWeight: '800', fontSize: '1rem', cursor: 'pointer' }}>
           Explore Storewide Deals

@@ -47,7 +47,7 @@ export default function Login() {
         
         <h1 style={{ margin: '0 0 0.5rem 0', fontSize: '2rem', letterSpacing: '-0.5px', color: '#0f172a', fontWeight: '800' }}>Retailer OS</h1>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.95rem' }}>
-          Sign in to access your privacy-safe dashboard
+          Sign in to manage your store
         </p>
 
         {error && (
@@ -102,22 +102,22 @@ export default function Login() {
           </button>
 
           {/* Quick Demo Access Button */}
-          <button 
-            type="button"
-            onClick={handleQuickDemoLogin}
-            style={{
-              padding: '0.85rem',
-              borderRadius: '12px',
-              border: '1px solid var(--border-color)',
-              background: '#f8fafc',
-              color: 'var(--text-primary)',
-              fontWeight: '700',
-              fontSize: '0.9rem',
-              cursor: 'pointer'
-            }}
-          >
-            ⚡ Demo Sign-In
-          </button>
+            <button 
+              type="button"
+              onClick={handleQuickDemoLogin}
+              style={{
+                padding: '0.85rem',
+                borderRadius: '12px',
+                border: '1px solid var(--border-color)',
+                background: '#f8fafc',
+                color: 'var(--text-primary)',
+                fontWeight: '700',
+                fontSize: '0.9rem',
+                cursor: 'pointer'
+              }}
+            >
+              ⚡ Quick Demo Access
+            </button>
 
         </form>
       </div>

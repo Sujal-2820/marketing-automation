@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { Edit2, Check, Sparkles, Loader2, PlayCircle, Store, MessageSquare, Image as ImageIcon, Upload, AlignLeft, AlignCenter, AlignRight, KeyRound, ExternalLink, Info, X } from 'lucide-react';
+import { Edit2, Check, Sparkles, Loader2, PlayCircle, Store, MessageSquare, Image as ImageIcon, Upload, AlignLeft, AlignCenter, AlignRight, KeyRound, ExternalLink, Info, X, ShieldAlert } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { Link } from 'react-router-dom';
+import { validateCampaignsAgainstCatalog } from '../../agents/campaignGuardrail';
 
 export default function LiveFeed() {
-  const { campaigns, setCampaigns, customers } = useAppContext();
+  const { campaigns, setCampaigns, customers, productCatalog } = useAppContext();
   
   // States
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStep, setGenerationStep] = useState(0);
   
+  // Language selector for content generation
+  const [contentLanguage, setContentLanguage] = useState('hinglish');
+
   // Editor state
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ title: '', subtitle: '', cta: '', textPosition: 'center', smsCopy: '', imageUrl: '' });
@@ -34,7 +38,7 @@ export default function LiveFeed() {
     setTimeout(() => {
       setIsGenerating(false);
       setGenerationStep(3);
-      generateHinglishCampaigns();
+      generateCampaigns(contentLanguage);
     }, 4500);
   };
 
@@ -65,248 +69,203 @@ export default function LiveFeed() {
     return guideMap[targetSegment] || { persona: 'Rahul (Gym Freak)', token: 'usr_sports_042', credentials: 'rahul@nexus.vault' };
   };
 
-  const generateHinglishCampaigns = () => {
-    let newCampaigns = [];
-    
-    if (storeType === 'sports') {
-      newCampaigns = [
-        { 
-          id: 1, 
-          target: 'Gym Freak', 
-          title: 'Gym Freak Ho?', 
-          subtitle: 'Bhaag ke aao, naya activewear collection is here. Flat 30% off!', 
-          cta: 'Shop Now', 
-          smsCopy: 'Bhai gym apparel ka naya stock aagaya hai! Surprize flat 30% discount sirf aaj ke liye valid hai. Abhi claim karo: apexsports.store/gym', 
-          imageUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '18-35', gender: 'All', factor: 'High Fitness Intent' } 
-        },
-        { 
-          id: 2, 
-          target: 'Yoga Lover', 
-          title: 'Find Your Zen, Yaar', 
-          subtitle: 'Premium yoga mats that won\'t slip. Perfect for your daily surya namaskar.', 
-          cta: 'Buy Mat', 
-          smsCopy: 'Yoga session mein slip hone ka jhanjhat khatam! Get non-slip eco mats with special member pricing today: apexsports.store/yoga', 
-          imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-start', 
-          demographics: { age: '25-45', gender: 'Female Skewed', factor: 'Wellness Focus' } 
-        },
-        { 
-          id: 3, 
-          target: 'Weekend Warrior', 
-          title: 'Weekend Plans Sort Kar!', 
-          subtitle: 'Trekking shoes jo chalenge saalo saal. Check out the new range.', 
-          cta: 'Explore Shoes', 
-          smsCopy: 'Trekking ka plan hai? Rugged trail grip shoes ab flat 25% discount pe available hain. Adventure start karo: apexsports.store/trek', 
-          imageUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-end', 
-          demographics: { age: '28-50', gender: 'All', factor: 'Outdoor Hobbyist' } 
-        },
-        { 
-          id: 4, 
-          target: 'Marathon Runner', 
-          title: 'Run Like The Wind', 
-          subtitle: 'Lightweight running gear for your next big marathon. Stock limited hai!', 
-          cta: 'Upgrade Gear', 
-          smsCopy: 'Marathon preparation chalu hai? Ultra-breathable running gear for long runs is back in stock. Order now: apexsports.store/run', 
-          imageUrl: 'https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '22-40', gender: 'All', factor: 'Performance Driven' } 
-        }
-      ];
-    } else if (storeType === 'tech') {
-      newCampaigns = [
-        { 
-          id: 1, 
-          target: 'Gamer', 
-          title: 'Game On, Boss!', 
-          subtitle: 'RTX 4090 GPUs in stock. Lag free gaming ka maza lo.', 
-          cta: 'Buy GPU', 
-          smsCopy: 'Zero lag, ultra high FPS gaming! RTX 4090 GPUs in-stock hain with instant cashback. Units limited hain, claim karo: techzone.store/rtx', 
-          imageUrl: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '16-30', gender: 'Male Skewed', factor: 'High Disposable Income' } 
-        },
-        { 
-          id: 2, 
-          target: 'Smart Home', 
-          title: 'Ghar Ko Smart Banao', 
-          subtitle: 'Control lights with your voice. Smart bulbs at lowest prices.', 
-          cta: 'Upgrade Home', 
-          smsCopy: 'Ek aawaaz pe poora ghar lightup karo! Smart voice RGB bulbs ab combo pack discount pe. Today\'s offer: techzone.store/smart', 
-          imageUrl: 'https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-start', 
-          demographics: { age: '30-55', gender: 'All', factor: 'Homeowners' } 
-        },
-        { 
-          id: 3, 
-          target: 'Apple Fanboy', 
-          title: 'Naya iPhone Aagaya!', 
-          subtitle: 'Zero cost EMI pe apna dream phone ghar le aao.', 
-          cta: 'Pre-book Now', 
-          smsCopy: 'Upgrade to the newest iPhone with No-Cost EMI & instant ₹5000 exchange bonus! Offer ends tonight: techzone.store/iphone', 
-          imageUrl: 'https://images.unsplash.com/photo-1603792907191-89e55f70099a?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-end', 
-          demographics: { age: '18-45', gender: 'All', factor: 'Brand Loyal' } 
-        },
-        { 
-          id: 4, 
-          target: 'Audioophile', 
-          title: 'Music Ka Asli Maza', 
-          subtitle: 'Noise cancelling headphones for that perfect commute. Try it today.', 
-          cta: 'Hear The Magic', 
-          smsCopy: 'Daily commute ko concert banao! Active noise cancelling headphones with 40h battery now at special price: techzone.store/audio', 
-          imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '25-45', gender: 'All', factor: 'Commuter / Professional' } 
-        }
-      ];
-    } else if (storeType === 'grocery') {
-      newCampaigns = [
-        { 
-          id: 1, 
-          target: 'Health Conscious', 
-          title: 'Healthy Khao, Fit Raho', 
-          subtitle: 'Organic oats and almond milk combo on discount today.', 
-          cta: 'Add to Cart', 
-          smsCopy: 'Clean eating made affordable! Organic oats & unsweetened almond milk bundle on 20% off today. Grab health deal: freshmart.store/health', 
-          imageUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '25-50', gender: 'All', factor: 'Dietary Restrictions' } 
-        },
-        { 
-          id: 2, 
-          target: 'Snack Lover', 
-          title: 'Midnight Cravings?', 
-          subtitle: 'Munchies delivered in 10 minutes. Binge watching just got better.', 
-          cta: 'Order Snacks', 
-          smsCopy: 'Late night binge-watching sessions? Crunchiest protein & gourmet snacks delivered in 10 mins. Order now: freshmart.store/snacks', 
-          imageUrl: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-start', 
-          demographics: { age: '18-35', gender: 'All', factor: 'Late Night Shopper' } 
-        },
-        { 
-          id: 3, 
-          target: 'Bulk Buyer', 
-          title: 'Mahine Ka Ration, Sasta!', 
-          subtitle: 'Buy 5kg rice and get 1kg free. Offer valid till weekend.', 
-          cta: 'Stock Up', 
-          smsCopy: 'Ghar ka monthly grocery budget bachao! Buy 5kg premium Basmati, get 1kg free today. Order: freshmart.store/ration', 
-          imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '35-60', gender: 'All', factor: 'Family Household' } 
-        },
-        { 
-          id: 4, 
-          target: 'Vegan', 
-          title: '100% Plant Based', 
-          subtitle: 'Delicious vegan alternatives that taste amazing. Try kar ke dekho.', 
-          cta: 'Go Vegan', 
-          smsCopy: 'Guilt-free plant-based goodness! Discover delicious dairy-free cheeses & vegan meats on sale: freshmart.store/vegan', 
-          imageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-end', 
-          demographics: { age: '20-40', gender: 'All', factor: 'Lifestyle Choice' } 
-        }
-      ];
-    } else if (storeType === 'home') {
-      newCampaigns = [
-        { 
-          id: 1, 
-          target: 'New Homeowner', 
-          title: 'Ghar Naya, Furniture Naya', 
-          subtitle: 'Complete living room sets at wholesale prices. Sahi daam, badhiya kaam.', 
-          cta: 'View Sets', 
-          smsCopy: 'Naye ghar ko sajane ki taiyari? Premium solid wood living room sets at factory wholesale prices. Free assembly: homevibe.store/furniture', 
-          imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '28-45', gender: 'All', factor: 'Recently Moved' } 
-        },
-        { 
-          id: 2, 
-          target: 'Decor', 
-          title: 'Vibe Set Karo', 
-          subtitle: 'Aesthetic lamps and wall art to make your room pop.', 
-          cta: 'Shop Decor', 
-          smsCopy: 'Room ki aesthetic badal do! Touch dimmable Nordic lamps & wall art on flash sale today. Check collection: homevibe.store/decor', 
-          imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-start', 
-          demographics: { age: '20-35', gender: 'Female Skewed', factor: 'Trend Conscious' } 
-        },
-        { 
-          id: 3, 
-          target: 'Kitchen Master', 
-          title: 'Masterchef Bano', 
-          subtitle: 'Non-stick pan sets that make cooking a breeze. Clean up is easy too.', 
-          cta: 'Upgrade Kitchen', 
-          smsCopy: 'Cooking experience ko effortless banao! Non-stick granite cookware combo set on 30% discount: homevibe.store/kitchen', 
-          imageUrl: 'https://images.unsplash.com/photo-1556910103-1c02745a8728?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-end', 
-          demographics: { age: '30-55', gender: 'All', factor: 'Cooking Enthusiast' } 
-        },
-        { 
-          id: 4, 
-          target: 'Plant Parent', 
-          title: 'Green Living, Yaar', 
-          subtitle: 'Indoor plants that are hard to kill. Perfect for your desk.', 
-          cta: 'Adopt a Plant', 
-          smsCopy: 'Ghar mein positive green vibes lao! Low-maintenance indoor plants with ceramic pots now on sale: homevibe.store/plants', 
-          imageUrl: 'https://images.unsplash.com/photo-1416879598555-220f8bb10864?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '22-40', gender: 'All', factor: 'Urban Dweller' } 
-        }
-      ];
-    } else {
-      // General
-      newCampaigns = [
-        { 
-          id: 1, 
-          target: 'Fashionista', 
-          title: 'Trend Set Kar', 
-          subtitle: 'Latest ethnic and western wear. Diwali aane wali hai, ready raho!', 
-          cta: 'Shop Looks', 
-          smsCopy: 'Diwali festive looks are live! Designer ethnic kurtas and western dresses at flat 35% off. Elevate style: store.com/fashion', 
-          imageUrl: 'https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '18-35', gender: 'Female Skewed', factor: 'Frequent Buyer' } 
-        },
-        { 
-          id: 2, 
-          target: 'Budget Shopper', 
-          title: 'Sasta Aur Tikau', 
-          subtitle: 'Under ₹499 store. Sab kuch budget mein, bina compromise ke.', 
-          cta: 'Shop Under 499', 
-          smsCopy: 'Super savings zone! Everything under ₹499 store open now. Premium quality on budget prices: store.com/499', 
-          imageUrl: 'https://images.unsplash.com/photo-1572584642822-8f151c4a03ee?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-start', 
-          demographics: { age: 'All', gender: 'All', factor: 'Price Sensitive' } 
-        },
-        { 
-          id: 3, 
-          target: 'Tech Enthusiast', 
-          title: 'Gadgets Jo Deewane Bana De', 
-          subtitle: 'Latest smartwatches and TWS earbuds. Don\'t miss out.', 
-          cta: 'Explore Tech', 
-          smsCopy: 'Smart lifestyle upgrade! ANC wireless earbuds & AMOLED smartwatches at unbeatable prices: store.com/gadgets', 
-          imageUrl: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'flex-end', 
-          demographics: { age: '16-40', gender: 'Male Skewed', factor: 'Early Adopter' } 
-        },
-        { 
-          id: 4, 
-          target: 'Bookworm', 
-          title: 'Padhai Chalu Rakh', 
-          subtitle: 'Bestselling fiction and self-help books at 40% off.', 
-          cta: 'Buy Books', 
-          smsCopy: 'Weekend reading sorted! Top self-help bestsellers & fiction paperbacks at 40% off today: store.com/books', 
-          imageUrl: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=800&auto=format&fit=crop', 
-          textPosition: 'center', 
-          demographics: { age: '20-50', gender: 'All', factor: 'Avid Reader' } 
-        }
-      ];
+  // Language-aware copy variants
+  const copyVariants = {
+    hinglish: {
+      sports: [
+        { title: 'Gym Freak Ho?', subtitle: 'Bhaag ke aao, naya activewear collection is here. Flat 30% off!', cta: 'Shop Now', smsCopy: 'Bhai gym apparel ka naya stock aagaya hai! Surprize flat 30% discount sirf aaj ke liye valid hai. Abhi claim karo: apexsports.store/gym' },
+        { title: 'Find Your Zen, Yaar', subtitle: 'Premium yoga mats that won\'t slip. Perfect for your daily surya namaskar.', cta: 'Buy Mat', smsCopy: 'Yoga session mein slip hone ka jhanjhat khatam! Get non-slip eco mats with special member pricing today: apexsports.store/yoga' },
+        { title: 'Weekend Plans Sort Kar!', subtitle: 'Trekking shoes jo chalenge saalo saal. Check out the new range.', cta: 'Explore Shoes', smsCopy: 'Trekking ka plan hai? Rugged trail grip shoes ab flat 25% discount pe available hain. Adventure start karo: apexsports.store/trek' },
+        { title: 'Run Like The Wind', subtitle: 'Lightweight running gear for your next big marathon. Stock limited hai!', cta: 'Upgrade Gear', smsCopy: 'Marathon preparation chalu hai? Ultra-breathable running gear for long runs is back in stock. Order now: apexsports.store/run' }
+      ],
+      tech: [
+        { title: 'Game On, Boss!', subtitle: 'RTX 4090 GPUs in stock. Lag free gaming ka maza lo.', cta: 'Buy GPU', smsCopy: 'Zero lag, ultra high FPS gaming! RTX 4090 GPUs in-stock hain with instant cashback. Units limited hain, claim karo: techzone.store/rtx' },
+        { title: 'Ghar Ko Smart Banao', subtitle: 'Control lights with your voice. Smart bulbs at lowest prices.', cta: 'Upgrade Home', smsCopy: 'Ek aawaaz pe poora ghar lightup karo! Smart voice RGB bulbs ab combo pack discount pe. Today\'s offer: techzone.store/smart' },
+        { title: 'Naya iPhone Aagaya!', subtitle: 'Zero cost EMI pe apna dream phone ghar le aao.', cta: 'Pre-book Now', smsCopy: 'Upgrade to the newest iPhone with No-Cost EMI & instant ₹5000 exchange bonus! Offer ends tonight: techzone.store/iphone' },
+        { title: 'Music Ka Asli Maza', subtitle: 'Noise cancelling headphones for that perfect commute. Try it today.', cta: 'Hear The Magic', smsCopy: 'Daily commute ko concert banao! Active noise cancelling headphones with 40h battery now at special price: techzone.store/audio' }
+      ],
+      grocery: [
+        { title: 'Healthy Khao, Fit Raho', subtitle: 'Organic oats and almond milk combo on discount today.', cta: 'Add to Cart', smsCopy: 'Clean eating made affordable! Organic oats & unsweetened almond milk bundle on 20% off today. Grab health deal: freshmart.store/health' },
+        { title: 'Midnight Cravings?', subtitle: 'Munchies delivered in 10 minutes. Binge watching just got better.', cta: 'Order Snacks', smsCopy: 'Late night binge-watching sessions? Crunchiest protein & gourmet snacks delivered in 10 mins. Order now: freshmart.store/snacks' },
+        { title: 'Mahine Ka Ration, Sasta!', subtitle: 'Buy 5kg rice and get 1kg free. Offer valid till weekend.', cta: 'Stock Up', smsCopy: 'Ghar ka monthly grocery budget bachao! Buy 5kg premium Basmati, get 1kg free today. Order: freshmart.store/ration' },
+        { title: '100% Plant Based', subtitle: 'Delicious vegan alternatives that taste amazing. Try kar ke dekho.', cta: 'Go Vegan', smsCopy: 'Guilt-free plant-based goodness! Discover delicious dairy-free cheeses & vegan meats on sale: freshmart.store/vegan' }
+      ],
+      home: [
+        { title: 'Ghar Naya, Furniture Naya', subtitle: 'Complete living room sets at wholesale prices. Sahi daam, badhiya kaam.', cta: 'View Sets', smsCopy: 'Naye ghar ko sajane ki taiyari? Premium solid wood living room sets at factory wholesale prices. Free assembly: homevibe.store/furniture' },
+        { title: 'Vibe Set Karo', subtitle: 'Aesthetic lamps and wall art to make your room pop.', cta: 'Shop Decor', smsCopy: 'Room ki aesthetic badal do! Touch dimmable Nordic lamps & wall art on flash sale today. Check collection: homevibe.store/decor' },
+        { title: 'Masterchef Bano', subtitle: 'Non-stick pan sets that make cooking a breeze. Clean up is easy too.', cta: 'Upgrade Kitchen', smsCopy: 'Cooking experience ko effortless banao! Non-stick granite cookware combo set on 30% discount: homevibe.store/kitchen' },
+        { title: 'Green Living, Yaar', subtitle: 'Indoor plants that are hard to kill. Perfect for your desk.', cta: 'Adopt a Plant', smsCopy: 'Ghar mein positive green vibes lao! Low-maintenance indoor plants with ceramic pots now on sale: homevibe.store/plants' }
+      ],
+      gen: [
+        { title: 'Trend Set Kar', subtitle: 'Latest ethnic and western wear. Diwali aane wali hai, ready raho!', cta: 'Shop Looks', smsCopy: 'Diwali festive looks are live! Designer ethnic kurtas and western dresses at flat 35% off. Elevate style: store.com/fashion' },
+        { title: 'Sasta Aur Tikau', subtitle: 'Under ₹499 store. Sab kuch budget mein, bina compromise ke.', cta: 'Shop Under 499', smsCopy: 'Super savings zone! Everything under ₹499 store open now. Premium quality on budget prices: store.com/499' },
+        { title: 'Gadgets Jo Deewane Bana De', subtitle: 'Latest smartwatches and TWS earbuds. Don\'t miss out.', cta: 'Explore Tech', smsCopy: 'Smart lifestyle upgrade! ANC wireless earbuds & AMOLED smartwatches at unbeatable prices: store.com/gadgets' },
+        { title: 'Padhai Chalu Rakh', subtitle: 'Bestselling fiction and self-help books at 40% off.', cta: 'Buy Books', smsCopy: 'Weekend reading sorted! Top self-help bestsellers & fiction paperbacks at 40% off today: store.com/books' }
+      ]
+    },
+    english: {
+      sports: [
+        { title: 'Unleash Your Inner Athlete', subtitle: 'New activewear collection just dropped. Flat 30% off today only!', cta: 'Shop Now', smsCopy: 'New gym apparel in stock! Flat 30% off today only. Claim your deal now: apexsports.store/gym' },
+        { title: 'Find Your Balance', subtitle: 'Premium non-slip yoga mats for your daily practice.', cta: 'Buy Mat', smsCopy: 'Non-slip eco yoga mats now available at special member pricing. Shop today: apexsports.store/yoga' },
+        { title: 'Weekend Adventure Awaits', subtitle: 'Trekking shoes built to last. Explore the new range.', cta: 'Explore Shoes', smsCopy: 'Rugged trail grip trekking shoes at 25% off. Start your adventure: apexsports.store/trek' },
+        { title: 'Born to Run', subtitle: 'Lightweight running gear for your next marathon. Limited stock!', cta: 'Upgrade Gear', smsCopy: 'Ultra-breathable marathon running gear is back in stock. Order now: apexsports.store/run' }
+      ],
+      tech: [
+        { title: 'Level Up Your Game', subtitle: 'RTX 4090 GPUs now in stock. Zero lag, maximum performance.', cta: 'Buy GPU', smsCopy: 'RTX 4090 GPUs in stock with instant cashback. Limited units available: techzone.store/rtx' },
+        { title: 'Make Your Home Smart', subtitle: 'Voice-controlled smart bulbs at the lowest prices ever.', cta: 'Upgrade Home', smsCopy: 'Smart RGB bulbs with Alexa & Google support now on combo discount: techzone.store/smart' },
+        { title: 'The New iPhone is Here', subtitle: 'Zero-cost EMI. Take your dream phone home today.', cta: 'Pre-book Now', smsCopy: 'Newest iPhone with No-Cost EMI & ₹5000 exchange bonus. Offer ends tonight: techzone.store/iphone' },
+        { title: 'Pure Sound, Zero Noise', subtitle: 'Active noise-cancelling headphones for the perfect commute.', cta: 'Hear The Magic', smsCopy: 'ANC headphones with 40-hour battery at special price: techzone.store/audio' }
+      ],
+      grocery: [
+        { title: 'Eat Clean, Stay Fit', subtitle: 'Organic oats and almond milk combo at 20% off today.', cta: 'Add to Cart', smsCopy: 'Organic oats & almond milk bundle at 20% off. Grab the deal: freshmart.store/health' },
+        { title: 'Late Night Cravings?', subtitle: 'Snacks delivered in 10 minutes. Binge-watching just got better.', cta: 'Order Snacks', smsCopy: 'Protein & gourmet snacks delivered in 10 minutes. Order now: freshmart.store/snacks' },
+        { title: 'Monthly Groceries, Best Prices', subtitle: 'Buy 5kg rice and get 1kg free. This weekend only.', cta: 'Stock Up', smsCopy: 'Buy 5kg premium Basmati, get 1kg free. Order today: freshmart.store/ration' },
+        { title: '100% Plant Based', subtitle: 'Delicious vegan alternatives that taste amazing.', cta: 'Go Vegan', smsCopy: 'Dairy-free cheeses & vegan meats now on sale: freshmart.store/vegan' }
+      ],
+      home: [
+        { title: 'New Home, Fresh Start', subtitle: 'Complete living room sets at wholesale prices.', cta: 'View Sets', smsCopy: 'Premium living room sets at factory prices with free assembly: homevibe.store/furniture' },
+        { title: 'Set the Mood', subtitle: 'Aesthetic lamps and wall art to transform your space.', cta: 'Shop Decor', smsCopy: 'Nordic lamps & wall art on flash sale today: homevibe.store/decor' },
+        { title: 'Cook Like a Pro', subtitle: 'Non-stick pan sets for effortless cooking and easy cleanup.', cta: 'Upgrade Kitchen', smsCopy: 'Non-stick granite cookware combo at 30% off: homevibe.store/kitchen' },
+        { title: 'Go Green Indoors', subtitle: 'Low-maintenance indoor plants perfect for any desk.', cta: 'Adopt a Plant', smsCopy: 'Indoor plants with ceramic pots on sale: homevibe.store/plants' }
+      ],
+      gen: [
+        { title: 'Set the Trend', subtitle: 'Latest ethnic and western wear. Get Diwali-ready!', cta: 'Shop Looks', smsCopy: 'Designer ethnic kurtas and dresses at 35% off: store.com/fashion' },
+        { title: 'Everything Under ₹499', subtitle: 'Quality products at budget-friendly prices.', cta: 'Shop Under 499', smsCopy: 'Under ₹499 store is open. Premium quality, budget prices: store.com/499' },
+        { title: 'Gadgets You\'ll Love', subtitle: 'Smartwatches and wireless earbuds at unbeatable prices.', cta: 'Explore Tech', smsCopy: 'ANC earbuds & AMOLED smartwatches at best prices: store.com/gadgets' },
+        { title: 'Books That Inspire', subtitle: 'Bestselling fiction and self-help titles at 40% off.', cta: 'Buy Books', smsCopy: 'Top bestsellers at 40% off today: store.com/books' }
+      ]
+    },
+    hindi: {
+      sports: [
+        { title: 'जिम के दीवानो, सुनो!', subtitle: 'नया एक्टिववियर कलेक्शन आ गया है। सीधा 30% छूट!', cta: 'अभी खरीदें', smsCopy: 'जिम के कपड़ों का नया स्टॉक आ गया है! आज ही 30% छूट का फायदा उठाएं: apexsports.store/gym' },
+        { title: 'योग से जुड़ो', subtitle: 'फिसलन-रोधी योग मैट। रोज़ाना के अभ्यास के लिए सबसे अच्छी।', cta: 'मैट खरीदें', smsCopy: 'इको-फ्रेंडली नॉन-स्लिप योग मैट विशेष कीमत पर उपलब्ध: apexsports.store/yoga' },
+        { title: 'वीकेंड का प्लान बनाओ!', subtitle: 'ट्रेकिंग के जूते जो सालों साल चलें। नई रेंज देखें।', cta: 'जूते देखें', smsCopy: 'ट्रेकिंग शूज़ पर 25% की छूट! अपना एडवेंचर शुरू करें: apexsports.store/trek' },
+        { title: 'हवा से बातें करो', subtitle: 'अगली मैराथन के लिए हल्के रनिंग गियर। सीमित स्टॉक!', cta: 'गियर अपग्रेड करें', smsCopy: 'मैराथन की तैयारी? अल्ट्रा-ब्रीदेबल रनिंग गियर वापस स्टॉक में: apexsports.store/run' }
+      ],
+      tech: [
+        { title: 'गेमिंग का असली मज़ा!', subtitle: 'RTX 4090 GPU स्टॉक में है। बिना लैग के गेमिंग।', cta: 'GPU खरीदें', smsCopy: 'RTX 4090 GPU स्टॉक में! तुरंत कैशबैक के साथ: techzone.store/rtx' },
+        { title: 'घर को स्मार्ट बनाओ', subtitle: 'आवाज़ से लाइट कंट्रोल करो। स्मार्ट बल्ब सबसे सस्ते दाम पर।', cta: 'होम अपग्रेड', smsCopy: 'स्मार्ट RGB बल्ब कॉम्बो डिस्काउंट पर: techzone.store/smart' },
+        { title: 'नया iPhone आ गया!', subtitle: 'ज़ीरो कॉस्ट EMI पर अपना ड्रीम फोन घर ले जाओ।', cta: 'प्री-बुक करें', smsCopy: 'नया iPhone नो-कॉस्ट EMI और ₹5000 एक्सचेंज बोनस के साथ: techzone.store/iphone' },
+        { title: 'संगीत का असली आनंद', subtitle: 'नॉइज़ कैंसलिंग हेडफ़ोन्स। 40 घंटे की बैटरी।', cta: 'सुनो जादू', smsCopy: 'ANC हेडफ़ोन्स विशेष कीमत पर: techzone.store/audio' }
+      ],
+      grocery: [
+        { title: 'स्वस्थ खाओ, फिट रहो', subtitle: 'ऑर्गेनिक ओट्स और बादाम दूध कॉम्बो पर छूट।', cta: 'कार्ट में डालें', smsCopy: 'ऑर्गेनिक ओट्स और बादाम दूध बंडल 20% छूट पर: freshmart.store/health' },
+        { title: 'रात की भूख?', subtitle: '10 मिनट में स्नैक्स डिलीवरी। बिंज वॉचिंग और मज़ेदार!', cta: 'स्नैक्स ऑर्डर करें', smsCopy: 'प्रोटीन स्नैक्स 10 मिनट में डिलीवरी: freshmart.store/snacks' },
+        { title: 'महीने का राशन, सस्ता!', subtitle: '5 किलो चावल खरीदो, 1 किलो मुफ़्त। वीकेंड तक ऑफर।', cta: 'स्टॉक करें', smsCopy: '5 किलो प्रीमियम बासमती पर 1 किलो मुफ़्त: freshmart.store/ration' },
+        { title: '100% प्लांट बेस्ड', subtitle: 'स्वादिष्ट शाकाहारी विकल्प। ज़रूर आज़माएं।', cta: 'वीगन ट्राई करें', smsCopy: 'डेयरी-फ्री चीज़ और वीगन मीट सेल पर: freshmart.store/vegan' }
+      ],
+      home: [
+        { title: 'नया घर, नया फ़र्नीचर', subtitle: 'लिविंग रूम सेट थोक दाम पर। बढ़िया काम, सही दाम।', cta: 'सेट देखें', smsCopy: 'प्रीमियम लिविंग रूम सेट फ़ैक्टरी कीमत पर, मुफ़्त असेंबली: homevibe.store/furniture' },
+        { title: 'माहौल बनाओ', subtitle: 'एस्थेटिक लैंप और वॉल आर्ट से कमरा सजाओ।', cta: 'डेकोर खरीदें', smsCopy: 'नॉर्डिक लैंप और वॉल आर्ट फ़्लैश सेल पर: homevibe.store/decor' },
+        { title: 'मास्टरशेफ़ बनो', subtitle: 'नॉन-स्टिक पैन सेट। खाना बनाना आसान, सफ़ाई और भी।', cta: 'किचन अपग्रेड', smsCopy: 'नॉन-स्टिक ग्रेनाइट कुकवेयर कॉम्बो 30% छूट पर: homevibe.store/kitchen' },
+        { title: 'हरी-भरी ज़िंदगी', subtitle: 'आसान देखभाल वाले इंडोर प्लांट्स। डेस्क के लिए परफ़ेक्ट।', cta: 'पौधा अपनाएं', smsCopy: 'इंडोर प्लांट्स सिरेमिक पॉट के साथ सेल पर: homevibe.store/plants' }
+      ],
+      gen: [
+        { title: 'ट्रेंड सेट करो', subtitle: 'एथनिक और वेस्टर्न वियर। दिवाली की तैयारी करो!', cta: 'लुक देखें', smsCopy: 'डिज़ाइनर एथनिक कुर्ते और ड्रेस 35% छूट पर: store.com/fashion' },
+        { title: 'सस्ता और टिकाऊ', subtitle: '₹499 से कम का स्टोर। बजट में सब कुछ।', cta: '₹499 में खरीदें', smsCopy: '₹499 से कम का स्टोर खुला है। प्रीमियम क्वालिटी: store.com/499' },
+        { title: 'गैजेट्स जो दीवाना बना दें', subtitle: 'स्मार्टवॉच और TWS इयरबड्स। बेहतरीन कीमत पर।', cta: 'टेक देखें', smsCopy: 'ANC इयरबड्स और AMOLED स्मार्टवॉच बेस्ट प्राइस पर: store.com/gadgets' },
+        { title: 'पढ़ाई जारी रखो', subtitle: 'बेस्टसेलिंग फ़िक्शन और सेल्फ-हेल्प किताबें 40% छूट पर।', cta: 'किताबें खरीदें', smsCopy: 'टॉप बेस्टसेलर किताबें 40% छूट पर: store.com/books' }
+      ]
     }
+  };
 
-    setCampaigns(newCampaigns);
+  const generateCampaigns = (lang = 'hinglish') => {
+    const langCopy = copyVariants[lang] || copyVariants.hinglish;
+    const storeCopy = langCopy[storeType] || langCopy.gen;
+    
+    const targets = {
+      sports: ['Gym Freak', 'Yoga Lover', 'Weekend Warrior', 'Marathon Runner'],
+      tech: ['Gamer', 'Smart Home', 'Apple Fanboy', 'Audioophile'],
+      grocery: ['Health Conscious', 'Snack Lover', 'Bulk Buyer', 'Vegan'],
+      home: ['New Homeowner', 'Decor', 'Kitchen Master', 'Plant Parent'],
+      gen: ['Fashionista', 'Budget Shopper', 'Tech Enthusiast', 'Bookworm']
+    };
+    const images = {
+      sports: [
+        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=800&auto=format&fit=crop'
+      ],
+      tech: [
+        'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1603792907191-89e55f70099a?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop'
+      ],
+      grocery: [
+        'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop'
+      ],
+      home: [
+        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1556910103-1c02745a8728?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1416879598555-220f8bb10864?q=80&w=800&auto=format&fit=crop'
+      ],
+      gen: [
+        'https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1572584642822-8f151c4a03ee?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=800&auto=format&fit=crop'
+      ]
+    };
+    const positions = ['center', 'flex-start', 'flex-end', 'center'];
+    const demographics = {
+      sports: [
+        { age: '18-35', gender: 'All', factor: 'High Fitness Intent' },
+        { age: '25-45', gender: 'Female Skewed', factor: 'Wellness Focus' },
+        { age: '28-50', gender: 'All', factor: 'Outdoor Hobbyist' },
+        { age: '22-40', gender: 'All', factor: 'Performance Driven' }
+      ],
+      tech: [
+        { age: '16-30', gender: 'Male Skewed', factor: 'High Disposable Income' },
+        { age: '30-55', gender: 'All', factor: 'Homeowners' },
+        { age: '18-45', gender: 'All', factor: 'Brand Loyal' },
+        { age: '25-45', gender: 'All', factor: 'Commuter / Professional' }
+      ],
+      grocery: [
+        { age: '25-50', gender: 'All', factor: 'Dietary Restrictions' },
+        { age: '18-35', gender: 'All', factor: 'Late Night Shopper' },
+        { age: '35-60', gender: 'All', factor: 'Family Household' },
+        { age: '20-40', gender: 'All', factor: 'Lifestyle Choice' }
+      ],
+      home: [
+        { age: '28-45', gender: 'All', factor: 'Recently Moved' },
+        { age: '20-35', gender: 'Female Skewed', factor: 'Trend Conscious' },
+        { age: '30-55', gender: 'All', factor: 'Cooking Enthusiast' },
+        { age: '22-40', gender: 'All', factor: 'Urban Dweller' }
+      ],
+      gen: [
+        { age: '18-35', gender: 'Female Skewed', factor: 'Frequent Buyer' },
+        { age: 'All', gender: 'All', factor: 'Price Sensitive' },
+        { age: '16-40', gender: 'Male Skewed', factor: 'Early Adopter' },
+        { age: '20-50', gender: 'All', factor: 'Avid Reader' }
+      ]
+    };
+
+    const storeTargets = targets[storeType] || targets.gen;
+    const storeImages = images[storeType] || images.gen;
+    const storeDemos = demographics[storeType] || demographics.gen;
+
+    const newCampaigns = storeCopy.map((copy, i) => ({
+      id: i + 1,
+      target: storeTargets[i],
+      title: copy.title,
+      subtitle: copy.subtitle,
+      cta: copy.cta,
+      smsCopy: copy.smsCopy,
+      imageUrl: storeImages[i],
+      textPosition: positions[i],
+      demographics: storeDemos[i]
+    }));
+
+    // Run Campaign Guardrail Validation Engine against Product Catalog
+    const { validatedCampaigns } = validateCampaignsAgainstCatalog(newCampaigns, productCatalog);
+
+    setCampaigns(validatedCampaigns);
     
     // Initialize view modes to banner
     const views = {};
@@ -334,8 +293,8 @@ export default function LiveFeed() {
 
   return (
     <div>
-      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Live Feed</h2>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>Omni-channel campaign generation powered by market trends.</p>
+      <h2 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Campaigns</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>Create personalised banner ads and SMS messages for each customer segment.</p>
       
       <div style={{ display: 'flex', gap: '3rem' }}>
         
@@ -344,10 +303,40 @@ export default function LiveFeed() {
           
           <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
              <Sparkles size={48} style={{ color: 'var(--accent-vibrant)', margin: '0 auto 1.5rem auto' }} />
-             <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.4rem' }}>Auto-Pilot Engine</h3>
-             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.95rem' }}>
-               The system will analyze your {customers.length} uploaded customers, identify distinct buying patterns, cross-reference external Indian market trends, and output dynamic visual and SMS campaigns instantly.
-             </p>
+             <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.4rem' }}>Campaign Generator</h3>
+             <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '0.92rem', lineHeight: '1.5' }}>
+                Analyses your {customers.length} customers, identifies buying patterns, and creates targeted banner + SMS campaigns.
+              </p>
+
+              {/* Language Selector */}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: '700', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '0.6rem', textAlign: 'left' }}>
+                  Content Language
+                </div>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  {[{ key: 'english', label: 'English' }, { key: 'hindi', label: 'हिंदी' }, { key: 'hinglish', label: 'Hinglish' }].map(lang => (
+                    <button
+                      key={lang.key}
+                      type="button"
+                      onClick={() => setContentLanguage(lang.key)}
+                      style={{
+                        flex: 1,
+                        padding: '0.6rem 0.5rem',
+                        borderRadius: '10px',
+                        border: contentLanguage === lang.key ? '2px solid var(--accent-primary)' : '1px solid var(--border-color)',
+                        background: contentLanguage === lang.key ? 'rgba(79, 70, 229, 0.08)' : 'white',
+                        color: contentLanguage === lang.key ? 'var(--accent-primary)' : 'var(--text-secondary)',
+                        fontWeight: contentLanguage === lang.key ? '700' : '500',
+                        fontSize: '0.85rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease'
+                      }}
+                    >
+                      {lang.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
              
              <button 
                onClick={simulateGeneration} 
@@ -355,7 +344,7 @@ export default function LiveFeed() {
                className="btn-primary" 
                style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
              >
-               {isGenerating ? <><Loader2 className="animate-spin" size={20} /> Processing...</> : <><PlayCircle size={20} /> Generate Campaigns</>}
+               {isGenerating ? <><Loader2 className="animate-spin" size={20} /> Generating...</> : <><PlayCircle size={20} /> Generate Campaigns</>}
              </button>
           </div>
 
@@ -373,20 +362,20 @@ export default function LiveFeed() {
         {/* Right Side: Generated Campaigns */}
         <div style={{ flex: 1 }}>
           <h3 style={{ marginBottom: '1.5rem', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <Store size={20} /> Generated Omnichannel Campaigns ({campaigns.length})
+             <Store size={20} /> Generated Campaigns ({campaigns.length})
           </h3>
           
           {campaigns.length === 0 && !isGenerating && (
             <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', background: 'rgba(79, 70, 229, 0.02)' }}>
-              <p style={{ color: 'var(--text-secondary)' }}>Click Generate to start the Auto-Pilot engine.</p>
+              <p style={{ color: 'var(--text-secondary)' }}>Choose a language and click Generate to create your campaigns.</p>
             </div>
           )}
 
           {isGenerating && (
             <div className="glass-panel" style={{ padding: '6rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                <Loader2 className="animate-spin" size={48} style={{ color: 'var(--accent-primary)', marginBottom: '1.5rem' }} />
-               <h3 style={{ margin: '0 0 0.5rem 0' }}>Generating Assets...</h3>
-               <p style={{ color: 'var(--text-secondary)' }}>Rendering AI images and crafting localized SMS copy.</p>
+               <h3 style={{ margin: '0 0 0.5rem 0' }}>Creating Your Campaigns...</h3>
+               <p style={{ color: 'var(--text-secondary)' }}>Building banner visuals and writing SMS copy in {contentLanguage}.</p>
             </div>
           )}
 
@@ -455,7 +444,7 @@ export default function LiveFeed() {
                       
                       {editingId !== campaign.id ? (
                         <button onClick={() => startEditing(campaign)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                          <Edit2 size={16} /> Edit Ad
+                          <Edit2 size={16} /> Edit
                         </button>
                       ) : (
                         <button onClick={saveEdit} style={{ background: 'var(--success)', border: 'none', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.4rem 1rem', borderRadius: '4px', fontSize: '0.9rem' }}>
@@ -463,6 +452,32 @@ export default function LiveFeed() {
                         </button>
                       )}
                     </div>
+
+                    {/* Brand Policy Guardrail Warning Badges */}
+                    {campaign.guardrailWarnings && campaign.guardrailWarnings.length > 0 && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+                        {campaign.guardrailWarnings.map((warn, wIdx) => (
+                          <div 
+                            key={wIdx} 
+                            style={{ 
+                              background: warn.type === 'out_of_stock' ? 'rgba(239, 68, 68, 0.08)' : 'rgba(245, 158, 11, 0.08)',
+                              border: `1px solid ${warn.type === 'out_of_stock' ? 'rgba(239, 68, 68, 0.3)' : 'rgba(245, 158, 11, 0.3)'}`,
+                              color: warn.type === 'out_of_stock' ? '#dc2626' : '#d97706',
+                              padding: '0.6rem 0.85rem',
+                              borderRadius: '10px',
+                              fontSize: '0.82rem',
+                              fontWeight: '600',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.5rem'
+                            }}
+                          >
+                            <ShieldAlert size={16} style={{ flexShrink: 0 }} />
+                            <span>{warn.message}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Subtle Demo Guide Inline Popover / Card */}
                     {isGuideOpen && (

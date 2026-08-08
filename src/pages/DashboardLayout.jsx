@@ -12,7 +12,7 @@ export default function DashboardLayout() {
           <div>
             <h1 style={{ margin: 0, fontSize: '2.5rem', letterSpacing: '-0.5px' }}>Retailer OS</h1>
             <p style={{ margin: '0.25rem 0 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-              Multi-Tenant Privacy-Safe Ad Orchestration
+              Your privacy-first marketing control panel
             </p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
@@ -35,7 +35,7 @@ export default function DashboardLayout() {
                  boxShadow: '0 4px 12px rgba(79, 70, 229, 0.25)'
                }}
              >
-               🌐 View Live Customer Storefront <ExternalLink size={14} />
+               🌐 Open Customer Store <ExternalLink size={14} />
              </Link>
 
              <span style={{ fontSize: '0.85rem', color: 'var(--success)', fontWeight: '600', padding: '0.5rem 1rem', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

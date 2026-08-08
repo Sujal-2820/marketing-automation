@@ -113,7 +113,7 @@ export default function CustomerLogin({ onLoginSuccess }) {
             APEX SPORTS & TECH
           </div>
           <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            Omnichannel Storefront
+            Your Store
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function CustomerLogin({ onLoginSuccess }) {
         border: '1px solid rgba(16, 185, 129, 0.2)'
       }}>
         <ShieldCheck size={16} />
-        Tenant Vault Secured (Tokenized Identity)
+        Secure Login
       </div>
 
       {/* Main Login Card */}
@@ -150,20 +150,20 @@ export default function CustomerLogin({ onLoginSuccess }) {
           Welcome Back
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', margin: '0 0 2rem 0' }}>
-          Enter your credentials to access your secure vault.
+          Sign in to browse your personalised store experience.
         </p>
 
         <form onSubmit={handleAuthenticate}>
           
           <div style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
             <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              Customer Email / Phone Number
+              Email or Phone Number
             </label>
             <div style={{ position: 'relative' }}>
               <KeyRound size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
               <input 
                 type="text"
-                placeholder="Enter your identity"
+                placeholder="Enter your email or phone"
                 value={identityInput}
                 onChange={e => setIdentityInput(e.target.value)}
                 style={{ 
@@ -182,7 +182,7 @@ export default function CustomerLogin({ onLoginSuccess }) {
           {/* Quick Demo Persona Selector */}
           <div style={{ marginBottom: '1.75rem' }}>
             <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
-              Or Select a Demo Persona
+              Quick Login — Pick a Persona
             </div>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
@@ -232,10 +232,10 @@ export default function CustomerLogin({ onLoginSuccess }) {
             <Lock size={20} style={{ color: 'var(--accent-primary)', flexShrink: 0, marginTop: '2px' }} />
             <div>
               <div style={{ fontWeight: '700', fontSize: '0.85rem', color: '#1e1b4b', marginBottom: '0.2rem' }}>
-                Zero-Trust Architecture
+                Your Privacy is Protected
               </div>
               <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: '1.4' }}>
-                Your personal identity is tokenized. The store's ad engine only sees encrypted Token IDs, ensuring complete privacy.
+                Your identity is encrypted. The store only sees anonymous tokens, keeping your personal data completely private.
               </div>
             </div>
           </div>
@@ -256,14 +256,14 @@ export default function CustomerLogin({ onLoginSuccess }) {
               gap: '0.5rem'
             }}
           >
-            Authenticate & Enter Store <ArrowRight size={18} />
+            Sign In & Enter Store <ArrowRight size={18} />
           </button>
 
         </form>
       </div>
 
       <div style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-        🛡️ Protected by Tenant Vault Security Guardrails
+        🛡️ Your data stays private and secure
       </div>
 
     </div>

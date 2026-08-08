@@ -24,20 +24,20 @@ export default function Sidebar() {
           <ShieldCheck color="var(--accent-primary)" /> Retailer OS
         </h2>
         <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-          <span style={{ width: '8px', height: '8px', background: 'var(--success)', borderRadius: '50%' }}></span> Secure Connection
+          <span style={{ width: '8px', height: '8px', background: 'var(--success)', borderRadius: '50%' }}></span> Connected
         </p>
       </div>
 
       <nav style={{ flex: 1, padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-secondary)', padding: '0 1.25rem', marginBottom: '0.5rem', fontWeight: 'bold' }}>MENU</span>
         <NavLink to="/dashboard/command-center" style={navStyle}>
-          <LayoutDashboard size={20} /> Overview
+          <LayoutDashboard size={20} /> Dashboard
         </NavLink>
         <NavLink to="/dashboard/consent-manager" style={navStyle}>
-          <ShieldAlert size={20} /> Data Controls
+          <ShieldAlert size={20} /> Privacy & Consent
         </NavLink>
         <NavLink to="/dashboard/live-feed" style={navStyle}>
-          <Radio size={20} /> Live Feed
+          <Radio size={20} /> Campaigns
         </NavLink>
         <NavLink to="/dashboard/analytics" style={navStyle}>
           <Activity size={20} /> Analytics
@@ -50,9 +50,6 @@ export default function Sidebar() {
         </button>
         <button style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1.25rem', background: 'transparent', border: 'none', color: 'var(--text-secondary)', fontWeight: '500', cursor: 'pointer', textAlign: 'left' }}>
           <HelpCircle size={20} /> Support
-        </button>
-        <button className="btn-primary" style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'center' }}>
-          Upgrade Security
         </button>
       </div>
     </div>
