@@ -43,7 +43,14 @@ export const AppProvider = ({ children }) => {
   
   const [products, setProducts] = useState([]);
   const [productCatalog, setProductCatalog] = useState([]);
-  const [campaigns, setCampaigns] = useState([]);
+  const [campaigns, setCampaigns] = useState(() => {
+    try {
+      const stored = localStorage.getItem('campaigns');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
   const [loading, setLoading] = useState(true);
 
   // Load live data from Supabase if available
