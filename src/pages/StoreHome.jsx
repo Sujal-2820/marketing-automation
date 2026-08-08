@@ -6,7 +6,7 @@ import { useAppContext } from '../context/AppContext';
 import { Shield, Bell, User, ChevronLeft, Send, Sparkles, AlertTriangle, RefreshCw, Menu, X, MessageSquare } from 'lucide-react';
 
 export default function StoreHome() {
-  const { customers, updateCustomer, campaigns } = useAppContext();
+  const { customers, updateCustomer, campaigns, brandName } = useAppContext();
   
   // Active Customer Session State
   const [activePersona, setActivePersona] = useState({
@@ -15,6 +15,8 @@ export default function StoreHome() {
     tokenId: 'usr_sports_042',
     storeName: 'APEX SPORTS'
   });
+
+  const effectiveStoreName = brandName || activePersona.storeName || 'APEX SPORTS';
   
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const [purchaseToast, setPurchaseToast] = useState(null);
@@ -145,7 +147,7 @@ export default function StoreHome() {
                 <MessageSquare size={16} />
               </div>
               <span style={{ fontWeight: '800', fontSize: '0.85rem', color: '#f8fafc', letterSpacing: '0.3px' }}>
-                📲 SMS Notification from {activePersona.storeName || 'APEX SPORTS'}
+                📲 SMS Notification from {effectiveStoreName}
               </span>
             </div>
 
@@ -196,7 +198,7 @@ export default function StoreHome() {
             ▲
           </div>
           <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '900', letterSpacing: '0.5px', color: '#0f172a' }}>
-            {activePersona.storeName || 'APEX SPORTS'}
+            {effectiveStoreName}
           </h1>
         </div>
 
@@ -338,7 +340,7 @@ export default function StoreHome() {
                 My Data Privacy & Consent Vault
               </h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: 0 }}>
-                Manage how {activePersona.storeName || 'APEX SPORTS'} personalizes your experience.
+                Manage how {effectiveStoreName} personalizes your experience.
               </p>
             </div>
           </div>

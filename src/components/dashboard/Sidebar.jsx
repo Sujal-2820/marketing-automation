@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, ShieldAlert, Radio, Activity, Settings, HelpCircle, ShieldCheck } from 'lucide-react';
+import { useAppContext } from '../../context/AppContext';
 
 export default function Sidebar() {
+  const { brandName } = useAppContext();
+
   const navStyle = ({ isActive }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -20,8 +23,8 @@ export default function Sidebar() {
   return (
     <div style={{ width: '280px', background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', height: '100vh', position: 'sticky', top: 0 }}>
       <div style={{ padding: '2rem 1.5rem', borderBottom: '1px solid var(--border-color)' }}>
-        <h2 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', color: 'var(--text-primary)' }}>
-          <ShieldCheck color="var(--accent-primary)" /> Retailer OS
+        <h2 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.4rem', color: 'var(--text-primary)', fontWeight: '800' }}>
+          <ShieldCheck color="var(--accent-primary)" /> {brandName || 'Retailer OS'}
         </h2>
         <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ width: '8px', height: '8px', background: 'var(--success)', borderRadius: '50%' }}></span> Connected
