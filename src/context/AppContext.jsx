@@ -3,6 +3,33 @@ import { supabase } from '../lib/supabaseClient';
 
 const AppContext = createContext();
 
+const initialCustomers = [
+  {
+    token_id: 'usr_sports_042',
+    segments: ['Gym Freak', 'Marathon Runner'],
+    purchase_history: ['1x Nike ZoomX', '2x Whey Protein'],
+    consent_flags: { location: true, age: true, purchase_history: true }
+  },
+  {
+    token_id: 'usr_tech_012',
+    segments: ['Gamer', 'Audioophile'],
+    purchase_history: ['1x RTX 4090 GPU'],
+    consent_flags: { location: true, age: true, purchase_history: true }
+  },
+  {
+    token_id: 'usr_grocery_008',
+    segments: ['Health Conscious', 'Organic Shopper'],
+    purchase_history: ['2x Organic Almond Milk'],
+    consent_flags: { location: true, age: true, purchase_history: true }
+  },
+  {
+    token_id: 'usr_home_021',
+    segments: ['Decor Enthusiast', 'Plant Parent'],
+    purchase_history: ['1x Nordic Lamp'],
+    consent_flags: { location: true, age: true, purchase_history: true }
+  }
+];
+
 export const AppProvider = ({ children }) => {
   // Mock secure vault mapping (token to PII) - In Memory only to simulate Zero Trust
   const secureVault = {
@@ -12,37 +39,35 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // State
-  const [role, setRole] = useState('customer'); // 'customer' or 'retailer'
-  const [customers, setCustomers] = useState([
-    {
-      token_id: 'usr_sports_042',
-      segments: ['Gym Freak', 'Marathon Runner'],
-      purchase_history: ['1x Nike ZoomX', '2x Whey Protein'],
-      consent_flags: { location: true, age: true, purchase_history: true }
-    },
-    {
-      token_id: 'usr_tech_012',
-      segments: ['Gamer', 'Audioophile'],
-      purchase_history: ['1x RTX 4090 GPU'],
-      consent_flags: { location: true, age: true, purchase_history: true }
-    },
-    {
-      token_id: 'usr_grocery_008',
-      segments: ['Health Conscious', 'Organic Shopper'],
-      purchase_history: ['2x Organic Almond Milk'],
-      consent_flags: { location: true, age: true, purchase_history: true }
-    },
-    {
-      token_id: 'usr_home_021',
-      segments: ['Decor Enthusiast', 'Plant Parent'],
-      purchase_history: ['1x Nordic Lamp'],
-      consent_flags: { location: true, age: true, purchase_history: true }
+  // State with LocalStorage persistence
+  const [role, setRole] = useState(() => {
+    return localStorage.getItem('role') || 'retailer';
+  });
+
+  const [brandName, setBrandName] = useState(() => {
+    return localStorage.getItem('brandName') || 'Apex Sports';
+  });
+
+  const [customers, setCustomers] = useState(() => {
+    try {
+      const stored = localStorage.getItem('customers');
+      return stored ? JSON.parse(stored) : initialCustomers;
+    } catch {
+      return initialCustomers;
     }
-  ]);
+  });
   
   const [products, setProducts] = useState([]);
-  const [productCatalog, setProductCatalog] = useState([]);
+  
+  const [productCatalog, setProductCatalog] = useState(() => {
+    try {
+      const stored = localStorage.getItem('productCatalog');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [campaigns, setCampaigns] = useState(() => {
     try {
       const stored = localStorage.getItem('campaigns');
@@ -51,6 +76,7 @@ export const AppProvider = ({ children }) => {
       return [];
     }
   });
+
   const [loading, setLoading] = useState(true);
 
   // Load live data from Supabase if available
@@ -64,7 +90,6 @@ export const AppProvider = ({ children }) => {
         const { data: custs, error: custErr } = await supabase.from('customers').select('*');
         if (!custErr && custs && custs.length > 0) {
           setCustomers(prev => {
-            // Merge DB customers with initial demo personas
             const merged = [...custs];
             prev.forEach(p => {
               if (!merged.some(m => m.token_id === p.token_id)) {
@@ -84,7 +109,6 @@ export const AppProvider = ({ children }) => {
 
   // Helper to sync specific customer updates back to state & DB
   const updateCustomer = async (token_id, updates) => {
-    // Optimistic state update: update or append
     setCustomers(prev => {
       const exists = prev.some(c => c.token_id === token_id);
       if (exists) {
@@ -94,7 +118,6 @@ export const AppProvider = ({ children }) => {
       }
     });
     
-    // Sync to Supabase if connected
     try {
       const customerToUpdate = customers.find(c => c.token_id === token_id) || {};
       const payload = { ...customerToUpdate, ...updates };
@@ -110,12 +133,30 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // Sync states to LocalStorage
+  useEffect(() => {
+    localStorage.setItem('role', role);
+  }, [role]);
+
+  useEffect(() => {
+    localStorage.setItem('brandName', brandName);
+  }, [brandName]);
+
+  useEffect(() => {
+    localStorage.setItem('customers', JSON.stringify(customers));
+  }, [customers]);
+
+  useEffect(() => {
+    localStorage.setItem('productCatalog', JSON.stringify(productCatalog));
+  }, [productCatalog]);
+
   useEffect(() => {
     localStorage.setItem('campaigns', JSON.stringify(campaigns));
   }, [campaigns]);
 
   const value = {
     role, setRole,
+    brandName, setBrandName,
     customers, setCustomers, updateCustomer,
     products, setProducts,
     productCatalog, setProductCatalog,

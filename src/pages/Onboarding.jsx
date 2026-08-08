@@ -5,9 +5,8 @@ import { useAppContext } from '../context/AppContext';
 
 export default function Onboarding() {
   const navigate = useNavigate();
-  const { setCustomers, setProductCatalog } = useAppContext();
+  const { setCustomers, setProductCatalog, brandName, setBrandName } = useAppContext();
   const [step, setStep] = useState(1);
-  const [brandName, setBrandName] = useState('');
   const [uploadedCustomerFileName, setUploadedCustomerFileName] = useState('');
   const [uploadedProductFileName, setUploadedProductFileName] = useState('');
 
